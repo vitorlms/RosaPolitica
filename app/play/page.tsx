@@ -22,7 +22,7 @@ export default function PlayPage() {
   const [answers, setAnswers] = useState<string[]>([]);
   const [ready, setReady] = useState(false);
   const [locked, setLocked] = useState(false);
-  const [phase, setPhase] = useState<Phase>("entering");
+  const [phase, setPhase] = useState<Phase>("idle");
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   function clearTimers() {
@@ -33,15 +33,12 @@ export default function PlayPage() {
   function later(ms: number, fn: () => void) {
     const id = setTimeout(fn, ms);
     timers.current.push(id);
-    return id;
   }
 
   useEffect(() => {
     clearChoices();
     setReady(true);
-    later(ENTER_MS, () => setPhase("idle"));
     return () => clearTimers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only bootstrap
   }, []);
 
   if (!ready) {
@@ -89,18 +86,17 @@ export default function PlayPage() {
 
   function goBack() {
     if (locked) return;
-    clearTimers();
 
     if (isFirst) {
       router.push("/");
       return;
     }
 
+    clearTimers();
     setLocked(true);
     setPhase("exiting");
     later(EXIT_MS, () => {
-      const prevIndex = index - 1;
-      advanceTo(prevIndex, answers);
+      advanceTo(index - 1, answers);
     });
   }
 
