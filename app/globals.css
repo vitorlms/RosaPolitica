@@ -72,12 +72,12 @@ a {
 }
 
 .scene-enter {
-  animation: scene-enter 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: scene-enter 550ms cubic-bezier(0.22, 1, 0.36, 1) both;
   will-change: opacity, transform;
 }
 
 .scene-exit {
-  animation: scene-exit 450ms cubic-bezier(0.4, 0, 1, 1) both;
+  animation: scene-exit 650ms cubic-bezier(0.4, 0, 1, 1) both;
   pointer-events: none;
   will-change: opacity, transform;
 }

@@ -8,9 +8,9 @@ import { story } from "@/lib/scoring";
 import { clearChoices, saveChoices } from "@/lib/storage";
 
 /** Pause so the selected answer is readable before the scene fades. */
-const SELECT_HOLD_MS = 700;
-const EXIT_MS = 450;
-const ENTER_MS = 500;
+const SELECT_HOLD_MS = 650;
+const EXIT_MS = 650;
+const ENTER_MS = 550;
 
 type Phase = "idle" | "exiting" | "entering";
 
