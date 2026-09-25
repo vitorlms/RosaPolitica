@@ -2,73 +2,137 @@
   {
     "id": "guardiao-pacto",
     "name": "Guardião do Pacto",
-    "description": "Você tende a valorizar ordem compartilhada, regras claras e um Estado capaz de arbitrar conflitos. Em Valmora, seria quem reforça o Pacto para que as cidades não se desfaçam — mesmo quando isso exige restringir impulsos individuais.",
+    "description": "Você tende a valorizar ordem compartilhada, regras claras e um Estado capaz de arbitrar conflitos — inclusive no corpo coletivo e na segurança. Em Valmora, seria quem reforça o Pacto para que as cidades não se desfaçam.",
     "centroid": {
       "economy": -0.1,
       "authority": 0.65,
       "liberty": -0.45,
       "equality": 0.25,
-      "tradition": 0.35
+      "tradition": 0.35,
+      "environment": 0.1,
+      "security": 0.55,
+      "global": -0.1,
+      "technology": -0.05,
+      "body": -0.35
     }
   },
   {
     "id": "livre-mercado",
     "name": "Livre Mercado de Valmora",
-    "description": "Você inclina-se a confiar em contratos, propriedade e escolha individual. Em Valmora, seria quem abre as minas e as escolas à iniciativa privada e trata muitos dilemas como preços a negociar, não mandatos a impor.",
+    "description": "Você inclina-se a confiar em contratos, propriedade, inovação e escolha individual. Em Valmora, seria quem abre minas, guildas e corpos à iniciativa privada e trata muitos dilemas como preços a negociar.",
     "centroid": {
       "economy": 0.7,
       "authority": -0.2,
       "liberty": 0.6,
       "equality": -0.55,
-      "tradition": -0.15
+      "tradition": -0.15,
+      "environment": -0.25,
+      "security": -0.1,
+      "global": 0.35,
+      "technology": 0.55,
+      "body": 0.45
     }
   },
   {
     "id": "irmandade-comunal",
     "name": "Irmandade Comunal",
-    "description": "Você prioriza equalização, solidariedade e freios ao poder concentrado — público ou privado. Em Valmora, seria quem redistribui o minério, acolhe na fronteira e desconfia de soluções que deixam os vulneráveis para trás.",
+    "description": "Você prioriza equalização, solidariedade e freios ao poder concentrado — público ou privado. Em Valmora, seria quem redistribui o minério, acolhe na fronteira e protege quem a inovação ou o mercado deixam para trás.",
     "centroid": {
       "economy": -0.6,
       "authority": -0.15,
       "liberty": -0.2,
       "equality": 0.7,
-      "tradition": -0.25
+      "tradition": -0.25,
+      "environment": 0.35,
+      "security": -0.15,
+      "global": 0.35,
+      "technology": -0.1,
+      "body": 0.1
     }
   },
   {
     "id": "guarda-costumes",
     "name": "Guarda dos Costumes",
-    "description": "Você defende continuidade cultural, laços locais e limites à mudança acelerada. Em Valmora, seria quem protege o Rio de Cinzas, o currículo das vilas e a identidade das cidades-estado frente a pressões cosmopolitas.",
+    "description": "Você defende continuidade cultural, laços locais e limites à mudança acelerada — no rio, na escola, no rito e no corpo. Em Valmora, seria quem protege o sagrado frente a pressões cosmopolitas e técnicas.",
     "centroid": {
       "economy": 0.05,
       "authority": 0.25,
       "liberty": -0.15,
       "equality": -0.2,
-      "tradition": 0.75
+      "tradition": 0.75,
+      "environment": 0.4,
+      "security": 0.25,
+      "global": -0.45,
+      "technology": -0.45,
+      "body": -0.4
     }
   },
   {
     "id": "autonomista",
     "name": "Autonomista das Cidades",
-    "description": "Você desconfia de centros fortes e prefere que cada comunidade decida o próprio rumo. Em Valmora, seria quem devolve poder às cidades-estado — mesmo quando isso gera mosaicos desiguais de direito e acolhimento.",
+    "description": "Você desconfia de centros fortes e prefere que cada comunidade decida o próprio rumo — fronteira, tratado, elixir, floresta. Em Valmora, seria quem devolve poder às cidades-estado, mesmo com mosaicos desiguais.",
     "centroid": {
       "economy": 0.1,
       "authority": -0.7,
       "liberty": 0.45,
       "equality": -0.25,
-      "tradition": 0.15
+      "tradition": 0.15,
+      "environment": 0.1,
+      "security": -0.2,
+      "global": -0.25,
+      "technology": 0.05,
+      "body": 0.25
     }
   },
   {
     "id": "reformista-pragmatico",
     "name": "Reformista Pragmático",
-    "description": "Você busca meios-termos institucionais: núcleos comuns, cotas, usinas menores, mediação. Em Valmora, seria quem costura compromissos para manter o Pacto vivo sem radicalizar nenhum pólo.",
+    "description": "Você busca meios-termos institucionais: núcleos comuns, cotas, sensores limitados, usinas menores, capítulos parciais de tratados. Em Valmora, seria quem costura compromissos sem radicalizar nenhum pólo.",
     "centroid": {
       "economy": 0.0,
       "authority": 0.1,
       "liberty": 0.05,
       "equality": 0.15,
-      "tradition": 0.05
+      "tradition": 0.05,
+      "environment": 0.15,
+      "security": 0.1,
+      "global": 0.1,
+      "technology": 0.1,
+      "body": 0.05
+    }
+  },
+  {
+    "id": "sentinela-inquieta",
+    "name": "Sentinela Inquieta",
+    "description": "Para você, a ameaça — febre, atentado, fronteira — justifica freios fortes à liberdade e à abertura. Em Valmora, seria quem aceita lanternas-senso, patrulhas e elixires impostos se isso reduzir o risco coletivo.",
+    "centroid": {
+      "economy": 0.05,
+      "authority": 0.5,
+      "liberty": -0.55,
+      "equality": 0.1,
+      "tradition": 0.2,
+      "environment": 0.0,
+      "security": 0.8,
+      "global": -0.2,
+      "technology": 0.25,
+      "body": -0.5
+    }
+  },
+  {
+    "id": "custodio-vivente",
+    "name": "Custódio do Vivente",
+    "description": "Você trata ecologia, corpo e limites técnicos como fronteiras morais quase sagradas. Em Valmora, seria quem protege florestas e rios, desacelera autômatos e desconfia de marcas impostas ao corpo.",
+    "centroid": {
+      "economy": -0.25,
+      "authority": 0.05,
+      "liberty": 0.15,
+      "equality": 0.2,
+      "tradition": 0.3,
+      "environment": 0.8,
+      "security": -0.05,
+      "global": 0.1,
+      "technology": -0.4,
+      "body": 0.45
     }
   }
 ]

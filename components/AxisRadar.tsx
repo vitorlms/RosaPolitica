@@ -8,10 +8,10 @@ interface AxisRadarProps {
   size?: number;
 }
 
-export function AxisRadar({ values, size = 280 }: AxisRadarProps) {
+export function AxisRadar({ values, size = 320 }: AxisRadarProps) {
   const cx = size / 2;
   const cy = size / 2;
-  const maxR = size * 0.36;
+  const maxR = size * 0.32;
   const n = AXIS_IDS.length;
 
   function point(i: number, r: number) {
@@ -37,6 +37,7 @@ export function AxisRadar({ values, size = 280 }: AxisRadarProps) {
         viewBox={`0 0 ${size} ${size}`}
         role="img"
         aria-label="Radar dos eixos políticos"
+        className="max-w-full"
       >
         {gridLevels.map((level) => {
           const pts = AXIS_IDS.map((_, i) => {
@@ -74,10 +75,10 @@ export function AxisRadar({ values, size = 280 }: AxisRadarProps) {
           strokeWidth={2}
         />
         {valuePoints.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r={4} fill="var(--accent)" />
+          <circle key={i} cx={p.x} cy={p.y} r={3.5} fill="var(--accent)" />
         ))}
         {AXIS_IDS.map((axis, i) => {
-          const p = point(i, maxR + 22);
+          const p = point(i, maxR + 28);
           return (
             <text
               key={axis}
@@ -85,7 +86,7 @@ export function AxisRadar({ values, size = 280 }: AxisRadarProps) {
               y={p.y}
               textAnchor="middle"
               dominantBaseline="middle"
-              className="fill-[var(--ink-soft)] text-[11px]"
+              className="fill-[var(--ink-soft)] text-[10px]"
             >
               {AXIS_LABELS[axis].name}
             </text>

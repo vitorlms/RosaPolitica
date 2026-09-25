@@ -1,23 +1,30 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChoiceButton } from "@/components/ChoiceButton";
 import { SceneCard } from "@/components/SceneCard";
 import { story } from "@/lib/scoring";
 import { clearChoices, saveChoices } from "@/lib/storage";
+
+const ADVANCE_MS = 180;
 
 export default function PlayPage() {
   const router = useRouter();
   const scenes = story.scenes;
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
-  const [choices, setChoices] = useState<string[]>([]);
+  const [answers, setAnswers] = useState<string[]>([]);
   const [ready, setReady] = useState(false);
+  const [locked, setLocked] = useState(false);
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     clearChoices();
     setReady(true);
+    return () => {
+      if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    };
   }, []);
 
   if (!ready) {
@@ -29,19 +36,46 @@ export default function PlayPage() {
   }
 
   const scene = scenes[index];
+  const isFirst = index === 0;
   const isLast = index === scenes.length - 1;
 
-  function advance() {
-    if (!selected) return;
-    const nextChoices = [...choices, selected];
-    if (isLast) {
-      saveChoices(nextChoices);
-      router.push("/result");
+  function selectChoice(choiceId: string) {
+    if (locked) return;
+    setLocked(true);
+    setSelected(choiceId);
+
+    const nextAnswers = [...answers.slice(0, index), choiceId];
+    setAnswers(nextAnswers);
+
+    advanceTimer.current = setTimeout(() => {
+      if (isLast) {
+        saveChoices(nextAnswers);
+        router.push("/result");
+        return;
+      }
+      const nextIndex = index + 1;
+      setIndex(nextIndex);
+      setSelected(nextAnswers[nextIndex] ?? null);
+      setLocked(false);
+    }, ADVANCE_MS);
+  }
+
+  function goBack() {
+    if (locked) return;
+    if (advanceTimer.current) {
+      clearTimeout(advanceTimer.current);
+      advanceTimer.current = null;
+    }
+    setLocked(false);
+
+    if (isFirst) {
+      router.push("/");
       return;
     }
-    setChoices(nextChoices);
-    setSelected(null);
-    setIndex((i) => i + 1);
+
+    const prevIndex = index - 1;
+    setIndex(prevIndex);
+    setSelected(answers[prevIndex] ?? null);
   }
 
   return (
@@ -52,18 +86,18 @@ export default function PlayPage() {
             key={choice.id}
             choice={choice}
             selected={selected === choice.id}
-            onSelect={setSelected}
+            onSelect={selectChoice}
           />
         ))}
       </SceneCard>
-      <div className="mx-auto mt-8 w-full max-w-2xl">
+      <div className="mx-auto mt-8 flex w-full max-w-2xl gap-3">
         <button
           type="button"
-          disabled={!selected}
-          onClick={advance}
-          className="rounded-lg bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--ink)] transition-opacity enabled:hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+          onClick={goBack}
+          disabled={locked}
+          className="rounded-lg border border-[var(--line)] px-6 py-3 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)] disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {isLast ? "Ver resultado" : "Continuar"}
+          Voltar
         </button>
       </div>
     </div>

@@ -18,7 +18,8 @@ export default function HomePage() {
       </p>
       <p className="mt-4 text-[var(--muted)]">
         Não há respostas certas — só escolhas com trade-offs. Ao final, você vê
-        um perfil em cinco eixos e um arquétipo de Valmora.
+        um perfil em dez eixos (posição e o que é essencial vs limítrofe) e um
+        arquétipo de Valmora.
       </p>
       <div className="mt-10">
         <Link

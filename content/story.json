@@ -1,7 +1,7 @@
 {
   "world": {
     "name": "Confederação de Valmora",
-    "summary": "Valmora é um conjunto de cidades-estado unidas por um pacto frágil após décadas de conflito. Há minas que sustentam o tesouro comum, escolas que disputam o currículo, fronteiras porosas e um rio considerado sagrado por metade da população. Você é conselheira ou conselheiro do Pacto — cada decisão molda o rumo do país, sem uma resposta única 'certa'."
+    "summary": "Valmora é um conjunto de cidades-estado unidas por um pacto frágil após décadas de conflito. Há minas, florestas, escolas, fronteiras porosas, autômatos nas guildas, um rio sagrado e um conselho que pede a sua palavra em dilemas sem resposta única. Você é conselheira ou conselheiro do Pacto — cada escolha revela tanto a direção quanto o que você trata como inegociável."
   },
   "scenes": [
     {
@@ -18,6 +18,12 @@
             "equality": 0.2,
             "authority": 0.1,
             "liberty": -0.08
+          },
+          "salience": {
+            "economy": 0.75,
+            "equality": 0.7,
+            "authority": 0.35,
+            "liberty": 0.3
           }
         },
         {
@@ -28,7 +34,14 @@
             "economy": 0.25,
             "equality": -0.18,
             "liberty": 0.15,
-            "authority": -0.05
+            "authority": -0.05,
+            "global": 0.1
+          },
+          "salience": {
+            "economy": 0.85,
+            "equality": 0.55,
+            "liberty": 0.5,
+            "global": 0.4
           }
         },
         {
@@ -40,6 +53,11 @@
             "equality": 0.22,
             "authority": -0.15,
             "liberty": 0.05
+          },
+          "salience": {
+            "equality": 0.8,
+            "economy": 0.55,
+            "authority": 0.45
           }
         },
         {
@@ -50,7 +68,13 @@
             "authority": 0.25,
             "liberty": -0.2,
             "economy": 0.05,
-            "tradition": 0.08
+            "tradition": 0.08,
+            "security": 0.1
+          },
+          "salience": {
+            "authority": 0.9,
+            "liberty": 0.75,
+            "security": 0.4
           }
         }
       ]
@@ -67,7 +91,13 @@
           "weights": {
             "authority": 0.2,
             "liberty": -0.22,
-            "tradition": 0.1
+            "tradition": 0.1,
+            "security": 0.15
+          },
+          "salience": {
+            "liberty": 0.85,
+            "authority": 0.7,
+            "security": 0.65
           }
         },
         {
@@ -77,7 +107,13 @@
           "weights": {
             "liberty": 0.25,
             "authority": -0.18,
-            "equality": -0.05
+            "equality": -0.05,
+            "security": -0.12
+          },
+          "salience": {
+            "liberty": 0.95,
+            "security": 0.5,
+            "authority": 0.45
           }
         },
         {
@@ -89,6 +125,11 @@
             "liberty": -0.08,
             "equality": 0.12,
             "tradition": -0.05
+          },
+          "salience": {
+            "liberty": 0.45,
+            "equality": 0.4,
+            "authority": 0.35
           }
         }
       ]
@@ -107,6 +148,11 @@
             "equality": 0.2,
             "tradition": -0.12,
             "liberty": -0.1
+          },
+          "salience": {
+            "equality": 0.75,
+            "authority": 0.6,
+            "tradition": 0.5
           }
         },
         {
@@ -118,6 +164,11 @@
             "economy": 0.12,
             "equality": -0.2,
             "authority": -0.15
+          },
+          "salience": {
+            "liberty": 0.8,
+            "equality": 0.65,
+            "economy": 0.45
           }
         },
         {
@@ -129,6 +180,11 @@
             "liberty": 0.08,
             "equality": 0.08,
             "tradition": 0.1
+          },
+          "salience": {
+            "equality": 0.4,
+            "liberty": 0.4,
+            "tradition": 0.35
           }
         },
         {
@@ -140,6 +196,11 @@
             "authority": -0.1,
             "equality": -0.08,
             "liberty": 0.05
+          },
+          "salience": {
+            "tradition": 0.9,
+            "equality": 0.4,
+            "authority": 0.35
           }
         }
       ]
@@ -157,7 +218,15 @@
             "equality": 0.22,
             "tradition": -0.2,
             "liberty": 0.05,
-            "economy": -0.1
+            "economy": -0.1,
+            "global": 0.2,
+            "security": -0.1
+          },
+          "salience": {
+            "equality": 0.85,
+            "global": 0.7,
+            "tradition": 0.6,
+            "security": 0.45
           }
         },
         {
@@ -168,7 +237,15 @@
             "authority": 0.2,
             "tradition": 0.22,
             "equality": -0.15,
-            "liberty": -0.08
+            "liberty": -0.08,
+            "global": -0.2,
+            "security": 0.22
+          },
+          "salience": {
+            "security": 0.85,
+            "tradition": 0.8,
+            "global": 0.7,
+            "equality": 0.55
           }
         },
         {
@@ -179,7 +256,14 @@
             "economy": 0.15,
             "equality": -0.18,
             "authority": 0.12,
-            "liberty": 0.08
+            "liberty": 0.08,
+            "global": 0.05,
+            "security": 0.1
+          },
+          "salience": {
+            "economy": 0.65,
+            "equality": 0.7,
+            "security": 0.5
           }
         },
         {
@@ -190,7 +274,13 @@
             "authority": -0.22,
             "liberty": 0.15,
             "equality": -0.1,
-            "tradition": 0.05
+            "tradition": 0.05,
+            "global": -0.08
+          },
+          "salience": {
+            "authority": 0.8,
+            "equality": 0.5,
+            "liberty": 0.55
           }
         }
       ]
@@ -208,7 +298,15 @@
             "economy": 0.12,
             "tradition": -0.25,
             "equality": 0.1,
-            "authority": 0.08
+            "authority": 0.08,
+            "environment": -0.15,
+            "technology": 0.15
+          },
+          "salience": {
+            "tradition": 0.75,
+            "environment": 0.55,
+            "technology": 0.5,
+            "equality": 0.45
           }
         },
         {
@@ -219,7 +317,13 @@
             "tradition": 0.25,
             "economy": -0.12,
             "liberty": -0.05,
-            "equality": -0.08
+            "equality": -0.08,
+            "environment": 0.22
+          },
+          "salience": {
+            "tradition": 0.9,
+            "environment": 0.8,
+            "economy": 0.4
           }
         },
         {
@@ -230,7 +334,13 @@
             "tradition": 0.1,
             "equality": 0.12,
             "authority": -0.05,
-            "economy": 0.05
+            "economy": 0.05,
+            "environment": 0.1
+          },
+          "salience": {
+            "tradition": 0.45,
+            "environment": 0.45,
+            "equality": 0.4
           }
         },
         {
@@ -241,7 +351,383 @@
             "economy": 0.22,
             "liberty": 0.2,
             "tradition": -0.15,
-            "equality": -0.12
+            "equality": -0.12,
+            "environment": -0.1
+          },
+          "salience": {
+            "economy": 0.85,
+            "liberty": 0.7,
+            "tradition": 0.55
+          }
+        }
+      ]
+    },
+    {
+      "id": "vigilancia-atentado",
+      "title": "As lanternas de Porto Véu",
+      "body": "Uma explosão no mercado de Porto Véu matou dezenas. Ninguém reivindicou o ato. O Comando do Pacto pede redes de lanternas-senso em praças e estradas, com arquivo de faces por cinco anos. Mercadores temem espionagem comercial; mães pedem que nunca mais aconteça.",
+      "choices": [
+        {
+          "id": "vig-rede-total",
+          "label": "Instalar a rede completa e tornar o arquivo acessível à milícia federal sem mandado em emergências.",
+          "hint": "Maximiza detecção; normaliza vigilância permanente.",
+          "weights": {
+            "security": 0.25,
+            "liberty": -0.22,
+            "authority": 0.2,
+            "technology": 0.12
+          },
+          "salience": {
+            "security": 0.95,
+            "liberty": 0.9,
+            "authority": 0.65
+          }
+        },
+        {
+          "id": "vig-proibir",
+          "label": "Proibir lanternas-senso em espaços públicos: investigar com métodos clássicos e testemunhas.",
+          "hint": "Preserva anonimato cívico; aceita risco de novo ataque.",
+          "weights": {
+            "security": -0.22,
+            "liberty": 0.25,
+            "authority": -0.15,
+            "technology": -0.1
+          },
+          "salience": {
+            "liberty": 0.95,
+            "security": 0.85,
+            "technology": 0.4
+          }
+        },
+        {
+          "id": "vig-limitado",
+          "label": "Permitir sensores só em portos e estações, com apagamento automático em 30 dias e auditoria cidadã.",
+          "hint": "Compromisso técnico; pode ser contornado ou alargado depois.",
+          "weights": {
+            "security": 0.1,
+            "liberty": -0.08,
+            "authority": 0.05,
+            "technology": 0.08
+          },
+          "salience": {
+            "security": 0.5,
+            "liberty": 0.5,
+            "technology": 0.35
+          }
+        },
+        {
+          "id": "vig-privado",
+          "label": "Deixar empresas e guildas comprarem vigilância privada; o Pacto só regula padrões mínimos.",
+          "hint": "Evita Estado panóptico; cria vigilância desigual e comercial.",
+          "weights": {
+            "economy": 0.15,
+            "liberty": 0.1,
+            "security": 0.05,
+            "authority": -0.12,
+            "equality": -0.15
+          },
+          "salience": {
+            "economy": 0.55,
+            "liberty": 0.5,
+            "equality": 0.55,
+            "security": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "floresta-salgueiro",
+      "title": "A Floresta dos Cem Anos",
+      "body": "A Floresta dos Cem Anos, ao norte de Salgueiro, guarda espécies que só existem ali. Guildas madeireiras prometem empregos e casas baratas se abrirem clareiras; naturalistas alertam para o colapso da bacia hídrica. O inverno passado já foi seco.",
+      "choices": [
+        {
+          "id": "floresta-cortar",
+          "label": "Autorizar a exploração plena com royalties ao Pacto e meta de empregos locais.",
+          "hint": "Empregos e receita agora; risco hídrico e de extinção depois.",
+          "weights": {
+            "environment": -0.25,
+            "economy": 0.2,
+            "equality": 0.08,
+            "tradition": -0.05
+          },
+          "salience": {
+            "environment": 0.9,
+            "economy": 0.75,
+            "equality": 0.35
+          }
+        },
+        {
+          "id": "floresta-proteger",
+          "label": "Declarar santuário permanente: zero corte, com compensação limitada aos madeireiros.",
+          "hint": "Preserva a bacia; deixa famílias sem a promessa de trabalho.",
+          "weights": {
+            "environment": 0.25,
+            "economy": -0.18,
+            "authority": 0.1,
+            "equality": -0.08
+          },
+          "salience": {
+            "environment": 0.95,
+            "economy": 0.6,
+            "equality": 0.4
+          }
+        },
+        {
+          "id": "floresta-quota",
+          "label": "Cotas anuais de corte seletivo, replantio obrigatório e veto científico se a umidade cair.",
+          "hint": "Tenta sustentabilidade; depende de fiscalização honesta.",
+          "weights": {
+            "environment": 0.12,
+            "economy": 0.05,
+            "authority": 0.08,
+            "technology": 0.05
+          },
+          "salience": {
+            "environment": 0.55,
+            "economy": 0.4,
+            "authority": 0.35
+          }
+        },
+        {
+          "id": "floresta-comunidades",
+          "label": "Entregar a gestão às vilas da orla florestal, com direito de veto sobre qualquer concessão externa.",
+          "hint": "Poder local; mosaico de regras e possível captura por elites da vila.",
+          "weights": {
+            "authority": -0.2,
+            "environment": 0.1,
+            "tradition": 0.15,
+            "liberty": 0.1,
+            "economy": -0.05
+          },
+          "salience": {
+            "authority": 0.7,
+            "tradition": 0.55,
+            "environment": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "tratado-norte",
+      "title": "O Tratado com a Liga do Norte",
+      "body": "A Liga do Norte oferece um tratado: mercado comum, tribunais compartilhados e bases navais conjuntas contra pirataria. Em troca, Valmora cede parte da soberania alfandegária e aceita juízes estrangeiros em disputas comerciais. Nacionalistas falam em vassalagem; mercadores falam em sobrevivência.",
+      "choices": [
+        {
+          "id": "tratado-aceitar",
+          "label": "Assinar o tratado completo: mercado, tribunais e bases.",
+          "hint": "Integra Valmora ao Norte; dilui autonomia do Pacto.",
+          "weights": {
+            "global": 0.25,
+            "economy": 0.15,
+            "authority": -0.1,
+            "tradition": -0.15,
+            "security": 0.1
+          },
+          "salience": {
+            "global": 0.9,
+            "tradition": 0.55,
+            "economy": 0.5,
+            "security": 0.4
+          }
+        },
+        {
+          "id": "tratado-recusar",
+          "label": "Recusar o tratado: manter soberania plena e negociar só comércio pontual.",
+          "hint": "Preserva o Pacto como dono da casa; isola rotas e encarece defesa.",
+          "weights": {
+            "global": -0.25,
+            "tradition": 0.15,
+            "authority": 0.12,
+            "economy": -0.12,
+            "security": -0.08
+          },
+          "salience": {
+            "global": 0.9,
+            "tradition": 0.6,
+            "economy": 0.45
+          }
+        },
+        {
+          "id": "tratado-comercio",
+          "label": "Aceitar só o capítulo comercial, sem bases nem tribunais estrangeiros.",
+          "hint": "Meio-termo; a Liga pode oferecer menos e cobrar depois.",
+          "weights": {
+            "global": 0.1,
+            "economy": 0.12,
+            "authority": 0.05,
+            "security": -0.05
+          },
+          "salience": {
+            "global": 0.5,
+            "economy": 0.55,
+            "security": 0.35
+          }
+        },
+        {
+          "id": "tratado-plebiscito",
+          "label": "Submeter cada capítulo a plebiscito por cidade-estado — o Pacto só ratifica o que passar.",
+          "hint": "Legitimidade local; risco de mapa fragmentado e impasse.",
+          "weights": {
+            "authority": -0.2,
+            "liberty": 0.12,
+            "global": 0.05,
+            "equality": 0.05
+          },
+          "salience": {
+            "authority": 0.75,
+            "global": 0.55,
+            "liberty": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "automatos-guildas",
+      "title": "Os autômatos nas guildas",
+      "body": "Oficinas de Latobrás apresentam autômatos que tecem e forjam mais barato que aprendizes. Guildas pedem banimento para salvar ofícios seculares; jovens inventores querem liberar tudo e treinar quem sobrar. O pão pode baratear — ou a dignidade do trabalho evaporar.",
+      "choices": [
+        {
+          "id": "auto-banir",
+          "label": "Banir autômatos nas guildas tradicionais por uma geração.",
+          "hint": "Protege ofícios e identidade; mantém preços altos e atrasa inovação.",
+          "weights": {
+            "technology": -0.25,
+            "tradition": 0.2,
+            "economy": -0.1,
+            "equality": 0.1,
+            "liberty": -0.08
+          },
+          "salience": {
+            "technology": 0.9,
+            "tradition": 0.75,
+            "equality": 0.45
+          }
+        },
+        {
+          "id": "auto-liberar",
+          "label": "Liberar autômatos sem freio; o mercado e a reinvenção individual resolvem.",
+          "hint": "Acelera produtividade; desloca ofícios sem rede de proteção.",
+          "weights": {
+            "technology": 0.25,
+            "economy": 0.18,
+            "liberty": 0.15,
+            "equality": -0.2,
+            "tradition": -0.15
+          },
+          "salience": {
+            "technology": 0.9,
+            "economy": 0.65,
+            "equality": 0.7,
+            "liberty": 0.5
+          }
+        },
+        {
+          "id": "auto-transicao",
+          "label": "Permitir autômatos com imposto sobre cada unidade e renda de transição aos artesãos.",
+          "hint": "Suaviza o choque; cria burocracia e disputa sobre quem paga.",
+          "weights": {
+            "technology": 0.1,
+            "equality": 0.18,
+            "economy": -0.08,
+            "authority": 0.1
+          },
+          "salience": {
+            "equality": 0.7,
+            "technology": 0.55,
+            "economy": 0.45
+          }
+        },
+        {
+          "id": "auto-guilda",
+          "label": "Só guildas podem operar autômatos, sob regras internas de partilha do ganho.",
+          "hint": "Inovação sob controle corporativo; exclui inventores fora das guildas.",
+          "weights": {
+            "technology": 0.08,
+            "tradition": 0.12,
+            "authority": -0.05,
+            "liberty": -0.1,
+            "equality": 0.05
+          },
+          "salience": {
+            "tradition": 0.55,
+            "technology": 0.5,
+            "liberty": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "rito-corpo",
+      "title": "O Rito do Véu e a febre de Âmbar",
+      "body": "Uma febre se espalha. Médicos do Pacto pedem um elixir obrigatório — injertado no antebraço, com marca temporária. Em várias cidades, o Rito do Véu ensina que o corpo intacto é sagrado e que marcas impostas violam a alma. Hospitais lotam; templos pedem isenção total.",
+      "choices": [
+        {
+          "id": "corpo-obrigatorio",
+          "label": "Tornar o elixir obrigatório em todo o Pacto, com multa e restrição de trânsito a quem recusar.",
+          "hint": "Contém a febre; força o corpo em nome do coletivo.",
+          "weights": {
+            "body": -0.25,
+            "liberty": -0.2,
+            "authority": 0.2,
+            "security": 0.15,
+            "equality": 0.1
+          },
+          "salience": {
+            "body": 0.95,
+            "liberty": 0.85,
+            "security": 0.7,
+            "authority": 0.6
+          }
+        },
+        {
+          "id": "corpo-autonomia",
+          "label": "Deixar cada pessoa decidir; o Pacto só informa riscos e oferece o elixir gratuito.",
+          "hint": "Honra autonomia; a febre pode persistir entre os que recusam.",
+          "weights": {
+            "body": 0.25,
+            "liberty": 0.22,
+            "authority": -0.15,
+            "security": -0.12,
+            "tradition": 0.05
+          },
+          "salience": {
+            "body": 0.95,
+            "liberty": 0.85,
+            "security": 0.65
+          }
+        },
+        {
+          "id": "corpo-isencao-rito",
+          "label": "Obrigar o elixir, mas isentar quem comprovar vínculo formal ao Rito do Véu.",
+          "hint": "Respeita fé institucional; cria duas classes de risco sanitário.",
+          "weights": {
+            "body": -0.1,
+            "tradition": 0.2,
+            "equality": -0.12,
+            "liberty": 0.05,
+            "authority": 0.1
+          },
+          "salience": {
+            "tradition": 0.8,
+            "body": 0.7,
+            "equality": 0.55
+          }
+        },
+        {
+          "id": "corpo-cidades",
+          "label": "Cada cidade-estado define a própria regra; o Pacto só coordena estoques.",
+          "hint": "Autonomia regional; fronteiras internas de doença e direito.",
+          "weights": {
+            "authority": -0.2,
+            "body": 0.08,
+            "liberty": 0.1,
+            "equality": -0.1,
+            "security": -0.08
+          },
+          "salience": {
+            "authority": 0.75,
+            "body": 0.6,
+            "equality": 0.45
           }
         }
       ]

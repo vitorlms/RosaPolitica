@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AxisBars } from "@/components/AxisBars";
 import { AxisRadar } from "@/components/AxisRadar";
+import { EssentialSummary } from "@/components/EssentialSummary";
 import { computeResult } from "@/lib/scoring";
 import { loadChoices } from "@/lib/storage";
 import type { ScoreResult } from "@/lib/types";
@@ -46,7 +47,7 @@ export default function ResultPage() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
+    <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-16">
       <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
         Seu perfil em Valmora
       </p>
@@ -57,23 +58,32 @@ export default function ResultPage() {
         {result.archetype.description}
       </p>
 
-      <div className="mt-10">
+      <div className="mt-10 w-full flex justify-center">
+        <EssentialSummary
+          ranked={result.rankedByEssentiality}
+          profiles={result.profiles}
+        />
+      </div>
+
+      <div className="mt-12">
         <AxisRadar values={result.display} />
       </div>
 
-      <div className="mt-10 w-full flex justify-center">
-        <AxisBars values={result.display} />
-      </div>
-
-      <p className="mt-8 max-w-md text-center text-sm text-[var(--muted)]">
-        Valores de 0 a 100: próximo de 0 aproxima-se do pólo da esquerda na
-        barra; próximo de 100, do pólo da direita. Não há pontuação “boa” ou
-        “ruim”.
+      <h2 className="mt-12 font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
+        Dez eixos — posição e essencialidade
+      </h2>
+      <p className="mt-2 max-w-md text-center text-sm text-[var(--muted)]">
+        Posição (0–100) mostra o pólo; essencialidade mostra o quanto o tema foi
+        tratado como núcleo ou como zona limítrofe/negociável.
       </p>
+
+      <div className="mt-8 w-full flex justify-center">
+        <AxisBars profiles={result.profiles} />
+      </div>
 
       <Link
         href="/"
-        className="mt-10 inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
+        className="mt-12 inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
       >
         Recomeçar
       </Link>
