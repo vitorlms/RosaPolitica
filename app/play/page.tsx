@@ -7,10 +7,10 @@ import { SceneCard } from "@/components/SceneCard";
 import { story } from "@/lib/scoring";
 import { clearChoices, saveChoices } from "@/lib/storage";
 
-/** Brief pause so the selected answer is readable before the scene fades. */
-const SELECT_HOLD_MS = 420;
-const EXIT_MS = 300;
-const ENTER_MS = 420;
+/** Pause so the selected answer is readable before the scene fades. */
+const SELECT_HOLD_MS = 700;
+const EXIT_MS = 450;
+const ENTER_MS = 500;
 
 type Phase = "idle" | "exiting" | "entering";
 
@@ -109,7 +109,7 @@ export default function PlayPage() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <div key={scene.id} className={sceneMotion}>
+      <div key={scene.id} className={sceneMotion} data-phase={phase}>
         <SceneCard scene={scene} index={index} total={scenes.length}>
           {scene.choices.map((choice) => (
             <ChoiceButton

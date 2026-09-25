@@ -20,11 +20,11 @@ export function ChoiceButton({
       type="button"
       onClick={() => onSelect(choice.id)}
       aria-pressed={selected}
-      className={`w-full text-left rounded-lg border px-4 py-3 transition-[border-color,background-color,opacity,transform] duration-300 ease-out ${
+      className={`w-full text-left rounded-lg border px-4 py-3 transition-[border-color,background-color,opacity,transform,box-shadow] duration-500 ease-out ${
         selected
-          ? "border-[var(--accent)] bg-[var(--accent-soft)]"
+          ? "border-[var(--accent)] bg-[var(--accent-soft)] shadow-[0_0_0_1px_var(--accent)]"
           : "border-[var(--line)] bg-[var(--surface)] hover:border-[var(--accent-muted)]"
-      } ${dimmed ? "pointer-events-none opacity-35" : "opacity-100"}`}
+      } ${dimmed ? "pointer-events-none scale-[0.99] opacity-30" : "opacity-100"}`}
     >
       <span className="block text-[0.95rem] leading-snug text-[var(--ink)]">
         {choice.label}
