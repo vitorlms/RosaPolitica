@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { AxisBars } from "@/components/AxisBars";
 import { AxisRadar } from "@/components/AxisRadar";
 import { EssentialSummary } from "@/components/EssentialSummary";
+import { ShareResult } from "@/components/ShareResult";
 import { computeResult } from "@/lib/scoring";
 import { loadChoices } from "@/lib/storage";
 import type { ScoreResult } from "@/lib/types";
@@ -80,6 +81,8 @@ export default function ResultPage() {
       <div className="mt-8 w-full flex justify-center">
         <AxisBars profiles={result.profiles} />
       </div>
+
+      <ShareResult result={result} />
 
       <Link
         href="/"
