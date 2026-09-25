@@ -27,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${display.variable} ${sans.variable} h-full`}>
-      <body className="min-h-full flex flex-col font-[family-name:var(--font-sans)] antialiased">
+    <html lang="pt-BR" className={`${display.variable} ${sans.variable}`}>
+      <body className="flex min-h-dvh flex-col font-[family-name:var(--font-sans)] antialiased">
         <header className="border-b border-[var(--line)] px-6 py-4">
           <Link
             href="/"
