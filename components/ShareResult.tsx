@@ -56,10 +56,10 @@ export function ShareResult({ result }: ShareResultProps) {
         Compartilhar por mensagem
       </h2>
       <p className="mt-1 text-sm text-[var(--muted)]">
-        Copie o cartão abaixo e cole no WhatsApp, Telegram ou onde quiser.
+        Copie a mensagem abaixo e cole no WhatsApp, Telegram ou onde quiser.
       </p>
 
-      <pre className="mt-4 max-h-64 overflow-auto whitespace-pre-wrap rounded-lg border border-[var(--line)] bg-[var(--surface)] p-4 text-left text-sm leading-relaxed text-[var(--ink-soft)]">
+      <pre className="mt-4 whitespace-pre-wrap rounded-lg border border-[var(--line)] bg-[var(--surface)] p-4 text-left text-sm leading-relaxed text-[var(--ink-soft)]">
         {text}
       </pre>
 
