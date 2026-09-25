@@ -1,0 +1,74 @@
+[
+  {
+    "id": "guardiao-pacto",
+    "name": "Guardião do Pacto",
+    "description": "Você tende a valorizar ordem compartilhada, regras claras e um Estado capaz de arbitrar conflitos. Em Valmora, seria quem reforça o Pacto para que as cidades não se desfaçam — mesmo quando isso exige restringir impulsos individuais.",
+    "centroid": {
+      "economy": -0.1,
+      "authority": 0.65,
+      "liberty": -0.45,
+      "equality": 0.25,
+      "tradition": 0.35
+    }
+  },
+  {
+    "id": "livre-mercado",
+    "name": "Livre Mercado de Valmora",
+    "description": "Você inclina-se a confiar em contratos, propriedade e escolha individual. Em Valmora, seria quem abre as minas e as escolas à iniciativa privada e trata muitos dilemas como preços a negociar, não mandatos a impor.",
+    "centroid": {
+      "economy": 0.7,
+      "authority": -0.2,
+      "liberty": 0.6,
+      "equality": -0.55,
+      "tradition": -0.15
+    }
+  },
+  {
+    "id": "irmandade-comunal",
+    "name": "Irmandade Comunal",
+    "description": "Você prioriza equalização, solidariedade e freios ao poder concentrado — público ou privado. Em Valmora, seria quem redistribui o minério, acolhe na fronteira e desconfia de soluções que deixam os vulneráveis para trás.",
+    "centroid": {
+      "economy": -0.6,
+      "authority": -0.15,
+      "liberty": -0.2,
+      "equality": 0.7,
+      "tradition": -0.25
+    }
+  },
+  {
+    "id": "guarda-costumes",
+    "name": "Guarda dos Costumes",
+    "description": "Você defende continuidade cultural, laços locais e limites à mudança acelerada. Em Valmora, seria quem protege o Rio de Cinzas, o currículo das vilas e a identidade das cidades-estado frente a pressões cosmopolitas.",
+    "centroid": {
+      "economy": 0.05,
+      "authority": 0.25,
+      "liberty": -0.15,
+      "equality": -0.2,
+      "tradition": 0.75
+    }
+  },
+  {
+    "id": "autonomista",
+    "name": "Autonomista das Cidades",
+    "description": "Você desconfia de centros fortes e prefere que cada comunidade decida o próprio rumo. Em Valmora, seria quem devolve poder às cidades-estado — mesmo quando isso gera mosaicos desiguais de direito e acolhimento.",
+    "centroid": {
+      "economy": 0.1,
+      "authority": -0.7,
+      "liberty": 0.45,
+      "equality": -0.25,
+      "tradition": 0.15
+    }
+  },
+  {
+    "id": "reformista-pragmatico",
+    "name": "Reformista Pragmático",
+    "description": "Você busca meios-termos institucionais: núcleos comuns, cotas, usinas menores, mediação. Em Valmora, seria quem costura compromissos para manter o Pacto vivo sem radicalizar nenhum pólo.",
+    "centroid": {
+      "economy": 0.0,
+      "authority": 0.1,
+      "liberty": 0.05,
+      "equality": 0.15,
+      "tradition": 0.05
+    }
+  }
+]

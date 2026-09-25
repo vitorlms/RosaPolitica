@@ -1,0 +1,250 @@
+{
+  "world": {
+    "name": "Confederação de Valmora",
+    "summary": "Valmora é um conjunto de cidades-estado unidas por um pacto frágil após décadas de conflito. Há minas que sustentam o tesouro comum, escolas que disputam o currículo, fronteiras porosas e um rio considerado sagrado por metade da população. Você é conselheira ou conselheiro do Pacto — cada decisão molda o rumo do país, sem uma resposta única 'certa'."
+  },
+  "scenes": [
+    {
+      "id": "mina-greve",
+      "title": "A greve nas Minas de Ferroalto",
+      "body": "As minas estatais de Ferroalto pararam. Os trabalhadores exigem salário e segurança; investidores estrangeiros oferecem comprar a operação e reabrir em semanas, com demissões seletivas. O tesouro do Pacto depende do minério. O Conselho espera a sua palavra.",
+      "choices": [
+        {
+          "id": "mina-estatizar",
+          "label": "Manter a mina sob o Pacto, negociar com o sindicato e cobrir a folha com impostos temporários.",
+          "hint": "Preserva emprego público; atrasa a retomada e pressiona o tesouro.",
+          "weights": {
+            "economy": -0.22,
+            "equality": 0.2,
+            "authority": 0.1,
+            "liberty": -0.08
+          }
+        },
+        {
+          "id": "mina-privatizar",
+          "label": "Aceitar a oferta privada: reabrir rápido, com autonomia da empresa sobre contratos e demissões.",
+          "hint": "Acelera a produção; concentra poder econômico e vulnerabiliza quem for dispensado.",
+          "weights": {
+            "economy": 0.25,
+            "equality": -0.18,
+            "liberty": 0.15,
+            "authority": -0.05
+          }
+        },
+        {
+          "id": "mina-cooperativa",
+          "label": "Transferir a mina a uma cooperativa dos trabalhadores, com crédito público inicial e regras de partilha.",
+          "hint": "Difunde a propriedade; risco de gestão e dívida pública se o minério cair.",
+          "weights": {
+            "economy": -0.12,
+            "equality": 0.22,
+            "authority": -0.15,
+            "liberty": 0.05
+          }
+        },
+        {
+          "id": "mina-ordem",
+          "label": "Declarar emergência produtiva: ordem de retorno sob pena de perda de benefícios, com fiscalização reforçada.",
+          "hint": "Restaura o fluxo do minério; tensiona direitos e a confiança no Pacto.",
+          "weights": {
+            "authority": 0.25,
+            "liberty": -0.2,
+            "economy": 0.05,
+            "tradition": 0.08
+          }
+        }
+      ]
+    },
+    {
+      "id": "discurso-tumulto",
+      "title": "Discurso após o tumulto de Maré Alta",
+      "body": "Um comício na praça de Maré Alta terminou em vandalismo e feridos. Há quem peça uma lei dura contra incitação pública; há quem diga que o silêncio forçado é pior que o barulho. A Assembleia pede um parecer seu sobre o que o Pacto deve permitir nas praças.",
+      "choices": [
+        {
+          "id": "discurso-lei-dura",
+          "label": "Aprovar limites claros: proibir discurso que convide a violência imediata, com sanções rápidas.",
+          "hint": "Protege a ordem pública; estreita a margem do debate acalorado.",
+          "weights": {
+            "authority": 0.2,
+            "liberty": -0.22,
+            "tradition": 0.1
+          }
+        },
+        {
+          "id": "discurso-livre",
+          "label": "Manter a praça aberta: punir só atos de violência, nunca o conteúdo da fala, por mais ofensivo.",
+          "hint": "Maximiza expressão; aceita risco de tensão e ofensa pública.",
+          "weights": {
+            "liberty": 0.25,
+            "authority": -0.18,
+            "equality": -0.05
+          }
+        },
+        {
+          "id": "discurso-media",
+          "label": "Criar um conselho cívico de mediação local, sem criminalizar fala, mas com espaços e horários para protesto.",
+          "hint": "Canaliza o conflito; depende de confiança e pode parecer paternalista.",
+          "weights": {
+            "authority": 0.05,
+            "liberty": -0.08,
+            "equality": 0.12,
+            "tradition": -0.05
+          }
+        }
+      ]
+    },
+    {
+      "id": "escola-curriculo",
+      "title": "O currículo das Escolas do Pacto",
+      "body": "Valmora precisa decidir o que toda criança aprende. Algumas cidades querem um currículo nacional único — história, civismo e ciência iguais em toda parte. Famílias e vilas pedem autonomia para incluir ofícios locais, fé e costumes. O orçamento escolar é finito.",
+      "choices": [
+        {
+          "id": "escola-nacional",
+          "label": "Currículo nacional obrigatório, com inspeção federal e exames comuns.",
+          "hint": "Equaliza oportunidades formais; reduz espaço para identidade local.",
+          "weights": {
+            "authority": 0.18,
+            "equality": 0.2,
+            "tradition": -0.12,
+            "liberty": -0.1
+          }
+        },
+        {
+          "id": "escola-familia",
+          "label": "Autonomia ampla às famílias e escolas locais, com voucher ou crédito educacional.",
+          "hint": "Amplia escolha; aceita desigualdade de conteúdo e recursos entre regiões.",
+          "weights": {
+            "liberty": 0.22,
+            "economy": 0.12,
+            "equality": -0.2,
+            "authority": -0.15
+          }
+        },
+        {
+          "id": "escola-hibrido",
+          "label": "Núcleo comum mínimo (leitura, cálculo, direitos do Pacto) e o resto decidido por cada cidade.",
+          "hint": "Busca equilíbrio; pode deixar todos parcialmente insatisfeitos.",
+          "weights": {
+            "authority": 0.05,
+            "liberty": 0.08,
+            "equality": 0.08,
+            "tradition": 0.1
+          }
+        },
+        {
+          "id": "escola-tradicao",
+          "label": "Priorizar ofícios, ritos e história local de cada cidade-estado, com o núcleo acadêmico em segundo plano.",
+          "hint": "Fortalece continuidade cultural; pode enfraquecer mobilidade entre regiões.",
+          "weights": {
+            "tradition": 0.25,
+            "authority": -0.1,
+            "equality": -0.08,
+            "liberty": 0.05
+          }
+        }
+      ]
+    },
+    {
+      "id": "fronteira-refugio",
+      "title": "A fronteira de Salgueiro",
+      "body": "Uma guerra no principado vizinho empurrou milhares de pessoas para a fronteira de Salgueiro. Há acampamentos improvisados, medo de escassez e pedidos de asilo. Comerciantes locais lucram com a rota; milícias voluntárias querem fechar o passo. O Pacto precisa de uma linha.",
+      "choices": [
+        {
+          "id": "fronteira-abrir",
+          "label": "Abrir corredores humanitários e integrar quem chegar, com fundo compartilhado entre as cidades.",
+          "hint": "Afirma solidariedade; pressiona serviços e a identidade local.",
+          "weights": {
+            "equality": 0.22,
+            "tradition": -0.2,
+            "liberty": 0.05,
+            "economy": -0.1
+          }
+        },
+        {
+          "id": "fronteira-fechar",
+          "label": "Fechar a fronteira e reforçar patrulhas; ajuda só em território vizinho, via doações.",
+          "hint": "Protege estoques e costumes locais; nega entrada a quem foge.",
+          "weights": {
+            "authority": 0.2,
+            "tradition": 0.22,
+            "equality": -0.15,
+            "liberty": -0.08
+          }
+        },
+        {
+          "id": "fronteira-quota",
+          "label": "Cotas por cidade, triagem por ofício útil, e caminho acelerado a quem tiver patrocínio privado.",
+          "hint": "Controla fluxo e favorece 'úteis'; exclui quem não encaixa no critério.",
+          "weights": {
+            "economy": 0.15,
+            "equality": -0.18,
+            "authority": 0.12,
+            "liberty": 0.08
+          }
+        },
+        {
+          "id": "fronteira-cidades",
+          "label": "Deixar cada cidade-estado decidir sozinha quem acolhe — o Pacto só coordena logística voluntária.",
+          "hint": "Respeita autonomia; gera mosaico desigual de acolhimento.",
+          "weights": {
+            "authority": -0.22,
+            "liberty": 0.15,
+            "equality": -0.1,
+            "tradition": 0.05
+          }
+        }
+      ]
+    },
+    {
+      "id": "rio-sagrado",
+      "title": "O Rio de Cinzas e a usina",
+      "body": "Engenheiros propõem uma usina no Rio de Cinzas: energia limpa para metade de Valmora. Metade das vilas o considera sagrado — batismos, funerais e pesca ritual. Sem a usina, o inverno será escuro e caro. Com ela, o leito muda para sempre.",
+      "choices": [
+        {
+          "id": "rio-usina",
+          "label": "Construir a usina: priorizar energia acessível e modernização da rede.",
+          "hint": "Barateia o inverno; altera o leito e o rito.",
+          "weights": {
+            "economy": 0.12,
+            "tradition": -0.25,
+            "equality": 0.1,
+            "authority": 0.08
+          }
+        },
+        {
+          "id": "rio-preservar",
+          "label": "Proibir a obra e proteger o rio como patrimônio cultural e espiritual.",
+          "hint": "Honra o rito; mantém energia cara e desigual no inverno.",
+          "weights": {
+            "tradition": 0.25,
+            "economy": -0.12,
+            "liberty": -0.05,
+            "equality": -0.08
+          }
+        },
+        {
+          "id": "rio-compromisso",
+          "label": "Usina menor a jusante, com fundo de reparação ritual e veto das vilas sobre trechos sagrados.",
+          "hint": "Negocia um meio-termo; pode não bastar nem à energia nem ao rito.",
+          "weights": {
+            "tradition": 0.1,
+            "equality": 0.12,
+            "authority": -0.05,
+            "economy": 0.05
+          }
+        },
+        {
+          "id": "rio-mercado",
+          "label": "Licitar a concessão a quem pagar mais e compensar as vilas em dinheiro — cada família decide o que fazer com a indenização.",
+          "hint": "Trata o conflito como preço; dissolve o bem comum num cálculo individual.",
+          "weights": {
+            "economy": 0.22,
+            "liberty": 0.2,
+            "tradition": -0.15,
+            "equality": -0.12
+          }
+        }
+      ]
+    }
+  ]
+}
