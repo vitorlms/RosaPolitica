@@ -1,18 +1,18 @@
 {
   "world": {
-    "name": "Confederação de Valmora",
-    "summary": "Valmora é um conjunto de cidades-estado unidas por um pacto frágil após décadas de conflito. Há minas, florestas, escolas, fronteiras porosas, autômatos nas guildas, um rio sagrado e um conselho que pede a sua palavra em dilemas sem resposta única. Você é conselheira ou conselheiro do Pacto — cada escolha revela tanto a direção quanto o que você trata como inegociável."
+    "name": "Valmora",
+    "summary": "Valmora é um país fictício, mas os dilemas são os de sempre: emprego, liberdade, escola, fronteira, ambiente, segurança. Em cada situação, você escolhe o que faria. Não há resposta certa — no fim, o teste mostra para onde você inclina e o que parece mais difícil de abrir mão."
   },
   "scenes": [
     {
       "id": "mina-greve",
-      "title": "A greve nas Minas de Ferroalto",
-      "body": "As minas estatais de Ferroalto pararam. Os trabalhadores exigem salário e segurança; investidores estrangeiros oferecem comprar a operação e reabrir em semanas, com demissões seletivas. O tesouro do Pacto depende do minério. O Conselho espera a sua palavra.",
+      "title": "Greve na mineração estatal",
+      "body": "A mineradora estatal parou. Os trabalhadores pedem salário e segurança no trabalho. Um grupo de investidores estrangeiros oferece comprar a operação e reabrir em poucas semanas — com demissões seletivas. O governo depende da receita do minério. O que você faria?",
       "choices": [
         {
           "id": "mina-estatizar",
-          "label": "Manter a mina sob o Pacto, negociar com o sindicato e cobrir a folha com impostos temporários.",
-          "hint": "Preserva emprego público; atrasa a retomada e pressiona o tesouro.",
+          "label": "Manter a empresa pública, negociar com o sindicato e cobrir a folha com um imposto temporário.",
+          "hint": "Protege o emprego público; atrasa a retomada e aperta o orçamento.",
           "weights": {
             "economy": -0.22,
             "equality": 0.2,
@@ -28,8 +28,8 @@
         },
         {
           "id": "mina-privatizar",
-          "label": "Aceitar a oferta privada: reabrir rápido, com autonomia da empresa sobre contratos e demissões.",
-          "hint": "Acelera a produção; concentra poder econômico e vulnerabiliza quem for dispensado.",
+          "label": "Aceitar a oferta privada: reabrir rápido, e a empresa decide contratos e demissões.",
+          "hint": "Acelera a produção; concentra poder econômico e deixa quem for demitido mais vulnerável.",
           "weights": {
             "economy": 0.25,
             "equality": -0.18,
@@ -46,8 +46,8 @@
         },
         {
           "id": "mina-cooperativa",
-          "label": "Transferir a mina a uma cooperativa dos trabalhadores, com crédito público inicial e regras de partilha.",
-          "hint": "Difunde a propriedade; risco de gestão e dívida pública se o minério cair.",
+          "label": "Passar a mina para uma cooperativa dos trabalhadores, com crédito público inicial.",
+          "hint": "Divide a propriedade; há risco de gestão e de dívida se o preço do minério cair.",
           "weights": {
             "economy": -0.12,
             "equality": 0.22,
@@ -62,8 +62,8 @@
         },
         {
           "id": "mina-ordem",
-          "label": "Declarar emergência produtiva: ordem de retorno sob pena de perda de benefícios, com fiscalização reforçada.",
-          "hint": "Restaura o fluxo do minério; tensiona direitos e a confiança no Pacto.",
+          "label": "Determinar o retorno ao trabalho sob pena de perda de benefícios, com fiscalização reforçada.",
+          "hint": "Retoma a produção; gera atrito com direitos e com a confiança no governo.",
           "weights": {
             "authority": 0.25,
             "liberty": -0.2,
@@ -81,13 +81,13 @@
     },
     {
       "id": "discurso-tumulto",
-      "title": "Discurso após o tumulto de Maré Alta",
-      "body": "Um comício na praça de Maré Alta terminou em vandalismo e feridos. Há quem peça uma lei dura contra incitação pública; há quem diga que o silêncio forçado é pior que o barulho. A Assembleia pede um parecer seu sobre o que o Pacto deve permitir nas praças.",
+      "title": "Protesto que virou violência",
+      "body": "Um ato político na praça terminou com vandalismo e feridos. Uns pedem lei mais dura contra discurso que estimule violência. Outros dizem que punir fala é pior do que aguentar o barulho. Como o Estado deveria tratar o que se diz em público?",
       "choices": [
         {
           "id": "discurso-lei-dura",
-          "label": "Aprovar limites claros: proibir discurso que convide a violência imediata, com sanções rápidas.",
-          "hint": "Protege a ordem pública; estreita a margem do debate acalorado.",
+          "label": "Proibir discurso que convide a violência imediata, com punição rápida.",
+          "hint": "Ajuda a manter a ordem; estreita o espaço do debate mais agressivo.",
           "weights": {
             "authority": 0.2,
             "liberty": -0.22,
@@ -102,8 +102,8 @@
         },
         {
           "id": "discurso-livre",
-          "label": "Manter a praça aberta: punir só atos de violência, nunca o conteúdo da fala, por mais ofensivo.",
-          "hint": "Maximiza expressão; aceita risco de tensão e ofensa pública.",
+          "label": "Punir só a violência — nunca o conteúdo da fala, por mais ofensivo que seja.",
+          "hint": "Maximiza a liberdade de expressão; aceita mais tensão e ofensa em público.",
           "weights": {
             "liberty": 0.25,
             "authority": -0.18,
@@ -118,8 +118,8 @@
         },
         {
           "id": "discurso-media",
-          "label": "Criar um conselho cívico de mediação local, sem criminalizar fala, mas com espaços e horários para protesto.",
-          "hint": "Canaliza o conflito; depende de confiança e pode parecer paternalista.",
+          "label": "Criar mediação local: sem criminalizar a fala, mas com regras de horário e espaço para protesto.",
+          "hint": "Organiza o conflito; depende de confiança e pode parecer paternalista.",
           "weights": {
             "authority": 0.05,
             "liberty": -0.08,
@@ -136,13 +136,13 @@
     },
     {
       "id": "escola-curriculo",
-      "title": "O currículo das Escolas do Pacto",
-      "body": "Valmora precisa decidir o que toda criança aprende. Algumas cidades querem um currículo nacional único — história, civismo e ciência iguais em toda parte. Famílias e vilas pedem autonomia para incluir ofícios locais, fé e costumes. O orçamento escolar é finito.",
+      "title": "O que a escola deve ensinar",
+      "body": "O país discute o currículo. Uns querem o mesmo conteúdo em todo lugar — história, cidadania e ciência iguais. Outros querem mais espaço para famílias e escolas locais definirem o que ensinar, inclusive ofícios e valores próprios. O orçamento é limitado.",
       "choices": [
         {
           "id": "escola-nacional",
-          "label": "Currículo nacional obrigatório, com inspeção federal e exames comuns.",
-          "hint": "Equaliza oportunidades formais; reduz espaço para identidade local.",
+          "label": "Currículo nacional obrigatório, com fiscalização e provas comuns.",
+          "hint": "Equaliza o básico; reduz espaço para diferenças locais.",
           "weights": {
             "authority": 0.18,
             "equality": 0.2,
@@ -157,8 +157,8 @@
         },
         {
           "id": "escola-familia",
-          "label": "Autonomia ampla às famílias e escolas locais, com voucher ou crédito educacional.",
-          "hint": "Amplia escolha; aceita desigualdade de conteúdo e recursos entre regiões.",
+          "label": "Dar ampla autonomia a famílias e escolas locais, com voucher ou crédito educacional.",
+          "hint": "Amplia a escolha; aceita desigualdade de conteúdo e de recursos entre regiões.",
           "weights": {
             "liberty": 0.22,
             "economy": 0.12,
@@ -173,8 +173,8 @@
         },
         {
           "id": "escola-hibrido",
-          "label": "Núcleo comum mínimo (leitura, cálculo, direitos do Pacto) e o resto decidido por cada cidade.",
-          "hint": "Busca equilíbrio; pode deixar todos parcialmente insatisfeitos.",
+          "label": "Um núcleo mínimo comum (leitura, matemática, direitos básicos) e o resto decidido por cada município.",
+          "hint": "Busca equilíbrio; pode deixar todo mundo um pouco insatisfeito.",
           "weights": {
             "authority": 0.05,
             "liberty": 0.08,
@@ -189,8 +189,8 @@
         },
         {
           "id": "escola-tradicao",
-          "label": "Priorizar ofícios, ritos e história local de cada cidade-estado, com o núcleo acadêmico em segundo plano.",
-          "hint": "Fortalece continuidade cultural; pode enfraquecer mobilidade entre regiões.",
+          "label": "Priorizar ofícios, história e costumes locais; o conteúdo acadêmico nacional fica em segundo plano.",
+          "hint": "Fortalece a continuidade cultural; pode dificultar a mobilidade entre regiões.",
           "weights": {
             "tradition": 0.25,
             "authority": -0.1,
@@ -207,13 +207,13 @@
     },
     {
       "id": "fronteira-refugio",
-      "title": "A fronteira de Salgueiro",
-      "body": "Uma guerra no principado vizinho empurrou milhares de pessoas para a fronteira de Salgueiro. Há acampamentos improvisados, medo de escassez e pedidos de asilo. Comerciantes locais lucram com a rota; milícias voluntárias querem fechar o passo. O Pacto precisa de uma linha.",
+      "title": "Pressão na fronteira",
+      "body": "Uma crise no país vizinho empurrou milhares de pessoas para a fronteira. Há acampamentos improvisados, medo de escassez e pedidos de asilo. Comerciantes lucram com o fluxo; grupos locais querem fechar a passagem. Qual linha você puxaria?",
       "choices": [
         {
           "id": "fronteira-abrir",
-          "label": "Abrir corredores humanitários e integrar quem chegar, com fundo compartilhado entre as cidades.",
-          "hint": "Afirma solidariedade; pressiona serviços e a identidade local.",
+          "label": "Abrir corredores humanitários e integrar quem chegar, com fundo compartilhado entre os estados.",
+          "hint": "Afirma solidariedade; pressiona serviços públicos e a convivência local.",
           "weights": {
             "equality": 0.22,
             "tradition": -0.2,
@@ -231,8 +231,8 @@
         },
         {
           "id": "fronteira-fechar",
-          "label": "Fechar a fronteira e reforçar patrulhas; ajuda só em território vizinho, via doações.",
-          "hint": "Protege estoques e costumes locais; nega entrada a quem foge.",
+          "label": "Fechar a fronteira e reforçar a fiscalização; ajuda só no país vizinho, via doações.",
+          "hint": "Protege estoques e a ordem local; nega entrada a quem foge.",
           "weights": {
             "authority": 0.2,
             "tradition": 0.22,
@@ -250,8 +250,8 @@
         },
         {
           "id": "fronteira-quota",
-          "label": "Cotas por cidade, triagem por ofício útil, e caminho acelerado a quem tiver patrocínio privado.",
-          "hint": "Controla fluxo e favorece 'úteis'; exclui quem não encaixa no critério.",
+          "label": "Cotas por região, triagem por ofício útil e entrada mais rápida para quem tiver patrocínio privado.",
+          "hint": "Controla o fluxo e favorece quem 'serve' economicamente; exclui quem não encaixa.",
           "weights": {
             "economy": 0.15,
             "equality": -0.18,
@@ -268,8 +268,8 @@
         },
         {
           "id": "fronteira-cidades",
-          "label": "Deixar cada cidade-estado decidir sozinha quem acolhe — o Pacto só coordena logística voluntária.",
-          "hint": "Respeita autonomia; gera mosaico desigual de acolhimento.",
+          "label": "Deixar cada estado ou município decidir sozinho quem acolhe; o governo federal só coordena ajuda voluntária.",
+          "hint": "Respeita autonomia local; gera acolhimento desigual pelo país.",
           "weights": {
             "authority": -0.22,
             "liberty": 0.15,
@@ -287,13 +287,13 @@
     },
     {
       "id": "rio-sagrado",
-      "title": "O Rio de Cinzas e a usina",
-      "body": "Engenheiros propõem uma usina no Rio de Cinzas: energia limpa para metade de Valmora. Metade das vilas o considera sagrado — batismos, funerais e pesca ritual. Sem a usina, o inverno será escuro e caro. Com ela, o leito muda para sempre.",
+      "title": "Hidrelétrica no rio",
+      "body": "Engenheiros propõem uma usina num rio importante: energia mais barata para boa parte do país. Comunidades ribeirinhas dizem que o rio é central para o modo de vida delas — pesca, história, rituais. Sem a usina, a conta de luz sobe. Com ela, o leito muda de forma permanente.",
       "choices": [
         {
           "id": "rio-usina",
-          "label": "Construir a usina: priorizar energia acessível e modernização da rede.",
-          "hint": "Barateia o inverno; altera o leito e o rito.",
+          "label": "Construir a usina: priorizar energia acessível e a modernização da rede.",
+          "hint": "Barateia a energia; altera o rio e a vida das comunidades.",
           "weights": {
             "economy": 0.12,
             "tradition": -0.25,
@@ -311,8 +311,8 @@
         },
         {
           "id": "rio-preservar",
-          "label": "Proibir a obra e proteger o rio como patrimônio cultural e espiritual.",
-          "hint": "Honra o rito; mantém energia cara e desigual no inverno.",
+          "label": "Proibir a obra e proteger o rio como patrimônio cultural e ambiental.",
+          "hint": "Preserva o rio e as comunidades; mantém a energia mais cara.",
           "weights": {
             "tradition": 0.25,
             "economy": -0.12,
@@ -328,8 +328,8 @@
         },
         {
           "id": "rio-compromisso",
-          "label": "Usina menor a jusante, com fundo de reparação ritual e veto das vilas sobre trechos sagrados.",
-          "hint": "Negocia um meio-termo; pode não bastar nem à energia nem ao rito.",
+          "label": "Usina menor, com indenização às comunidades e veto delas sobre trechos sensíveis.",
+          "hint": "Tenta um meio-termo; pode não bastar nem para a energia nem para quem vive no rio.",
           "weights": {
             "tradition": 0.1,
             "equality": 0.12,
@@ -345,8 +345,8 @@
         },
         {
           "id": "rio-mercado",
-          "label": "Licitar a concessão a quem pagar mais e compensar as vilas em dinheiro — cada família decide o que fazer com a indenização.",
-          "hint": "Trata o conflito como preço; dissolve o bem comum num cálculo individual.",
+          "label": "Licitar a concessão a quem pagar mais e indenizar as famílias em dinheiro — cada uma decide o que fazer.",
+          "hint": "Trata o conflito como preço; dissolve o bem comum em escolhas individuais.",
           "weights": {
             "economy": 0.22,
             "liberty": 0.2,
@@ -364,13 +364,13 @@
     },
     {
       "id": "vigilancia-atentado",
-      "title": "As lanternas de Porto Véu",
-      "body": "Uma explosão no mercado de Porto Véu matou dezenas. Ninguém reivindicou o ato. O Comando do Pacto pede redes de lanternas-senso em praças e estradas, com arquivo de faces por cinco anos. Mercadores temem espionagem comercial; mães pedem que nunca mais aconteça.",
+      "title": "Câmeras depois de um atentado",
+      "body": "Uma explosão num mercado matou dezenas de pessoas. Ninguém reivindicou o ataque. O governo quer câmeras com reconhecimento facial em praças e estradas, com arquivo por cinco anos. Comerciantes temem abuso; muita gente só quer que não aconteça de novo.",
       "choices": [
         {
           "id": "vig-rede-total",
-          "label": "Instalar a rede completa e tornar o arquivo acessível à milícia federal sem mandado em emergências.",
-          "hint": "Maximiza detecção; normaliza vigilância permanente.",
+          "label": "Instalar a rede completa e dar acesso à polícia sem mandado em emergências.",
+          "hint": "Maximiza a detecção; normaliza vigilância permanente.",
           "weights": {
             "security": 0.25,
             "liberty": -0.22,
@@ -385,8 +385,8 @@
         },
         {
           "id": "vig-proibir",
-          "label": "Proibir lanternas-senso em espaços públicos: investigar com métodos clássicos e testemunhas.",
-          "hint": "Preserva anonimato cívico; aceita risco de novo ataque.",
+          "label": "Proibir reconhecimento facial em espaços públicos; investigar com métodos tradicionais.",
+          "hint": "Preserva privacidade; aceita mais risco de outro ataque.",
           "weights": {
             "security": -0.22,
             "liberty": 0.25,
@@ -401,8 +401,8 @@
         },
         {
           "id": "vig-limitado",
-          "label": "Permitir sensores só em portos e estações, com apagamento automático em 30 dias e auditoria cidadã.",
-          "hint": "Compromisso técnico; pode ser contornado ou alargado depois.",
+          "label": "Permitir câmeras só em portos e estações, com apagamento em 30 dias e auditoria independente.",
+          "hint": "Meio-termo técnico; pode ser ampliado depois.",
           "weights": {
             "security": 0.1,
             "liberty": -0.08,
@@ -417,8 +417,8 @@
         },
         {
           "id": "vig-privado",
-          "label": "Deixar empresas e guildas comprarem vigilância privada; o Pacto só regula padrões mínimos.",
-          "hint": "Evita Estado panóptico; cria vigilância desigual e comercial.",
+          "label": "Deixar empresas comprarem vigilância privada; o Estado só define regras mínimas.",
+          "hint": "Evita um Estado panóptico; cria vigilância desigual e comercial.",
           "weights": {
             "economy": 0.15,
             "liberty": 0.1,
@@ -437,13 +437,13 @@
     },
     {
       "id": "floresta-salgueiro",
-      "title": "A Floresta dos Cem Anos",
-      "body": "A Floresta dos Cem Anos, ao norte de Salgueiro, guarda espécies que só existem ali. Guildas madeireiras prometem empregos e casas baratas se abrirem clareiras; naturalistas alertam para o colapso da bacia hídrica. O inverno passado já foi seco.",
+      "title": "Explorar ou proteger a floresta",
+      "body": "Uma floresta preservada guarda espécies que só existem ali. Empresas madeireiras prometem empregos e casas mais baratas se abrirem clareiras. Especialistas alertam para o risco na água da região. O último período seco já foi difícil.",
       "choices": [
         {
           "id": "floresta-cortar",
-          "label": "Autorizar a exploração plena com royalties ao Pacto e meta de empregos locais.",
-          "hint": "Empregos e receita agora; risco hídrico e de extinção depois.",
+          "label": "Autorizar a exploração ampla, com royalties ao governo e meta de empregos locais.",
+          "hint": "Emprego e receita agora; risco hídrico e de extinção depois.",
           "weights": {
             "environment": -0.25,
             "economy": 0.2,
@@ -458,8 +458,8 @@
         },
         {
           "id": "floresta-proteger",
-          "label": "Declarar santuário permanente: zero corte, com compensação limitada aos madeireiros.",
-          "hint": "Preserva a bacia; deixa famílias sem a promessa de trabalho.",
+          "label": "Proibir o corte de forma permanente, com compensação limitada às empresas.",
+          "hint": "Preserva a floresta e a água; deixa de lado a promessa de trabalho.",
           "weights": {
             "environment": 0.25,
             "economy": -0.18,
@@ -474,8 +474,8 @@
         },
         {
           "id": "floresta-quota",
-          "label": "Cotas anuais de corte seletivo, replantio obrigatório e veto científico se a umidade cair.",
-          "hint": "Tenta sustentabilidade; depende de fiscalização honesta.",
+          "label": "Cotas anuais de corte seletivo, replantio obrigatório e freio se a umidade cair.",
+          "hint": "Tenta sustentabilidade; depende de fiscalização séria.",
           "weights": {
             "environment": 0.12,
             "economy": 0.05,
@@ -490,8 +490,8 @@
         },
         {
           "id": "floresta-comunidades",
-          "label": "Entregar a gestão às vilas da orla florestal, com direito de veto sobre qualquer concessão externa.",
-          "hint": "Poder local; mosaico de regras e possível captura por elites da vila.",
+          "label": "Passar a gestão às comunidades da região, com direito de veto sobre concessões externas.",
+          "hint": "Dá poder local; regras podem ficar irregulares ou capturadas por elites locais.",
           "weights": {
             "authority": -0.2,
             "environment": 0.1,
@@ -509,13 +509,13 @@
     },
     {
       "id": "tratado-norte",
-      "title": "O Tratado com a Liga do Norte",
-      "body": "A Liga do Norte oferece um tratado: mercado comum, tribunais compartilhados e bases navais conjuntas contra pirataria. Em troca, Valmora cede parte da soberania alfandegária e aceita juízes estrangeiros em disputas comerciais. Nacionalistas falam em vassalagem; mercadores falam em sobrevivência.",
+      "title": "Acordo com um bloco vizinho",
+      "body": "Um bloco de países vizinhos oferece um acordo: mercado comum, tribunais compartilhados e cooperação de segurança. Em troca, o país abre mão de parte da soberania comercial e aceita juízes estrangeiros em disputas. Uns falam em perda de autonomia; outros, em oportunidade econômica.",
       "choices": [
         {
           "id": "tratado-aceitar",
-          "label": "Assinar o tratado completo: mercado, tribunais e bases.",
-          "hint": "Integra Valmora ao Norte; dilui autonomia do Pacto.",
+          "label": "Assinar o acordo completo: mercado, tribunais e cooperação de segurança.",
+          "hint": "Integra o país ao bloco; reduz autonomia.",
           "weights": {
             "global": 0.25,
             "economy": 0.15,
@@ -532,8 +532,8 @@
         },
         {
           "id": "tratado-recusar",
-          "label": "Recusar o tratado: manter soberania plena e negociar só comércio pontual.",
-          "hint": "Preserva o Pacto como dono da casa; isola rotas e encarece defesa.",
+          "label": "Recusar o acordo: manter soberania plena e negociar só comércio pontual.",
+          "hint": "Preserva autonomia; pode isolar rotas e encarecer defesa.",
           "weights": {
             "global": -0.25,
             "tradition": 0.15,
@@ -550,7 +550,7 @@
         {
           "id": "tratado-comercio",
           "label": "Aceitar só o capítulo comercial, sem bases nem tribunais estrangeiros.",
-          "hint": "Meio-termo; a Liga pode oferecer menos e cobrar depois.",
+          "hint": "Meio-termo; o bloco pode oferecer menos e cobrar depois.",
           "weights": {
             "global": 0.1,
             "economy": 0.12,
@@ -565,8 +565,8 @@
         },
         {
           "id": "tratado-plebiscito",
-          "label": "Submeter cada capítulo a plebiscito por cidade-estado — o Pacto só ratifica o que passar.",
-          "hint": "Legitimidade local; risco de mapa fragmentado e impasse.",
+          "label": "Submeter cada capítulo a consulta popular por região — o governo só ratifica o que passar.",
+          "hint": "Ganha legitimidade local; risco de mapa fragmentado e impasse.",
           "weights": {
             "authority": -0.2,
             "liberty": 0.12,
@@ -583,13 +583,13 @@
     },
     {
       "id": "automatos-guildas",
-      "title": "Os autômatos nas guildas",
-      "body": "Oficinas de Latobrás apresentam autômatos que tecem e forjam mais barato que aprendizes. Guildas pedem banimento para salvar ofícios seculares; jovens inventores querem liberar tudo e treinar quem sobrar. O pão pode baratear — ou a dignidade do trabalho evaporar.",
+      "title": "Automação no trabalho",
+      "body": "Empresas querem adotar máquinas e software que fazem o serviço mais barato que muita mão de obra. Sindicatos pedem freios para proteger empregos. Outros dizem para liberar a tecnologia e treinar quem sobrar. O custo pode cair — ou muita gente ficar sem lugar.",
       "choices": [
         {
           "id": "auto-banir",
-          "label": "Banir autômatos nas guildas tradicionais por uma geração.",
-          "hint": "Protege ofícios e identidade; mantém preços altos e atrasa inovação.",
+          "label": "Adiar por anos a automação nos setores mais atingidos.",
+          "hint": "Protege empregos e ofícios; mantém preços mais altos e atrasa inovação.",
           "weights": {
             "technology": -0.25,
             "tradition": 0.2,
@@ -605,8 +605,8 @@
         },
         {
           "id": "auto-liberar",
-          "label": "Liberar autômatos sem freio; o mercado e a reinvenção individual resolvem.",
-          "hint": "Acelera produtividade; desloca ofícios sem rede de proteção.",
+          "label": "Liberar a automação sem freio; o mercado e a reinvenção individual resolvem.",
+          "hint": "Acelera a produtividade; desloca trabalhadores sem rede de proteção.",
           "weights": {
             "technology": 0.25,
             "economy": 0.18,
@@ -623,7 +623,7 @@
         },
         {
           "id": "auto-transicao",
-          "label": "Permitir autômatos com imposto sobre cada unidade e renda de transição aos artesãos.",
+          "label": "Permitir a automação com imposto sobre cada sistema e renda de transição para quem for deslocado.",
           "hint": "Suaviza o choque; cria burocracia e disputa sobre quem paga.",
           "weights": {
             "technology": 0.1,
@@ -639,8 +639,8 @@
         },
         {
           "id": "auto-guilda",
-          "label": "Só guildas podem operar autômatos, sob regras internas de partilha do ganho.",
-          "hint": "Inovação sob controle corporativo; exclui inventores fora das guildas.",
+          "label": "Só associações de trabalhadores e empresas do setor podem operar a automação, com regras de partilha do ganho.",
+          "hint": "Inovação sob controle do setor; exclui quem está fora dessas organizações.",
           "weights": {
             "technology": 0.08,
             "tradition": 0.12,
@@ -658,13 +658,13 @@
     },
     {
       "id": "rito-corpo",
-      "title": "O Rito do Véu e a febre de Âmbar",
-      "body": "Uma febre se espalha. Médicos do Pacto pedem um elixir obrigatório — injertado no antebraço, com marca temporária. Em várias cidades, o Rito do Véu ensina que o corpo intacto é sagrado e que marcas impostas violam a alma. Hospitais lotam; templos pedem isenção total.",
+      "title": "Vacina obrigatória numa epidemia",
+      "body": "Uma doença se espalha. Autoridades de saúde pedem vacinação obrigatória. Parte da população alega convicção religiosa ou pessoal e não quer o procedimento. Hospitais lotam. O que fazer?",
       "choices": [
         {
           "id": "corpo-obrigatorio",
-          "label": "Tornar o elixir obrigatório em todo o Pacto, com multa e restrição de trânsito a quem recusar.",
-          "hint": "Contém a febre; força o corpo em nome do coletivo.",
+          "label": "Tornar a vacina obrigatória, com multa e restrição de circulação a quem recusar.",
+          "hint": "Ajuda a conter a doença; força o corpo em nome do coletivo.",
           "weights": {
             "body": -0.25,
             "liberty": -0.2,
@@ -681,8 +681,8 @@
         },
         {
           "id": "corpo-autonomia",
-          "label": "Deixar cada pessoa decidir; o Pacto só informa riscos e oferece o elixir gratuito.",
-          "hint": "Honra autonomia; a febre pode persistir entre os que recusam.",
+          "label": "Deixar cada pessoa decidir; o Estado só informa riscos e oferece a vacina de graça.",
+          "hint": "Respeita autonomia; a doença pode continuar entre quem recusa.",
           "weights": {
             "body": 0.25,
             "liberty": 0.22,
@@ -698,8 +698,8 @@
         },
         {
           "id": "corpo-isencao-rito",
-          "label": "Obrigar o elixir, mas isentar quem comprovar vínculo formal ao Rito do Véu.",
-          "hint": "Respeita fé institucional; cria duas classes de risco sanitário.",
+          "label": "Obrigar a vacina, mas isentar quem comprovar vínculo formal a uma religião reconhecida.",
+          "hint": "Respeita fé institucional; cria duas regras diferentes de risco sanitário.",
           "weights": {
             "body": -0.1,
             "tradition": 0.2,
@@ -715,8 +715,8 @@
         },
         {
           "id": "corpo-cidades",
-          "label": "Cada cidade-estado define a própria regra; o Pacto só coordena estoques.",
-          "hint": "Autonomia regional; fronteiras internas de doença e direito.",
+          "label": "Cada estado define a própria regra; o governo federal só coordena estoques.",
+          "hint": "Autonomia regional; regras e riscos diferentes dentro do mesmo país.",
           "weights": {
             "authority": -0.2,
             "body": 0.08,

@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center">
       <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
-        Protótipo conceitual
+        Teste político
       </p>
       <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl leading-tight text-[var(--ink)] sm:text-5xl">
         Rosa Política
@@ -17,9 +17,9 @@ export default function HomePage() {
         {story.world.summary}
       </p>
       <p className="mt-4 text-[var(--muted)]">
-        Não há respostas certas — só escolhas com trade-offs. Ao final, você vê
-        um perfil em dez eixos (posição e o que é essencial vs limítrofe) e um
-        arquétipo de Valmora.
+        Não há resposta certa — só escolhas com prós e contras. No fim, você vê
+        um perfil em dez eixos (para onde inclina e o que pesou mais) e um
+        arquétipo resumido.
       </p>
       <div className="mt-10">
         <Link

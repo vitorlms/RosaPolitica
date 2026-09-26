@@ -3,7 +3,7 @@ import type { ScoreResult } from "@/lib/types";
 /** Plain-text card optimized for WhatsApp / Telegram paste. */
 export function formatShareText(result: ScoreResult, siteUrl?: string): string {
   const lines: string[] = [
-    "🌹 Rosa Política — meu resultado em Valmora",
+    "Rosa Política — meu resultado",
     "",
     result.archetype.name,
   ];

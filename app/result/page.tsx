@@ -50,7 +50,7 @@ export default function ResultPage() {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-16">
       <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
-        Seu perfil em Valmora
+        Seu perfil
       </p>
       <h1 className="mt-2 text-center font-[family-name:var(--font-display)] text-3xl text-[var(--ink)] sm:text-4xl">
         {result.archetype.name}
@@ -71,11 +71,11 @@ export default function ResultPage() {
       </div>
 
       <h2 className="mt-12 font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
-        Dez eixos — posição e essencialidade
+        Dez eixos
       </h2>
       <p className="mt-2 max-w-md text-center text-sm text-[var(--muted)]">
-        Posição (0–100) mostra o pólo; essencialidade mostra o quanto o tema foi
-        tratado como núcleo ou como zona limítrofe/negociável.
+        Posição mostra para onde você inclina. Essencialidade mostra o quanto
+        cada tema pesou de verdade nas suas escolhas.
       </p>
 
       <div className="mt-8 w-full flex justify-center">
