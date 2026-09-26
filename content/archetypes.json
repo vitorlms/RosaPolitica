@@ -3,6 +3,20 @@
     "id": "guardiao-pacto",
     "name": "Institucionalista",
     "description": "Você tende a valorizar regras claras e um Estado capaz de organizar conflitos — inclusive em segurança e saúde pública. Prefere instituições fortes a deixar tudo solto.",
+    "examples": [
+      {
+        "name": "Angela Merkel",
+        "note": "estabilidade institucional e gestão de crises"
+      },
+      {
+        "name": "Fernando Henrique Cardoso",
+        "note": "regras fiscais e consolidação de instituições"
+      },
+      {
+        "name": "Konrad Adenauer",
+        "note": "reconstrução democrática com Estado forte e previsível"
+      }
+    ],
     "centroid": {
       "economy": -0.1,
       "authority": 0.65,
@@ -20,6 +34,20 @@
     "id": "livre-mercado",
     "name": "Liberal de mercado",
     "description": "Você confia mais em contratos, propriedade, inovação e escolha individual. Em geral, prefere menos intervenção e trata muitos dilemas como algo a negociar.",
+    "examples": [
+      {
+        "name": "Milton Friedman",
+        "note": "mercados livres e crítica à intervenção estatal"
+      },
+      {
+        "name": "Margaret Thatcher",
+        "note": "privatização e ênfase na escolha individual"
+      },
+      {
+        "name": "Roberto Campos",
+        "note": "abertura econômica e desconfiança do estatismo"
+      }
+    ],
     "centroid": {
       "economy": 0.7,
       "authority": -0.2,
@@ -37,6 +65,20 @@
     "id": "irmandade-comunal",
     "name": "Igualitário",
     "description": "Você prioriza reduzir desigualdades e frear poder concentrado — público ou privado. Acolhimento, redistribuição e proteção de quem fica para trás pesam mais nas suas escolhas.",
+    "examples": [
+      {
+        "name": "Luiz Inácio Lula da Silva",
+        "note": "redistribuição e inclusão social"
+      },
+      {
+        "name": "Bernie Sanders",
+        "note": "crítica à concentração de renda e poder"
+      },
+      {
+        "name": "Michelle Bachelet",
+        "note": "políticas sociais e direitos iguais"
+      }
+    ],
     "centroid": {
       "economy": -0.6,
       "authority": -0.15,
@@ -54,6 +96,20 @@
     "id": "guarda-costumes",
     "name": "Conservador cultural",
     "description": "Você defende continuidade, laços locais e limites à mudança acelerada — na escola, no território, nos costumes. Desconfia de rupturas rápidas vindas de fora.",
+    "examples": [
+      {
+        "name": "Edmund Burke",
+        "note": "tradição e mudança gradual"
+      },
+      {
+        "name": "Roger Scruton",
+        "note": "continuidade cultural e crítica ao cosmopolitismo abstrato"
+      },
+      {
+        "name": "Charles de Gaulle",
+        "note": "soberania nacional e identidade histórica"
+      }
+    ],
     "centroid": {
       "economy": 0.05,
       "authority": 0.25,
@@ -71,6 +127,20 @@
     "id": "autonomista",
     "name": "Autonomista",
     "description": "Você desconfia de centros fortes e prefere que cada comunidade decida o próprio rumo. Aceita que o mapa fique desigual se isso preservar autonomia local.",
+    "examples": [
+      {
+        "name": "Thomas Jefferson",
+        "note": "desconfiança de poder central concentrado"
+      },
+      {
+        "name": "Elinor Ostrom",
+        "note": "governança local de bens comuns"
+      },
+      {
+        "name": "Mahatma Gandhi",
+        "note": "autonomia comunitária e autossuficiência"
+      }
+    ],
     "centroid": {
       "economy": 0.1,
       "authority": -0.7,
@@ -88,6 +158,20 @@
     "id": "reformista-pragmatico",
     "name": "Pragmático",
     "description": "Você busca meios-termos: um pouco de regra, um pouco de escolha, compromissos parciais. Prefere costurar saídas a radicalizar qualquer lado.",
+    "examples": [
+      {
+        "name": "Bill Clinton",
+        "note": "terceira via e compromissos partidários"
+      },
+      {
+        "name": "Tony Blair",
+        "note": "reformas graduais sem ruptura ideológica"
+      },
+      {
+        "name": "Emmanuel Macron",
+        "note": "discurso de centro e soluções híbridas"
+      }
+    ],
     "centroid": {
       "economy": 0.0,
       "authority": 0.1,
@@ -105,6 +189,20 @@
     "id": "sentinela-inquieta",
     "name": "Prioridade segurança",
     "description": "Para você, ameaça — epidemia, atentado, fronteira — justifica freios mais fortes à liberdade e à abertura. Aceita restrições se isso reduzir risco coletivo.",
+    "examples": [
+      {
+        "name": "Lee Kuan Yew",
+        "note": "ordem e segurança como base do desenvolvimento"
+      },
+      {
+        "name": "Nayib Bukele",
+        "note": "endurecimento contra crime organizado"
+      },
+      {
+        "name": "Rudy Giuliani",
+        "note": "políticas de tolerância zero e controle urbano"
+      }
+    ],
     "centroid": {
       "economy": 0.05,
       "authority": 0.5,
@@ -122,6 +220,20 @@
     "id": "custodio-vivente",
     "name": "Ecologista / autonomia corporal",
     "description": "Você trata ambiente, corpo e freios técnicos como limites importantes. Protege floresta e rio, desacelera automação agressiva e desconfia de imposições sobre o corpo.",
+    "examples": [
+      {
+        "name": "Marina Silva",
+        "note": "limites ecológicos e proteção ambiental"
+      },
+      {
+        "name": "Simone Veil",
+        "note": "autonomia corporal e direitos reprodutivos"
+      },
+      {
+        "name": "Rachel Carson",
+        "note": "alerta ecológico e cautela técnica"
+      }
+    ],
     "centroid": {
       "economy": -0.25,
       "authority": 0.05,
