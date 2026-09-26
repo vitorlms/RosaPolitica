@@ -84,12 +84,20 @@ export default function ResultPage() {
 
       <ShareResult result={result} />
 
-      <Link
-        href="/"
-        className="mt-12 inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
-      >
-        Recomeçar
-      </Link>
+      <div className="mt-12 flex flex-wrap justify-center gap-3">
+        <Link
+          href="/posicoes"
+          className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
+        >
+          Ver todas as posições
+        </Link>
+        <Link
+          href="/"
+          className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
+        >
+          Recomeçar
+        </Link>
+      </div>
     </div>
   );
 }

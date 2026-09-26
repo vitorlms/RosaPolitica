@@ -21,12 +21,18 @@ export default function HomePage() {
         um perfil em dez eixos (para onde inclina e o que pesou mais) e um
         arquétipo resumido.
       </p>
-      <div className="mt-10">
+      <div className="mt-10 flex flex-wrap gap-3">
         <Link
           href="/play"
           className="inline-flex items-center rounded-lg bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--ink)] transition-opacity hover:opacity-90"
         >
           Começar
+        </Link>
+        <Link
+          href="/posicoes"
+          className="inline-flex items-center rounded-lg border border-[var(--line)] px-6 py-3 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
+        >
+          Ver posições possíveis
         </Link>
       </div>
     </div>
