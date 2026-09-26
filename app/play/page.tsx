@@ -7,7 +7,12 @@ import { SceneCard } from "@/components/SceneCard";
 import { story } from "@/lib/scoring";
 import { clearChoices, saveChoices } from "@/lib/storage";
 
-const ADVANCE_MS = 180;
+/** Pause so the selected answer is readable before the scene fades. */
+const SELECT_HOLD_MS = 650;
+const EXIT_MS = 650;
+const ENTER_MS = 550;
+
+type Phase = "idle" | "exiting" | "entering";
 
 export default function PlayPage() {
   const router = useRouter();
@@ -17,14 +22,23 @@ export default function PlayPage() {
   const [answers, setAnswers] = useState<string[]>([]);
   const [ready, setReady] = useState(false);
   const [locked, setLocked] = useState(false);
-  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [phase, setPhase] = useState<Phase>("idle");
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  function clearTimers() {
+    for (const id of timers.current) clearTimeout(id);
+    timers.current = [];
+  }
+
+  function later(ms: number, fn: () => void) {
+    const id = setTimeout(fn, ms);
+    timers.current.push(id);
+  }
 
   useEffect(() => {
     clearChoices();
     setReady(true);
-    return () => {
-      if (advanceTimer.current) clearTimeout(advanceTimer.current);
-    };
+    return () => clearTimers();
   }, []);
 
   if (!ready) {
@@ -39,6 +53,16 @@ export default function PlayPage() {
   const isFirst = index === 0;
   const isLast = index === scenes.length - 1;
 
+  function advanceTo(nextIndex: number, nextAnswers: string[]) {
+    setIndex(nextIndex);
+    setSelected(nextAnswers[nextIndex] ?? null);
+    setPhase("entering");
+    later(ENTER_MS, () => {
+      setPhase("idle");
+      setLocked(false);
+    });
+  }
+
   function selectChoice(choiceId: string) {
     if (locked) return;
     setLocked(true);
@@ -47,49 +71,57 @@ export default function PlayPage() {
     const nextAnswers = [...answers.slice(0, index), choiceId];
     setAnswers(nextAnswers);
 
-    advanceTimer.current = setTimeout(() => {
-      if (isLast) {
-        saveChoices(nextAnswers);
-        router.push("/result");
-        return;
-      }
-      const nextIndex = index + 1;
-      setIndex(nextIndex);
-      setSelected(nextAnswers[nextIndex] ?? null);
-      setLocked(false);
-    }, ADVANCE_MS);
+    later(SELECT_HOLD_MS, () => {
+      setPhase("exiting");
+      later(EXIT_MS, () => {
+        if (isLast) {
+          saveChoices(nextAnswers);
+          router.push("/result");
+          return;
+        }
+        advanceTo(index + 1, nextAnswers);
+      });
+    });
   }
 
   function goBack() {
     if (locked) return;
-    if (advanceTimer.current) {
-      clearTimeout(advanceTimer.current);
-      advanceTimer.current = null;
-    }
-    setLocked(false);
 
     if (isFirst) {
       router.push("/");
       return;
     }
 
-    const prevIndex = index - 1;
-    setIndex(prevIndex);
-    setSelected(answers[prevIndex] ?? null);
+    clearTimers();
+    setLocked(true);
+    setPhase("exiting");
+    later(EXIT_MS, () => {
+      advanceTo(index - 1, answers);
+    });
   }
+
+  const sceneMotion =
+    phase === "exiting"
+      ? "scene-exit"
+      : phase === "entering"
+        ? "scene-enter"
+        : undefined;
 
   return (
     <div className="flex flex-1 flex-col">
-      <SceneCard scene={scene} index={index} total={scenes.length}>
-        {scene.choices.map((choice) => (
-          <ChoiceButton
-            key={choice.id}
-            choice={choice}
-            selected={selected === choice.id}
-            onSelect={selectChoice}
-          />
-        ))}
-      </SceneCard>
+      <div key={scene.id} className={sceneMotion} data-phase={phase}>
+        <SceneCard scene={scene} index={index} total={scenes.length}>
+          {scene.choices.map((choice) => (
+            <ChoiceButton
+              key={choice.id}
+              choice={choice}
+              selected={selected === choice.id}
+              dimmed={locked && selected !== choice.id}
+              onSelect={selectChoice}
+            />
+          ))}
+        </SceneCard>
+      </div>
       <div className="mx-auto mt-8 flex w-full max-w-2xl gap-3">
         <button
           type="button"
