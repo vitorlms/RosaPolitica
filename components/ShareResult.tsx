@@ -18,6 +18,9 @@ export function ShareResult({ result }: ShareResultProps) {
     return formatShareText(result, url);
   }, [result]);
 
+  const shareUrl =
+    typeof window !== "undefined" ? window.location.origin : undefined;
+
   async function copy() {
     setError(null);
     try {
@@ -39,6 +42,7 @@ export function ShareResult({ result }: ShareResultProps) {
       await navigator.share({
         title: `Rosa Política — ${result.archetype.name}`,
         text,
+        url: shareUrl,
       });
     } catch (err) {
       // User cancelled share sheet — ignore.
@@ -56,7 +60,8 @@ export function ShareResult({ result }: ShareResultProps) {
         Compartilhar por mensagem
       </h2>
       <p className="mt-1 text-sm text-[var(--muted)]">
-        Copie a mensagem abaixo e cole no WhatsApp, Telegram ou onde quiser.
+        Mensagem curta (até 180 caracteres) para colar no WhatsApp, Telegram ou
+        onde quiser.
       </p>
 
       <pre className="mt-4 whitespace-pre-wrap rounded-lg border border-[var(--line)] bg-[var(--surface)] p-4 text-left text-sm leading-relaxed text-[var(--ink-soft)]">

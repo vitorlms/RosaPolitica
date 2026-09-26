@@ -16,9 +16,24 @@ const sans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rosa-politica.vercel.app"),
   title: "Rosa Política",
   description:
     "Teste político por dilemas: escolha o que faria e veja seu perfil.",
+  openGraph: {
+    title: "Rosa Política",
+    description:
+      "Teste político por dilemas: escolha o que faria e veja seu perfil.",
+    siteName: "Rosa Política",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rosa Política",
+    description:
+      "Teste político por dilemas: escolha o que faria e veja seu perfil.",
+  },
 };
 
 export default function RootLayout({
