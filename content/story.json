@@ -1,7 +1,7 @@
 {
   "world": {
     "name": "Valmora",
-    "summary": "Valmora é um país fictício, mas os dilemas são os de sempre: emprego, liberdade, escola, fronteira, ambiente, segurança. Em cada situação, você escolhe o que faria. Não há resposta certa — no fim, o teste mostra para onde você inclina e o que parece mais difícil de abrir mão."
+    "summary": "Valmora é um país fictício, mas os dilemas são os de sempre: emprego, liberdade, escola, fronteira, ambiente, segurança, tecnologia, corpo. São várias situações — cada uma ajuda a marcar com mais precisão para onde você inclina. Não há resposta certa; no fim, o teste mostra o perfil e o que pesou mais."
   },
   "scenes": [
     {
@@ -728,6 +728,717 @@
             "authority": 0.75,
             "body": 0.6,
             "equality": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "imposto-fortunas",
+      "title": "Imposto sobre grandes fortunas",
+      "body": "O Congresso discute um imposto anual sobre patrimônios muito altos. Uns dizem que reduz desigualdade e financia saúde e educação. Outros dizem que afasta investimento e pune quem já pagou imposto ao longo da vida. Qual linha você apoiaria?",
+      "choices": [
+        {
+          "id": "imposto-criar",
+          "label": "Criar o imposto com alíquota progressiva e receita carimbada para saúde e escola pública.",
+          "hint": "Redistribui; pode gerar fuga de capital e litígio.",
+          "weights": {
+            "economy": -0.18,
+            "equality": 0.2,
+            "liberty": -0.08,
+            "authority": 0.08
+          },
+          "salience": {
+            "equality": 0.85,
+            "economy": 0.8,
+            "liberty": 0.45
+          }
+        },
+        {
+          "id": "imposto-rejeitar",
+          "label": "Rejeitar o imposto: manter o foco em crescimento e em impostos já existentes sobre renda e consumo.",
+          "hint": "Preserva atratividade econômica; pouco muda a concentração de patrimônio.",
+          "weights": {
+            "economy": 0.2,
+            "equality": -0.18,
+            "liberty": 0.12
+          },
+          "salience": {
+            "economy": 0.85,
+            "equality": 0.7,
+            "liberty": 0.5
+          }
+        },
+        {
+          "id": "imposto-meio",
+          "label": "Cobrar só sobre fortuna financeira acima de um limiar alto, com isenção de imóvel residencial único.",
+          "hint": "Meio-termo; arrecada menos e ainda gera controvérsia.",
+          "weights": {
+            "economy": -0.08,
+            "equality": 0.1,
+            "liberty": -0.04
+          },
+          "salience": {
+            "equality": 0.5,
+            "economy": 0.45
+          }
+        },
+        {
+          "id": "imposto-estados",
+          "label": "Deixar cada estado decidir se cria o imposto; a União só define regras mínimas de transparência.",
+          "hint": "Autonomia local; mosaico fiscal e possível guerra entre estados.",
+          "weights": {
+            "authority": -0.18,
+            "economy": 0.05,
+            "equality": -0.08,
+            "liberty": 0.1
+          },
+          "salience": {
+            "authority": 0.75,
+            "equality": 0.45,
+            "economy": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "id": "drogas-porte",
+      "title": "Porte de drogas para uso pessoal",
+      "body": "A Justiça e o Congresso discutem se carregar pequena quantidade de droga para uso próprio deve ser crime. Polícia e parte da opinião pública pedem rigor. Outros pedem tratamento de saúde e fim da criminalização do usuário. O que você faria?",
+      "choices": [
+        {
+          "id": "drogas-descriminalizar",
+          "label": "Descriminalizar o porte para uso pessoal e investir em redução de danos e tratamento.",
+          "hint": "Tira o usuário do crime; exige rede de saúde e pode gerar resistência local.",
+          "weights": {
+            "liberty": 0.18,
+            "body": 0.15,
+            "security": -0.12,
+            "authority": -0.1,
+            "equality": 0.08
+          },
+          "salience": {
+            "liberty": 0.85,
+            "body": 0.75,
+            "security": 0.65
+          }
+        },
+        {
+          "id": "drogas-manter-crime",
+          "label": "Manter como crime, com multa e possível prisão, e reforçar a repressão ao tráfico.",
+          "hint": "Sinaliza rigor; mantém o usuário na órbita penal.",
+          "weights": {
+            "security": 0.18,
+            "authority": 0.15,
+            "liberty": -0.18,
+            "body": -0.12,
+            "tradition": 0.1
+          },
+          "salience": {
+            "security": 0.85,
+            "liberty": 0.8,
+            "body": 0.7
+          }
+        },
+        {
+          "id": "drogas-advertencia",
+          "label": "Trocar prisão por advertência e encaminhamento obrigatório a avaliação de saúde.",
+          "hint": "Suaviza a pena; ainda envolve o Estado na vida privada.",
+          "weights": {
+            "liberty": 0.05,
+            "body": 0.05,
+            "security": 0.05,
+            "authority": 0.08
+          },
+          "salience": {
+            "liberty": 0.45,
+            "body": 0.45,
+            "security": 0.4
+          }
+        },
+        {
+          "id": "drogas-municipio",
+          "label": "Deixar municípios e estados definirem a abordagem, dentro de uma faixa federal mínima.",
+          "hint": "Autonomia local; regras diferentes no mesmo país.",
+          "weights": {
+            "authority": -0.15,
+            "liberty": 0.08,
+            "security": -0.05,
+            "body": 0.05
+          },
+          "salience": {
+            "authority": 0.7,
+            "liberty": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "aborto-legislacao",
+      "title": "Interrupção da gravidez",
+      "body": "O país reabre o debate sobre interrupção da gravidez. Há propostas para ampliar o acesso legal, manter só as hipóteses atuais ou restringir ainda mais. Saúde pública, autonomia e convicções morais estão no centro. Qual posição você tomaria?",
+      "choices": [
+        {
+          "id": "aborto-ampliar",
+          "label": "Ampliar o acesso legal até um prazo gestacional definido, pelo SUS, sem exigir justificativa moral.",
+          "hint": "Prioriza autonomia e saúde; gera forte oposição moral e religiosa.",
+          "weights": {
+            "body": 0.22,
+            "liberty": 0.18,
+            "tradition": -0.2,
+            "equality": 0.1,
+            "authority": -0.05
+          },
+          "salience": {
+            "body": 0.95,
+            "liberty": 0.85,
+            "tradition": 0.8
+          }
+        },
+        {
+          "id": "aborto-restringir",
+          "label": "Restringir ao máximo, salvo risco de vida da gestante, com sanções mais duras.",
+          "hint": "Afirma proteção moral coletiva; reduz autonomia e pode empurrar práticas inseguras.",
+          "weights": {
+            "body": -0.22,
+            "tradition": 0.2,
+            "liberty": -0.18,
+            "authority": 0.12,
+            "security": 0.05
+          },
+          "salience": {
+            "body": 0.95,
+            "tradition": 0.85,
+            "liberty": 0.8
+          }
+        },
+        {
+          "id": "aborto-manter",
+          "label": "Manter só as hipóteses já previstas em lei e melhorar o acesso a essas exceções.",
+          "hint": "Evita ruptura; deixa o conflito permanente sem resolver o fundo.",
+          "weights": {
+            "body": 0,
+            "tradition": 0.05,
+            "liberty": 0,
+            "authority": 0.05
+          },
+          "salience": {
+            "body": 0.4,
+            "tradition": 0.4,
+            "liberty": 0.35
+          }
+        },
+        {
+          "id": "aborto-objecao",
+          "label": "Ampliar o acesso, mas garantir ampla objeção de consciência a profissionais e hospitais religiosos.",
+          "hint": "Tenta conciliar direitos; na prática o acesso pode ficar desigual.",
+          "weights": {
+            "body": 0.12,
+            "liberty": 0.1,
+            "tradition": 0.1,
+            "equality": -0.08
+          },
+          "salience": {
+            "body": 0.7,
+            "tradition": 0.65,
+            "equality": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "algoritmo-justica",
+      "title": "Algoritmo na Justiça criminal",
+      "body": "Tribunais testam um sistema que sugere risco de reincidência e ajuda a decidir prisão preventiva e liberdade. Promotores veem ganho de velocidade. Defensores alertam para viés contra pobres e negros, e para decisões sem explicação clara. O que fazer?",
+      "choices": [
+        {
+          "id": "algo-adotar",
+          "label": "Adotar o sistema em todo o país, com auditoria técnica periódica.",
+          "hint": "Acelera decisões; risco de viés opaco e dependência da máquina.",
+          "weights": {
+            "technology": 0.2,
+            "authority": 0.12,
+            "liberty": -0.12,
+            "equality": -0.1,
+            "security": 0.1
+          },
+          "salience": {
+            "technology": 0.9,
+            "liberty": 0.7,
+            "equality": 0.65
+          }
+        },
+        {
+          "id": "algo-banir",
+          "label": "Proibir o uso do algoritmo em decisões sobre liberdade; manter só julgamento humano motivado.",
+          "hint": "Preserva responsabilidade humana; aceita mais lentidão e variação entre juízes.",
+          "weights": {
+            "technology": -0.2,
+            "liberty": 0.15,
+            "authority": -0.08,
+            "equality": 0.1
+          },
+          "salience": {
+            "technology": 0.9,
+            "liberty": 0.75,
+            "equality": 0.55
+          }
+        },
+        {
+          "id": "algo-apoio",
+          "label": "Permitir só como apoio opcional, sem valor vinculante, e com direito de contestar os fatores usados.",
+          "hint": "Meio-termo; na prática o 'apoio' pode virar padrão silencioso.",
+          "weights": {
+            "technology": 0.08,
+            "liberty": 0.05,
+            "authority": 0.05,
+            "equality": 0.05
+          },
+          "salience": {
+            "technology": 0.5,
+            "liberty": 0.45
+          }
+        },
+        {
+          "id": "algo-piloto",
+          "label": "Manter piloto limitado a crimes patrimoniais leves, com dados abertos e revisão externa.",
+          "hint": "Aprende com cautela; pode se expandir depois sem novo debate pleno.",
+          "weights": {
+            "technology": 0.05,
+            "authority": 0.05,
+            "liberty": -0.04,
+            "equality": 0.08
+          },
+          "salience": {
+            "technology": 0.45,
+            "equality": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "agro-reserva",
+      "title": "Agronegócio e área protegida",
+      "body": "Uma região discute liberar parte de área protegida para soja e pecuária. Produtores prometem emprego e exportação. Ambientistas e comunidades locais alertam para água, biodiversidade e clima. Como você decidiria?",
+      "choices": [
+        {
+          "id": "agro-liberar",
+          "label": "Liberar a área com compensação ambiental em outra região e meta de empregos locais.",
+          "hint": "Ganha produção e receita; perde habitat contínuo e serviços ecossistêmicos.",
+          "weights": {
+            "environment": -0.2,
+            "economy": 0.18,
+            "global": 0.1,
+            "tradition": -0.05,
+            "equality": 0.05
+          },
+          "salience": {
+            "environment": 0.9,
+            "economy": 0.75,
+            "global": 0.45
+          }
+        },
+        {
+          "id": "agro-proteger",
+          "label": "Manter a proteção integral e incentivar turismo e bioeconomia de baixo impacto.",
+          "hint": "Preserva o ecossistema; frustra a expectativa de expansão agrícola.",
+          "weights": {
+            "environment": 0.22,
+            "economy": -0.12,
+            "tradition": 0.08,
+            "authority": 0.08
+          },
+          "salience": {
+            "environment": 0.95,
+            "economy": 0.55
+          }
+        },
+        {
+          "id": "agro-mosaico",
+          "label": "Permitir uso só em faixas já degradadas, com corredores ecológicos obrigatórios.",
+          "hint": "Tenta conciliar; depende de fiscalização difícil no chão.",
+          "weights": {
+            "environment": 0.1,
+            "economy": 0.08,
+            "authority": 0.08,
+            "technology": 0.05
+          },
+          "salience": {
+            "environment": 0.55,
+            "economy": 0.45
+          }
+        },
+        {
+          "id": "agro-local",
+          "label": "Deixar a decisão com o estado e os municípios da região, sob teto federal mínimo de preservação.",
+          "hint": "Poder local; risco de pressão econômica capturar a regra.",
+          "weights": {
+            "authority": -0.15,
+            "environment": 0.05,
+            "economy": 0.08,
+            "tradition": 0.08
+          },
+          "salience": {
+            "authority": 0.7,
+            "environment": 0.5,
+            "economy": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "servico-militar",
+      "title": "Serviço militar obrigatório",
+      "body": "Cresce a proposta de reforçar o serviço militar obrigatório para jovens, com foco em disciplina e reserva de segurança. Críticos veem coerção e desperdício de tempo. Apoiadores veem formação cívica e capacidade de defesa. O que você escolheria?",
+      "choices": [
+        {
+          "id": "militar-ampliar",
+          "label": "Ampliar o serviço obrigatório, com duração plena e poucas isenções.",
+          "hint": "Fortalece reserva e disciplina coletiva; reduz liberdade de escolha na juventude.",
+          "weights": {
+            "security": 0.2,
+            "authority": 0.18,
+            "liberty": -0.18,
+            "tradition": 0.12,
+            "equality": 0.05
+          },
+          "salience": {
+            "security": 0.85,
+            "liberty": 0.8,
+            "authority": 0.75
+          }
+        },
+        {
+          "id": "militar-voluntario",
+          "label": "Acabar com a obrigatoriedade e manter só forças profissionais voluntárias bem pagas.",
+          "hint": "Respeita escolha individual; pode encarecer e reduzir a base de reserva.",
+          "weights": {
+            "liberty": 0.18,
+            "security": -0.1,
+            "authority": -0.12,
+            "economy": 0.08
+          },
+          "salience": {
+            "liberty": 0.85,
+            "security": 0.65,
+            "authority": 0.55
+          }
+        },
+        {
+          "id": "militar-civil",
+          "label": "Oferecer serviço civil alternativo obrigatório (saúde, escolas, desastres) para quem não quiser farda.",
+          "hint": "Mantém dever coletivo com mais opções; ainda é obrigação.",
+          "weights": {
+            "authority": 0.1,
+            "liberty": -0.08,
+            "equality": 0.1,
+            "security": 0.05
+          },
+          "salience": {
+            "authority": 0.55,
+            "liberty": 0.5,
+            "equality": 0.45
+          }
+        },
+        {
+          "id": "militar-sorteio",
+          "label": "Manter obrigatoriedade curta por sorteio, com treinamento básico e foco em defesa civil.",
+          "hint": "Meio-termo; a sorte decide quem carrega o ônus.",
+          "weights": {
+            "security": 0.1,
+            "authority": 0.08,
+            "liberty": -0.08,
+            "equality": 0.05
+          },
+          "salience": {
+            "security": 0.5,
+            "liberty": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "fake-news-redes",
+      "title": "Mentira e discurso nas redes",
+      "body": "Depois de uma eleição marcada por desinformação, o Congresso discute regras para plataformas. Uns pedem remoção rápida de conteúdo falso. Outros temem censura privada com poder de Estado. Como regular?",
+      "choices": [
+        {
+          "id": "redes-remover",
+          "label": "Obrigar remoção rápida de desinformação eleitoral e sanitaria, com multa pesada às plataformas.",
+          "hint": "Reduz dano em massa; risco de excesso e de critérios opacos.",
+          "weights": {
+            "authority": 0.15,
+            "liberty": -0.18,
+            "technology": -0.08,
+            "security": 0.12,
+            "equality": 0.05
+          },
+          "salience": {
+            "liberty": 0.9,
+            "authority": 0.75,
+            "security": 0.6
+          }
+        },
+        {
+          "id": "redes-livre",
+          "label": "Não criar dever geral de remoção: responsabilizar só quem publica, e manter a plataforma como espaço aberto.",
+          "hint": "Maximiza fala; aceita circulação ampla de mentira.",
+          "weights": {
+            "liberty": 0.2,
+            "authority": -0.15,
+            "technology": 0.1,
+            "security": -0.1
+          },
+          "salience": {
+            "liberty": 0.95,
+            "authority": 0.65,
+            "technology": 0.45
+          }
+        },
+        {
+          "id": "redes-rotulo",
+          "label": "Exigir rótulo e contexto em conteúdo duvidoso, sem remoção automática, e transparência dos algoritmos de alcance.",
+          "hint": "Meio-termo informativo; pode ser ignorado ou manipulado.",
+          "weights": {
+            "liberty": 0.05,
+            "technology": 0.08,
+            "authority": 0.08,
+            "equality": 0.05
+          },
+          "salience": {
+            "technology": 0.55,
+            "liberty": 0.5
+          }
+        },
+        {
+          "id": "redes-conselho",
+          "label": "Criar um conselho independente multipartidário para definir critérios públicos de moderação.",
+          "hint": "Busca legitimidade; risco de captura política do conselho.",
+          "weights": {
+            "authority": 0.1,
+            "liberty": -0.08,
+            "equality": 0.08,
+            "technology": -0.05
+          },
+          "salience": {
+            "authority": 0.55,
+            "liberty": 0.5,
+            "equality": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "eutanasia-debate",
+      "title": "Morte assistida",
+      "body": "Pacientes com doença terminal pedem o direito à morte assistida com apoio médico. Parte da sociedade vê dignidade e autonomia. Outra parte vê risco ético e pressão sobre os mais vulneráveis. Qual regra você apoiaria?",
+      "choices": [
+        {
+          "id": "eutanasia-permitir",
+          "label": "Permitir morte assistida com critérios médicos rigorosos e consentimento reiterado.",
+          "hint": "Amplia autonomia no fim da vida; gera conflito moral profundo.",
+          "weights": {
+            "body": 0.2,
+            "liberty": 0.18,
+            "tradition": -0.18,
+            "authority": -0.05
+          },
+          "salience": {
+            "body": 0.95,
+            "liberty": 0.85,
+            "tradition": 0.75
+          }
+        },
+        {
+          "id": "eutanasia-proibir",
+          "label": "Manter a proibição e reforçar cuidados paliativos como resposta principal.",
+          "hint": "Afirma proteção da vida como norma; limita a escolha do paciente.",
+          "weights": {
+            "body": -0.18,
+            "tradition": 0.18,
+            "liberty": -0.12,
+            "authority": 0.1
+          },
+          "salience": {
+            "body": 0.9,
+            "tradition": 0.8,
+            "liberty": 0.7
+          }
+        },
+        {
+          "id": "eutanasia-paliativo",
+          "label": "Não legalizar a morte assistida agora, mas garantir acesso universal a paliativos e sedação.",
+          "hint": "Adia o embate; melhora o cuidado sem abrir o direito novo.",
+          "weights": {
+            "body": -0.05,
+            "equality": 0.1,
+            "tradition": 0.08,
+            "liberty": -0.05
+          },
+          "salience": {
+            "equality": 0.5,
+            "body": 0.45,
+            "tradition": 0.4
+          }
+        },
+        {
+          "id": "eutanasia-estados",
+          "label": "Deixar cada estado legislar, com revisão judicial caso a caso.",
+          "hint": "Autonomia federativa; direitos diferentes conforme o CEP.",
+          "weights": {
+            "authority": -0.15,
+            "body": 0.08,
+            "liberty": 0.08,
+            "equality": -0.08
+          },
+          "salience": {
+            "authority": 0.7,
+            "body": 0.55,
+            "equality": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "ajuda-externa",
+      "title": "Ajuda a um país em crise",
+      "body": "Um país aliado entra em colapso econômico e pede empréstimo emergencial e apoio humanitário. Ajudar custa dinheiro público e pode gerar dependência. Negar pode aprofundar a crise e o fluxo migratório. O que você faria?",
+      "choices": [
+        {
+          "id": "ajuda-ampla",
+          "label": "Conceder pacote amplo de ajuda e empréstimo, com condições brandas de reforma.",
+          "hint": "Afirma solidariedade e influência externa; pressiona o orçamento interno.",
+          "weights": {
+            "global": 0.22,
+            "equality": 0.1,
+            "economy": -0.12,
+            "tradition": -0.08,
+            "security": -0.05
+          },
+          "salience": {
+            "global": 0.9,
+            "economy": 0.55,
+            "equality": 0.45
+          }
+        },
+        {
+          "id": "ajuda-negar",
+          "label": "Negar o pacote: priorizar o orçamento interno e limitar-se a doações privadas voluntárias.",
+          "hint": "Protege a soberania fiscal; pode agravar a crise vizinha.",
+          "weights": {
+            "global": -0.22,
+            "tradition": 0.12,
+            "economy": 0.1,
+            "security": 0.08,
+            "equality": -0.08
+          },
+          "salience": {
+            "global": 0.9,
+            "tradition": 0.55,
+            "economy": 0.5
+          }
+        },
+        {
+          "id": "ajuda-condicionada",
+          "label": "Ajudar com valor menor e condições rígidas de ajuste e supervisão externa.",
+          "hint": "Meio-termo; pode ser visto como tutela.",
+          "weights": {
+            "global": 0.1,
+            "authority": 0.08,
+            "economy": -0.05,
+            "equality": -0.05
+          },
+          "salience": {
+            "global": 0.55,
+            "authority": 0.4
+          }
+        },
+        {
+          "id": "ajuda-multilateral",
+          "label": "Canalizar a resposta só por organismos multilaterais, sem bilateralismo direto.",
+          "hint": "Dilui o custo nacional; reduz controle próprio sobre os termos.",
+          "weights": {
+            "global": 0.15,
+            "authority": -0.08,
+            "economy": -0.05,
+            "equality": 0.05
+          },
+          "salience": {
+            "global": 0.7,
+            "authority": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "metas-clima",
+      "title": "Metas climáticas e indústria",
+      "body": "O governo precisa definir metas de corte de emissões para a próxima década. Indústria e transporte pedem prazos longos. Cientistas pedem aceleração. Famílias temem o preço da energia. Qual ritmo você escolheria?",
+      "choices": [
+        {
+          "id": "clima-acelerar",
+          "label": "Metas agressivas com cronograma curto, fim gradual de combustíveis fósseis e investimento pesado em renovável.",
+          "hint": "Acelera a transição; eleva custo de curto prazo e atrito industrial.",
+          "weights": {
+            "environment": 0.22,
+            "technology": 0.12,
+            "economy": -0.12,
+            "global": 0.1,
+            "equality": 0.05
+          },
+          "salience": {
+            "environment": 0.95,
+            "economy": 0.6,
+            "technology": 0.5
+          }
+        },
+        {
+          "id": "clima-atrasar",
+          "label": "Metas brandas, priorizando emprego industrial e energia barata agora.",
+          "hint": "Protege bolso e emprego imediato; atrasa o enfrentamento climático.",
+          "weights": {
+            "environment": -0.2,
+            "economy": 0.15,
+            "technology": -0.05,
+            "global": -0.08,
+            "equality": 0.05
+          },
+          "salience": {
+            "environment": 0.9,
+            "economy": 0.7
+          }
+        },
+        {
+          "id": "clima-mercado",
+          "label": "Usar sobretudo mercado de carbono e incentivos, sem metas setoriais rígidas.",
+          "hint": "Flexibilidade econômica; resultado ambiental incerto.",
+          "weights": {
+            "economy": 0.15,
+            "liberty": 0.1,
+            "environment": 0.05,
+            "technology": 0.08,
+            "authority": -0.08
+          },
+          "salience": {
+            "economy": 0.7,
+            "environment": 0.55,
+            "liberty": 0.45
+          }
+        },
+        {
+          "id": "clima-justica",
+          "label": "Metas firmes, mas com subsídio forte para baixa renda e transição justa para trabalhadores afetados.",
+          "hint": "Une clima e igualdade; custa caro e exige gestão complexa.",
+          "weights": {
+            "environment": 0.15,
+            "equality": 0.15,
+            "economy": -0.1,
+            "authority": 0.08,
+            "global": 0.08
+          },
+          "salience": {
+            "environment": 0.75,
+            "equality": 0.75,
+            "economy": 0.5
           }
         }
       ]
