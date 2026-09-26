@@ -24,10 +24,10 @@ export function EssentialSummary({
     <section className="w-full max-w-xl space-y-6">
       <div>
         <h2 className="font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
-          Núcleo essencial
+          O que pesou mais
         </h2>
         <p className="mt-1 text-sm text-[var(--muted)]">
-          Temas em que suas escolhas trataram a posição como quase inegociável.
+          Temas em que suas escolhas foram mais firmes, quase sem meio-termo.
         </p>
         <ul className="mt-3 flex flex-col gap-2">
           {top.map((axis) => (
@@ -47,10 +47,10 @@ export function EssentialSummary({
       {peripheral.length > 0 ? (
         <div>
           <h2 className="font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
-            Zona limítrofe
+            O que pesou menos
           </h2>
           <p className="mt-1 text-sm text-[var(--muted)]">
-            Temas tocados, mas com mais margem de negociação nas suas escolhas.
+            Temas que apareceram, mas com mais espaço para abrir mão.
           </p>
           <ul className="mt-3 flex flex-col gap-2">
             {peripheral.map((axis) => (

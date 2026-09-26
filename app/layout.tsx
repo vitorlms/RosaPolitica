@@ -18,7 +18,7 @@ const sans = Source_Sans_3({
 export const metadata: Metadata = {
   title: "Rosa Política",
   description:
-    "Protótipo de análise política por ficção interativa na Confederação de Valmora.",
+    "Teste político por dilemas: escolha o que faria e veja seu perfil.",
 };
 
 export default function RootLayout({

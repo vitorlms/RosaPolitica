@@ -1,8 +1,8 @@
 [
   {
     "id": "guardiao-pacto",
-    "name": "Guardião do Pacto",
-    "description": "Você tende a valorizar ordem compartilhada, regras claras e um Estado capaz de arbitrar conflitos — inclusive no corpo coletivo e na segurança. Em Valmora, seria quem reforça o Pacto para que as cidades não se desfaçam.",
+    "name": "Institucionalista",
+    "description": "Você tende a valorizar regras claras e um Estado capaz de organizar conflitos — inclusive em segurança e saúde pública. Prefere instituições fortes a deixar tudo solto.",
     "centroid": {
       "economy": -0.1,
       "authority": 0.65,
@@ -18,8 +18,8 @@
   },
   {
     "id": "livre-mercado",
-    "name": "Livre Mercado de Valmora",
-    "description": "Você inclina-se a confiar em contratos, propriedade, inovação e escolha individual. Em Valmora, seria quem abre minas, guildas e corpos à iniciativa privada e trata muitos dilemas como preços a negociar.",
+    "name": "Liberal de mercado",
+    "description": "Você confia mais em contratos, propriedade, inovação e escolha individual. Em geral, prefere menos intervenção e trata muitos dilemas como algo a negociar.",
     "centroid": {
       "economy": 0.7,
       "authority": -0.2,
@@ -35,8 +35,8 @@
   },
   {
     "id": "irmandade-comunal",
-    "name": "Irmandade Comunal",
-    "description": "Você prioriza equalização, solidariedade e freios ao poder concentrado — público ou privado. Em Valmora, seria quem redistribui o minério, acolhe na fronteira e protege quem a inovação ou o mercado deixam para trás.",
+    "name": "Igualitário",
+    "description": "Você prioriza reduzir desigualdades e frear poder concentrado — público ou privado. Acolhimento, redistribuição e proteção de quem fica para trás pesam mais nas suas escolhas.",
     "centroid": {
       "economy": -0.6,
       "authority": -0.15,
@@ -52,8 +52,8 @@
   },
   {
     "id": "guarda-costumes",
-    "name": "Guarda dos Costumes",
-    "description": "Você defende continuidade cultural, laços locais e limites à mudança acelerada — no rio, na escola, no rito e no corpo. Em Valmora, seria quem protege o sagrado frente a pressões cosmopolitas e técnicas.",
+    "name": "Conservador cultural",
+    "description": "Você defende continuidade, laços locais e limites à mudança acelerada — na escola, no território, nos costumes. Desconfia de rupturas rápidas vindas de fora.",
     "centroid": {
       "economy": 0.05,
       "authority": 0.25,
@@ -69,8 +69,8 @@
   },
   {
     "id": "autonomista",
-    "name": "Autonomista das Cidades",
-    "description": "Você desconfia de centros fortes e prefere que cada comunidade decida o próprio rumo — fronteira, tratado, elixir, floresta. Em Valmora, seria quem devolve poder às cidades-estado, mesmo com mosaicos desiguais.",
+    "name": "Autonomista",
+    "description": "Você desconfia de centros fortes e prefere que cada comunidade decida o próprio rumo. Aceita que o mapa fique desigual se isso preservar autonomia local.",
     "centroid": {
       "economy": 0.1,
       "authority": -0.7,
@@ -86,8 +86,8 @@
   },
   {
     "id": "reformista-pragmatico",
-    "name": "Reformista Pragmático",
-    "description": "Você busca meios-termos institucionais: núcleos comuns, cotas, sensores limitados, usinas menores, capítulos parciais de tratados. Em Valmora, seria quem costura compromissos sem radicalizar nenhum pólo.",
+    "name": "Pragmático",
+    "description": "Você busca meios-termos: um pouco de regra, um pouco de escolha, compromissos parciais. Prefere costurar saídas a radicalizar qualquer lado.",
     "centroid": {
       "economy": 0.0,
       "authority": 0.1,
@@ -103,8 +103,8 @@
   },
   {
     "id": "sentinela-inquieta",
-    "name": "Sentinela Inquieta",
-    "description": "Para você, a ameaça — febre, atentado, fronteira — justifica freios fortes à liberdade e à abertura. Em Valmora, seria quem aceita lanternas-senso, patrulhas e elixires impostos se isso reduzir o risco coletivo.",
+    "name": "Prioridade segurança",
+    "description": "Para você, ameaça — epidemia, atentado, fronteira — justifica freios mais fortes à liberdade e à abertura. Aceita restrições se isso reduzir risco coletivo.",
     "centroid": {
       "economy": 0.05,
       "authority": 0.5,
@@ -120,8 +120,8 @@
   },
   {
     "id": "custodio-vivente",
-    "name": "Custódio do Vivente",
-    "description": "Você trata ecologia, corpo e limites técnicos como fronteiras morais quase sagradas. Em Valmora, seria quem protege florestas e rios, desacelera autômatos e desconfia de marcas impostas ao corpo.",
+    "name": "Ecologista / autonomia corporal",
+    "description": "Você trata ambiente, corpo e freios técnicos como limites importantes. Protege floresta e rio, desacelera automação agressiva e desconfia de imposições sobre o corpo.",
     "centroid": {
       "economy": -0.25,
       "authority": 0.05,
