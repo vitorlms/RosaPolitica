@@ -45,12 +45,28 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${display.variable} ${sans.variable}`}>
       <body className="flex min-h-dvh flex-col font-[family-name:var(--font-sans)] antialiased">
         <header className="border-b border-[var(--line)] px-6 py-4">
-          <Link
-            href="/"
-            className="font-[family-name:var(--font-display)] text-lg tracking-tight text-[var(--accent)]"
-          >
-            Rosa Política
-          </Link>
+          <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-4">
+            <Link
+              href="/"
+              className="font-[family-name:var(--font-display)] text-lg tracking-tight text-[var(--accent)]"
+            >
+              Rosa Política
+            </Link>
+            <nav className="flex items-center gap-4 text-sm text-[var(--muted)]">
+              <Link
+                href="/posicoes"
+                className="transition-colors hover:text-[var(--ink)]"
+              >
+                Posições
+              </Link>
+              <Link
+                href="/play"
+                className="transition-colors hover:text-[var(--ink)]"
+              >
+                Teste
+              </Link>
+            </nav>
+          </div>
         </header>
         <main className="flex flex-1 flex-col px-6 py-10">{children}</main>
       </body>
