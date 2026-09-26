@@ -115,10 +115,18 @@ export interface Story {
   scenes: Scene[];
 }
 
+export interface ArchetypeExample {
+  name: string;
+  /** Short reason this person is used as an illustration. */
+  note: string;
+}
+
 export interface Archetype {
   id: string;
   name: string;
   description: string;
+  /** Illustrative real people — approximate, not a precise classification. */
+  examples?: ArchetypeExample[];
   /** Ideal centroid in axis space (-1..+1). */
   centroid: AxisScores;
 }

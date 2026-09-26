@@ -77,12 +77,14 @@ export default function PosicoesPage() {
         </h2>
         <p className="mt-2 text-sm text-[var(--muted)]">
           São {archetypes.length} posições de referência. O resultado é a que
-          fica mais perto do seu perfil nos eixos.
+          fica mais perto do seu perfil nos eixos. Os nomes de pessoas abaixo
+          são só ilustrações aproximadas — ninguém cabe inteiro num arquétipo.
         </p>
 
         <ol className="mt-8 flex flex-col gap-10">
           {archetypes.map((arch, index) => {
             const leans = topLeans(arch.centroid);
+            const examples = arch.examples ?? [];
             return (
               <li key={arch.id} id={arch.id} className="scroll-mt-8">
                 <p className="text-sm tabular-nums text-[var(--muted)]">
@@ -105,6 +107,21 @@ export default function PosicoesPage() {
                       </li>
                     ))}
                   </ul>
+                ) : null}
+                {examples.length > 0 ? (
+                  <div className="mt-5">
+                    <p className="text-sm font-medium text-[var(--ink)]">
+                      Exemplos ilustrativos
+                    </p>
+                    <ul className="mt-2 flex flex-col gap-2">
+                      {examples.map((ex) => (
+                        <li key={ex.name} className="text-sm text-[var(--ink-soft)]">
+                          <span className="text-[var(--ink)]">{ex.name}</span>
+                          <span className="text-[var(--muted)]"> — {ex.note}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ) : null}
               </li>
             );
