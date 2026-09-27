@@ -40,27 +40,21 @@ export function PoliticalAgenda({ ranked, profiles }: PoliticalAgendaProps) {
           neste percurso.
         </p>
       ) : (
-        <>
-          <p className="mt-1 text-sm text-[var(--muted)]">
-            As pautas mais relevantes para a determinação da sua agenda
-            política.
-          </p>
-          <ul className="mt-3 flex flex-col gap-2">
-            {agenda.map((axis) => (
-              <li
-                key={axis}
-                className="flex items-baseline justify-between gap-3 border-b border-[var(--line)] py-2"
-              >
-                <span className="text-[var(--ink)]">
-                  {AXIS_LABELS[axis].name}
-                </span>
-                <span className="text-sm tabular-nums text-[var(--muted)]">
-                  {profiles[axis].essentiality}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </>
+        <ul className="mt-3 flex flex-col gap-2">
+          {agenda.map((axis) => (
+            <li
+              key={axis}
+              className="flex items-baseline justify-between gap-3 border-b border-[var(--line)] py-2"
+            >
+              <span className="text-[var(--ink)]">
+                {AXIS_LABELS[axis].name}
+              </span>
+              <span className="text-sm tabular-nums text-[var(--muted)]">
+                {profiles[axis].essentiality}
+              </span>
+            </li>
+          ))}
+        </ul>
       )}
     </section>
   );
