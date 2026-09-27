@@ -131,9 +131,15 @@ export interface Archetype {
   centroid: AxisScores;
 }
 
+/** Display threshold: agenda items must clear this saliency (0–100). */
+export const AGENDA_THRESHOLD = 70;
+
 export interface AxisProfile {
   position: number;
-  /** 0–100 essentiality (0 = never activated or fully negotiable). */
+  /**
+   * 0–100 saliency / weight of the theme in choices.
+   * Shown in the UI as “agenda política” when ≥ {@link AGENDA_THRESHOLD}.
+   */
   essentiality: number;
   tier: "essential" | "moderate" | "peripheral" | "untouched";
 }

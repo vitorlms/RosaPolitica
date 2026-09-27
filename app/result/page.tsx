@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AxisBars } from "@/components/AxisBars";
 import { AxisRadar } from "@/components/AxisRadar";
-import { EssentialSummary } from "@/components/EssentialSummary";
+import { PoliticalAgenda } from "@/components/PoliticalAgenda";
 import { ShareResult } from "@/components/ShareResult";
 import { computeResult } from "@/lib/scoring";
 import { loadChoices } from "@/lib/storage";
@@ -60,7 +60,7 @@ export default function ResultPage() {
       </p>
 
       <div className="mt-10 w-full flex justify-center">
-        <EssentialSummary
+        <PoliticalAgenda
           ranked={result.rankedByEssentiality}
           profiles={result.profiles}
         />
@@ -71,11 +71,11 @@ export default function ResultPage() {
       </div>
 
       <h2 className="mt-12 font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
-        Dez eixos
+        Dez eixos — posição
       </h2>
       <p className="mt-2 max-w-md text-center text-sm text-[var(--muted)]">
-        Posição mostra para onde você inclina. Essencialidade mostra o quanto
-        cada tema pesou de verdade nas suas escolhas.
+        Posição mostra para onde você inclina em cada tema. A agenda política
+        (acima) lista só as pautas que realmente pesaram.
       </p>
 
       <div className="mt-8 w-full flex justify-center">
