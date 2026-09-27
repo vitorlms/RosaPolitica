@@ -13,6 +13,10 @@ npm run dev
 
 Abra [http://localhost:3000](http://localhost:3000).
 
+## Aplicação online
+
+Hospedada em [https://rosa-politica.vercel.app/](https://rosa-politica.vercel.app/).
+
 ## Modelo político
 
 ### Posição (dez eixos, -1 … +1 → 0 … 100 na UI)
@@ -41,18 +45,28 @@ Assim duas pessoas com a mesma posição em Economia podem diferir: uma trata me
 
 O arquétipo final é o centróide mais próximo (distância euclidiana nas posições) em [`content/archetypes.json`](content/archetypes.json).
 
-## Cenas atuais (10)
+## Cenas atuais (20)
 
-1. Greve nas Minas de Ferroalto  
-2. Discurso após o tumulto de Maré Alta  
-3. Currículo das Escolas do Pacto  
-4. Fronteira de Salgueiro  
-5. Rio de Cinzas e a usina  
-6. Lanternas de Porto Véu (vigilância)  
-7. Floresta dos Cem Anos  
-8. Tratado com a Liga do Norte  
-9. Autômatos nas guildas  
-10. Rito do Véu e a febre de Âmbar (corpo)
+1. Greve na mineração estatal  
+2. Protesto que virou violência  
+3. O que a escola deve ensinar  
+4. Pressão na fronteira  
+5. Hidrelétrica no rio  
+6. Câmeras depois de um atentado  
+7. Explorar ou proteger a floresta  
+8. Acordo com um bloco vizinho  
+9. Automação no trabalho  
+10. Vacina obrigatória numa epidemia  
+11. Imposto sobre grandes fortunas  
+12. Porte de drogas para uso pessoal  
+13. Interrupção da gravidez  
+14. Algoritmo na Justiça criminal  
+15. Agronegócio e área protegida  
+16. Serviço militar obrigatório  
+17. Mentira e discurso nas redes  
+18. Morte assistida  
+19. Ajuda a um país em crise  
+20. Metas climáticas e indústria
 
 ## Como editar o conteúdo
 
@@ -81,5 +95,5 @@ A origem das noções políticas poderá afetar o **cenário inicial**. O tipo `
 
 ## Escopo
 
-Inclui: 10 cenas, 10 eixos, salience/essencialidade, radar, arquétipos.  
+Inclui: 20 cenas, 10 eixos, salience/essencialidade, radar, arquétipos.  
 Não inclui: login, salvar progresso, múltiplas histórias, IA gerando perguntas.
