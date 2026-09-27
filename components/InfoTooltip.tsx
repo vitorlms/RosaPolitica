@@ -1,10 +1,10 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useState, type ReactNode } from "react";
 
 interface InfoTooltipProps {
   label: string;
-  children: string;
+  children: ReactNode;
 }
 
 /** Accessible hover/focus tooltip for short inline explanations. */
