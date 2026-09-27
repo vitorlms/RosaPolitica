@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { formatShareText } from "@/lib/shareText";
+import { formatShareBody, formatShareText } from "@/lib/shareText";
 import type { ScoreResult } from "@/lib/types";
 
 interface ShareResultProps {
@@ -12,14 +12,17 @@ export function ShareResult({ result }: ShareResultProps) {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const text = useMemo(() => {
-    const url =
-      typeof window !== "undefined" ? window.location.origin : undefined;
-    return formatShareText(result, url);
-  }, [result]);
-
   const shareUrl =
     typeof window !== "undefined" ? window.location.origin : undefined;
+
+  /** Clipboard / preview: message with a single link. */
+  const text = useMemo(
+    () => formatShareText(result, shareUrl),
+    [result, shareUrl],
+  );
+
+  /** Native share sheet: body only — URL goes in the `url` field once. */
+  const shareBody = useMemo(() => formatShareBody(result), [result]);
 
   async function copy() {
     setError(null);
@@ -41,7 +44,7 @@ export function ShareResult({ result }: ShareResultProps) {
     try {
       await navigator.share({
         title: `Rosa Política — ${result.archetype.name}`,
-        text,
+        text: shareBody,
         url: shareUrl,
       });
     } catch (err) {
