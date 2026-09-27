@@ -47,6 +47,8 @@ export default function ResultPage() {
     );
   }
 
+  const examples = result.archetype.examples ?? [];
+
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-16">
       <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
@@ -58,6 +60,26 @@ export default function ResultPage() {
       <p className="mt-4 max-w-xl text-center text-lg leading-relaxed text-[var(--ink-soft)]">
         {result.archetype.description}
       </p>
+
+      {examples.length > 0 ? (
+        <section className="mt-8 w-full max-w-xl text-center sm:text-left">
+          <h2 className="font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
+            Exemplos ilustrativos
+          </h2>
+          <p className="mt-1 text-sm text-[var(--muted)]">
+            Pessoas usadas só como referência aproximada — ninguém cabe inteiro
+            neste arquétipo.
+          </p>
+          <ul className="mt-4 flex flex-col gap-2">
+            {examples.map((ex) => (
+              <li key={ex.name} className="text-sm text-[var(--ink-soft)]">
+                <span className="text-[var(--ink)]">{ex.name}</span>
+                <span className="text-[var(--muted)]"> — {ex.note}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <div className="mt-10 w-full flex justify-center">
         <PoliticalAgenda
