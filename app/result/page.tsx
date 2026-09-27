@@ -75,7 +75,7 @@ export default function ResultPage() {
       </h2>
       <p className="mt-2 max-w-md text-center text-sm text-[var(--muted)]">
         Posição mostra para onde você inclina em cada tema. A agenda política
-        (acima) lista só as pautas que realmente pesaram.
+        (acima) traz as pautas mais relevantes das suas escolhas.
       </p>
 
       <div className="mt-8 w-full flex justify-center">

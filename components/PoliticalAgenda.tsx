@@ -29,23 +29,21 @@ export function PoliticalAgenda({ ranked, profiles }: PoliticalAgendaProps) {
           Agenda política
         </h2>
         <InfoTooltip label="O que é agenda política">
-          Temas que pesaram de verdade nas suas escolhas — tratados como pauta
-          central, não como detalhe. Só entram aqui eixos com saliência acima de{" "}
-          {AGENDA_THRESHOLD}, para refletir o que de fato é agenda para você
-          neste teste.
+          As pautas mais relevantes para a determinação da sua agenda política —
+          os temas que mais pesaram nas suas escolhas neste teste.
         </InfoTooltip>
       </div>
 
       {agenda.length === 0 ? (
         <p className="mt-3 text-sm text-[var(--muted)]">
-          Nenhuma pauta passou do limiar de agenda neste percurso. Suas escolhas
-          espalharam o peso entre vários temas, sem fixar um núcleo claro.
+          Nenhuma pauta se destacou o bastante para formar uma agenda clara
+          neste percurso.
         </p>
       ) : (
         <>
           <p className="mt-1 text-sm text-[var(--muted)]">
-            Pautas com saliência a partir de {AGENDA_THRESHOLD} — o que ficou
-            como núcleo nas suas respostas.
+            As pautas mais relevantes para a determinação da sua agenda
+            política.
           </p>
           <ul className="mt-3 flex flex-col gap-2">
             {agenda.map((axis) => (

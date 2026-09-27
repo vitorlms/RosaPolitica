@@ -51,8 +51,8 @@ export default function PosicoesPage() {
         </h2>
         <p className="mt-2 text-sm text-[var(--muted)]">
           Cada eixo vai de um pólo ao outro. A posição mostra para onde você
-          inclina; a agenda política reúne só os temas que pesaram de verdade
-          (saliência alta) nas suas escolhas.
+          inclina; a agenda política traz as pautas mais relevantes nas suas
+          escolhas.
         </p>
         <ul className="mt-6 flex flex-col">
           {AXIS_IDS.map((axis) => {
