@@ -54,6 +54,12 @@ export default function RootLayout({
             </Link>
             <nav className="flex items-center gap-4 text-sm text-[var(--muted)]">
               <Link
+                href="/meu-resultado"
+                className="transition-colors hover:text-[var(--ink)]"
+              >
+                Meu resultado
+              </Link>
+              <Link
                 href="/posicoes"
                 className="transition-colors hover:text-[var(--ink)]"
               >

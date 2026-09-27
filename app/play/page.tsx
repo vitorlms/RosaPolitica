@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { ChoiceButton } from "@/components/ChoiceButton";
 import { SceneCard } from "@/components/SceneCard";
-import { clearChoices, saveChoices } from "@/lib/storage";
+import { clearChoices, saveChoices, saveSavedResult } from "@/lib/storage";
 import {
   TEST_MODES,
   parseTestMode,
@@ -105,6 +105,11 @@ function PlayExperience() {
       later(EXIT_MS, () => {
         if (isLast) {
           saveChoices(nextAnswers);
+          saveSavedResult({
+            choiceIds: nextAnswers,
+            mode,
+            savedAt: new Date().toISOString(),
+          });
           router.push("/result");
           return;
         }
