@@ -30,10 +30,10 @@ export default function ResultPage() {
           Nenhuma escolha encontrada. Percorra a história primeiro.
         </p>
         <Link
-          href="/play"
+          href="/"
           className="mt-6 inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold"
         >
-          Ir para a história
+          Escolher o teste
         </Link>
       </div>
     );

@@ -1,11 +1,17 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { ChoiceButton } from "@/components/ChoiceButton";
 import { SceneCard } from "@/components/SceneCard";
-import { story } from "@/lib/scoring";
 import { clearChoices, saveChoices } from "@/lib/storage";
+import {
+  TEST_MODES,
+  parseTestMode,
+  scenesForMode,
+  type TestModeId,
+} from "@/lib/testModes";
 
 /** Pause so the selected answer is readable before the scene fades. */
 const SELECT_HOLD_MS = 650;
@@ -14,9 +20,12 @@ const ENTER_MS = 550;
 
 type Phase = "idle" | "exiting" | "entering";
 
-export default function PlayPage() {
+function PlayExperience() {
   const router = useRouter();
-  const scenes = story.scenes;
+  const searchParams = useSearchParams();
+  const mode: TestModeId = parseTestMode(searchParams.get("modo"));
+  const scenes = useMemo(() => scenesForMode(mode), [mode]);
+
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [answers, setAnswers] = useState<string[]>([]);
@@ -37,9 +46,14 @@ export default function PlayPage() {
 
   useEffect(() => {
     clearChoices();
+    setIndex(0);
+    setSelected(null);
+    setAnswers([]);
+    setLocked(false);
+    setPhase("idle");
     setReady(true);
     return () => clearTimers();
-  }, []);
+  }, [mode]);
 
   if (!ready) {
     return (
@@ -49,9 +63,24 @@ export default function PlayPage() {
     );
   }
 
+  if (scenes.length === 0) {
+    return (
+      <div className="mx-auto max-w-lg text-center">
+        <p className="text-[var(--ink-soft)]">Nenhum dilema disponível.</p>
+        <Link
+          href="/"
+          className="mt-6 inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold"
+        >
+          Voltar ao início
+        </Link>
+      </div>
+    );
+  }
+
   const scene = scenes[index];
   const isFirst = index === 0;
   const isLast = index === scenes.length - 1;
+  const modeLabel = TEST_MODES[mode].label;
 
   function advanceTo(nextIndex: number, nextAnswers: string[]) {
     setIndex(nextIndex);
@@ -109,6 +138,11 @@ export default function PlayPage() {
 
   return (
     <div className="flex flex-1 flex-col">
+      <p className="mx-auto mb-4 w-full max-w-2xl text-sm text-[var(--muted)]">
+        Modo {modeLabel}
+        <span className="text-[var(--line)]"> · </span>
+        {scenes.length} dilemas
+      </p>
       <div key={scene.id} className={sceneMotion} data-phase={phase}>
         <SceneCard scene={scene} index={index} total={scenes.length}>
           {scene.choices.map((choice) => (
@@ -133,5 +167,19 @@ export default function PlayPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function PlayPage() {
+  return (
+    <Suspense
+      fallback={
+        <p className="mx-auto text-[var(--muted)]" aria-live="polite">
+          Preparando…
+        </p>
+      }
+    >
+      <PlayExperience />
+    </Suspense>
   );
 }

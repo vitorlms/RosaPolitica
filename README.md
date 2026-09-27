@@ -95,5 +95,5 @@ A origem das noções políticas poderá afetar o **cenário inicial**. O tipo `
 
 ## Escopo
 
-Inclui: 20 cenas, 10 eixos, salience/essencialidade, radar, arquétipos.  
+Inclui: 20 cenas, 3 modos de teste (rápido / padrão / completo), 10 eixos, salience/essencialidade, radar, arquétipos.  
 Não inclui: login, salvar progresso, múltiplas histórias, IA gerando perguntas.

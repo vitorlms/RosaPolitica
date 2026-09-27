@@ -60,7 +60,7 @@ export default function RootLayout({
                 Posições
               </Link>
               <Link
-                href="/play"
+                href="/#modos"
                 className="transition-colors hover:text-[var(--ink)]"
               >
                 Teste
