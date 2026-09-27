@@ -45,7 +45,7 @@ Assim duas pessoas com a mesma posição em Economia podem diferir: uma trata me
 
 O arquétipo final é o centróide mais próximo (distância euclidiana nas posições) em [`content/archetypes.json`](content/archetypes.json).
 
-## Cenas atuais (20)
+## Cenas atuais (40)
 
 1. Greve na mineração estatal  
 2. Protesto que virou violência  
@@ -66,7 +66,27 @@ O arquétipo final é o centróide mais próximo (distância euclidiana nas posi
 17. Mentira e discurso nas redes  
 18. Morte assistida  
 19. Ajuda a um país em crise  
-20. Metas climáticas e indústria
+20. Metas climáticas e indústria  
+21. Seca e gestão da água  
+22. Energia nuclear no mix elétrico  
+23. Trabalho sexual e a lei  
+24. Doação de órgãos  
+25. Sanções a um país vizinho  
+26. Capital estrangeiro em setor estratégico  
+27. Corte internacional e soberania  
+28. Dados pessoais e plataformas  
+29. Edição genética em humanos  
+30. Moeda digital do Estado  
+31. Porte de armas por civis  
+32. Crime organizado nas periferias  
+33. Financiamento da saúde  
+34. Moradia e ocupação urbana  
+35. Idade de aposentadoria  
+36. Cotas no ensino superior  
+37. Demarcação de terra indígena  
+38. Religião na escola pública  
+39. Intervenção em conflito externo  
+40. Independência do Judiciário
 
 ## Como editar o conteúdo
 
@@ -95,5 +115,5 @@ A origem das noções políticas poderá afetar o **cenário inicial**. O tipo `
 
 ## Escopo
 
-Inclui: 20 cenas, 3 modos de teste (rápido / padrão / completo), 10 eixos, salience/essencialidade, radar, arquétipos.  
+Inclui: 40 cenas, 3 modos de teste (rápido / padrão / completo), 10 eixos, salience/essencialidade, radar, arquétipos.  
 Não inclui: login, salvar progresso, múltiplas histórias, IA gerando perguntas.

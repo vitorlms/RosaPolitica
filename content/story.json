@@ -1442,6 +1442,1463 @@
           }
         }
       ]
+    },
+    {
+      "id": "agua-concessao",
+      "title": "Seca e gestão da água",
+      "body": "Uma seca prolongada esvazia reservatórios. Técnicos pedem racionamento rigoroso. Uma concessionária privada oferece investir em infraestrutura se puder cobrar tarifas mais altas e ter exclusividade. Comunidades rurais temem ficar por último. Como você decidiria?",
+      "choices": [
+        {
+          "id": "agua-publica",
+          "label": "Manter a água sob gestão pública, com racionamento igualitário e investimento estatal imediato.",
+          "hint": "Prioriza acesso comum; pressiona o orçamento e pode atrasar obras.",
+          "weights": {
+            "environment": 0.18,
+            "equality": 0.18,
+            "economy": -0.12,
+            "authority": 0.12,
+            "liberty": -0.08
+          },
+          "salience": {
+            "environment": 0.9,
+            "equality": 0.8,
+            "economy": 0.55
+          }
+        },
+        {
+          "id": "agua-privada",
+          "label": "Aceitar a concessão privada com metas de investimento e liberdade de tarifas sob teto regulatório.",
+          "hint": "Acelera infraestrutura; risco de excluir quem não puder pagar.",
+          "weights": {
+            "economy": 0.18,
+            "environment": -0.08,
+            "equality": -0.15,
+            "liberty": 0.1,
+            "authority": -0.05
+          },
+          "salience": {
+            "economy": 0.85,
+            "environment": 0.7,
+            "equality": 0.75
+          }
+        },
+        {
+          "id": "agua-preco",
+          "label": "Cobrar preço alto para grande consumo e irrigação comercial, subsidiando o uso doméstico básico.",
+          "hint": "Incentiva economia de água; gera atrito com agronegócio e indústria.",
+          "weights": {
+            "environment": 0.2,
+            "economy": -0.08,
+            "equality": 0.12,
+            "authority": 0.1
+          },
+          "salience": {
+            "environment": 0.95,
+            "equality": 0.55,
+            "economy": 0.5
+          }
+        },
+        {
+          "id": "agua-local",
+          "label": "Deixar bacias e municípios definirem as regras, com fundo federal só para emergência.",
+          "hint": "Respeita realidade local; pode haver desigualdade entre regiões.",
+          "weights": {
+            "authority": -0.18,
+            "environment": 0.08,
+            "tradition": 0.1,
+            "equality": -0.08
+          },
+          "salience": {
+            "authority": 0.75,
+            "environment": 0.55,
+            "tradition": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "energia-nuclear",
+      "title": "Energia nuclear no mix elétrico",
+      "body": "O país precisa de energia estável com baixa emissão. Engenheiros propõem novas usinas nucleares. Ambientistas temem acidente e lixo radioativo. Indústria quer segurança de fornecimento. Qual caminho você escolheria?",
+      "choices": [
+        {
+          "id": "nuclear-ampliar",
+          "label": "Autorizar novas usinas nucleares com padrões rígidos de segurança e fundo permanente para o lixo.",
+          "hint": "Ganha base firme de baixa emissão; cria risco residual e custo alto.",
+          "weights": {
+            "environment": 0.12,
+            "technology": 0.18,
+            "security": 0.1,
+            "economy": -0.08,
+            "liberty": -0.05
+          },
+          "salience": {
+            "environment": 0.85,
+            "technology": 0.8,
+            "security": 0.55
+          }
+        },
+        {
+          "id": "nuclear-vetar",
+          "label": "Vetar expansão nuclear e concentrar investimento em solar, eólica e armazenamento.",
+          "hint": "Evita risco nuclear; depende de intermitência e mineração de baterias.",
+          "weights": {
+            "environment": 0.2,
+            "technology": 0.08,
+            "security": -0.05,
+            "economy": -0.05,
+            "authority": 0.05
+          },
+          "salience": {
+            "environment": 0.95,
+            "technology": 0.5,
+            "security": 0.4
+          }
+        },
+        {
+          "id": "nuclear-gas",
+          "label": "Priorizar gás e termelétricas flexíveis agora, sem nuclear, para baratear a energia.",
+          "hint": "Segurança de preço no curto prazo; piora emissões e dependência fóssil.",
+          "weights": {
+            "environment": -0.2,
+            "economy": 0.18,
+            "technology": -0.08,
+            "security": 0.08
+          },
+          "salience": {
+            "environment": 0.9,
+            "economy": 0.8,
+            "security": 0.45
+          }
+        },
+        {
+          "id": "nuclear-pesquisa",
+          "label": "Manter só pesquisa e reatores piloto pequenos, sem usinas comerciais nesta década.",
+          "hint": "Cautela tecnológica; adia a decisão e o alívio na matriz.",
+          "weights": {
+            "technology": -0.1,
+            "environment": 0.08,
+            "authority": 0.08,
+            "economy": -0.05
+          },
+          "salience": {
+            "technology": 0.55,
+            "environment": 0.55
+          }
+        }
+      ]
+    },
+    {
+      "id": "trabalho-sexual",
+      "title": "Trabalho sexual e a lei",
+      "body": "O Congresso debate o status legal do trabalho sexual entre adultos. Uns pedem legalização com direitos trabalhistas. Outros pedem proibição para combater exploração. Profissionais pedem voz na regra. Qual linha você apoiaria?",
+      "choices": [
+        {
+          "id": "sexo-legalizar",
+          "label": "Legalizar e regular: contratos, saúde ocupacional e direito de se organizar.",
+          "hint": "Amplia autonomia e proteção formal; pode normalizar um mercado controverso.",
+          "weights": {
+            "body": 0.22,
+            "liberty": 0.18,
+            "tradition": -0.18,
+            "equality": 0.1,
+            "authority": -0.05
+          },
+          "salience": {
+            "body": 0.95,
+            "liberty": 0.85,
+            "tradition": 0.75
+          }
+        },
+        {
+          "id": "sexo-proibir",
+          "label": "Proibir a compra e a venda, com foco em reprimir clientes e intermediários.",
+          "hint": "Afirma norma moral coletiva; empurra a atividade para a clandestinidade.",
+          "weights": {
+            "body": -0.2,
+            "tradition": 0.2,
+            "liberty": -0.15,
+            "authority": 0.15,
+            "security": 0.08
+          },
+          "salience": {
+            "body": 0.9,
+            "tradition": 0.85,
+            "liberty": 0.7
+          }
+        },
+        {
+          "id": "sexo-descriminalizar",
+          "label": "Descriminalizar quem oferece o serviço, mas manter crime a exploração e o tráfico.",
+          "hint": "Protege vulneráveis sem criminalizar o adulto que trabalha; linha tênue na prática.",
+          "weights": {
+            "body": 0.1,
+            "liberty": 0.08,
+            "equality": 0.12,
+            "authority": 0.08,
+            "tradition": -0.05
+          },
+          "salience": {
+            "body": 0.7,
+            "equality": 0.55,
+            "liberty": 0.5
+          }
+        },
+        {
+          "id": "sexo-municipio",
+          "label": "Deixar zonas e regras para municípios, com piso nacional contra coerção.",
+          "hint": "Flexibilidade local; direitos diferentes conforme a cidade.",
+          "weights": {
+            "authority": -0.15,
+            "body": 0.08,
+            "liberty": 0.05,
+            "equality": -0.08,
+            "tradition": 0.05
+          },
+          "salience": {
+            "authority": 0.7,
+            "body": 0.55,
+            "equality": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "doacao-orgaos",
+      "title": "Doação de órgãos",
+      "body": "A fila de transplantes cresce. Uma proposta torna todos doadores por padrão, salvo registro explícito de recusa. Famílias e grupos religiosos pedem consentimento ativo. Médicos pedem mais órgãos. Qual regra você escolheria?",
+      "choices": [
+        {
+          "id": "orgaos-presumido",
+          "label": "Consentimento presumido: todos doam, salvo recusa registrada em vida.",
+          "hint": "Aumenta oferta de órgãos; reduz o peso da escolha familiar no momento da morte.",
+          "weights": {
+            "body": -0.18,
+            "equality": 0.15,
+            "authority": 0.15,
+            "liberty": -0.12,
+            "tradition": -0.08
+          },
+          "salience": {
+            "body": 0.95,
+            "liberty": 0.8,
+            "equality": 0.65
+          }
+        },
+        {
+          "id": "orgaos-explicito",
+          "label": "Manter só doação com registro explícito e confirmação da família.",
+          "hint": "Maximiza autonomia e costumes familiares; mantém escassez.",
+          "weights": {
+            "body": 0.2,
+            "liberty": 0.15,
+            "tradition": 0.12,
+            "equality": -0.1,
+            "authority": -0.08
+          },
+          "salience": {
+            "body": 0.95,
+            "liberty": 0.75,
+            "tradition": 0.6
+          }
+        },
+        {
+          "id": "orgaos-incentivo",
+          "label": "Manter consentimento explícito, mas com prioridade na fila para quem já se registrou como doador.",
+          "hint": "Incentiva o cadastro; pode parecer barganha com a vida.",
+          "weights": {
+            "body": 0.08,
+            "liberty": 0.1,
+            "equality": -0.08,
+            "economy": 0.05,
+            "authority": 0.05
+          },
+          "salience": {
+            "body": 0.6,
+            "liberty": 0.5,
+            "equality": 0.45
+          }
+        },
+        {
+          "id": "orgaos-campanha",
+          "label": "Não mudar a lei agora: investir em campanha pública e agilizar o sistema de lista.",
+          "hint": "Evita choque normativo; resultado depende de adesão voluntária.",
+          "weights": {
+            "body": 0.05,
+            "liberty": 0.08,
+            "authority": -0.05,
+            "equality": 0.05
+          },
+          "salience": {
+            "body": 0.45,
+            "liberty": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "sancoes-externas",
+      "title": "Sanções a um país vizinho",
+      "body": "Um governo vizinho viola direitos humanos graves. Aliados pedem sanções comerciais e bloqueio financeiro. Exportadores locais alertam para perda de emprego. Ativistas pedem isolamento. O que você faria?",
+      "choices": [
+        {
+          "id": "sancoes-duras",
+          "label": "Aplicar sanções amplas e coordenar com parceiros internacionais.",
+          "hint": "Afirma pressão moral coletiva; custa comércio e pode endurecer o regime alvo.",
+          "weights": {
+            "global": 0.22,
+            "equality": 0.1,
+            "economy": -0.15,
+            "security": 0.08,
+            "tradition": -0.08
+          },
+          "salience": {
+            "global": 0.95,
+            "economy": 0.7,
+            "equality": 0.5
+          }
+        },
+        {
+          "id": "sancoes-negar",
+          "label": "Recusar sanções: manter comércio e não interferir na soberania alheia.",
+          "hint": "Protege emprego e soberania própria; aceita conviver com o abuso vizinho.",
+          "weights": {
+            "global": -0.22,
+            "economy": 0.15,
+            "tradition": 0.12,
+            "security": -0.05,
+            "equality": -0.08
+          },
+          "salience": {
+            "global": 0.95,
+            "economy": 0.7,
+            "tradition": 0.5
+          }
+        },
+        {
+          "id": "sancoes-miradas",
+          "label": "Sancionar só líderes e ativos ligados à repressão, sem embargo geral.",
+          "hint": "Pressão seletiva; pode ser contornada e vista como simbólica.",
+          "weights": {
+            "global": 0.12,
+            "economy": -0.05,
+            "authority": 0.05,
+            "equality": 0.08
+          },
+          "salience": {
+            "global": 0.7,
+            "economy": 0.4
+          }
+        },
+        {
+          "id": "sancoes-multilateral",
+          "label": "Só agir se houver mandato formal de organismo multilateral, sem iniciativa unilateral.",
+          "hint": "Legitimidade compartilhada; pode atrasar ou diluir a resposta.",
+          "weights": {
+            "global": 0.15,
+            "authority": -0.08,
+            "economy": -0.05,
+            "tradition": -0.05
+          },
+          "salience": {
+            "global": 0.75,
+            "authority": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "investimento-estrategico",
+      "title": "Capital estrangeiro em setor estratégico",
+      "body": "Uma empresa estrangeira quer comprar a maior operadora de energia do país. Promete modernização e emprego. Críticos temem dependência e perda de controle sobre infraestrutura crítica. Qual decisão você tomaria?",
+      "choices": [
+        {
+          "id": "invest-abrir",
+          "label": "Autorizar a venda integral, com regras de concorrência e compromisso de investimento.",
+          "hint": "Abre capital e tecnologia; reduz soberania sobre o setor.",
+          "weights": {
+            "global": 0.2,
+            "economy": 0.18,
+            "liberty": 0.1,
+            "authority": -0.1,
+            "security": -0.12
+          },
+          "salience": {
+            "global": 0.9,
+            "economy": 0.8,
+            "security": 0.65
+          }
+        },
+        {
+          "id": "invest-bloquear",
+          "label": "Bloquear a venda e manter o controle nacional, público ou privado local.",
+          "hint": "Preserva soberania; pode atrasar modernização e afastar capital.",
+          "weights": {
+            "global": -0.2,
+            "security": 0.15,
+            "tradition": 0.12,
+            "economy": -0.1,
+            "authority": 0.1
+          },
+          "salience": {
+            "global": 0.9,
+            "security": 0.75,
+            "economy": 0.55
+          }
+        },
+        {
+          "id": "invest-minoritario",
+          "label": "Permitir só participação minoritária estrangeira, com golden share do Estado.",
+          "hint": "Meio-termo de controle; pode desincentivar o comprador.",
+          "weights": {
+            "global": 0.05,
+            "authority": 0.12,
+            "economy": 0.05,
+            "security": 0.08
+          },
+          "salience": {
+            "global": 0.55,
+            "authority": 0.6,
+            "security": 0.45
+          }
+        },
+        {
+          "id": "invest-reciprocidade",
+          "label": "Só autorizar se o país de origem oferecer reciprocidade igual a empresas daqui.",
+          "hint": "Condiciona à simetria; pode travar o negócio por longa negociação.",
+          "weights": {
+            "global": -0.05,
+            "economy": 0.08,
+            "authority": 0.08,
+            "equality": 0.05
+          },
+          "salience": {
+            "global": 0.6,
+            "economy": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "corte-internacional",
+      "title": "Corte internacional e soberania",
+      "body": "Uma corte internacional condena o país em um caso de direitos humanos e pede mudança de lei. Parte da opinião pública vê justiça global. Outra parte vê interferência externa. O que o governo deveria fazer?",
+      "choices": [
+        {
+          "id": "corte-cumprir",
+          "label": "Cumprir a decisão e adaptar a legislação interna ao padrão internacional.",
+          "hint": "Integra o país a normas comuns; cede margem soberana.",
+          "weights": {
+            "global": 0.22,
+            "equality": 0.12,
+            "tradition": -0.12,
+            "authority": -0.08,
+            "liberty": 0.08
+          },
+          "salience": {
+            "global": 0.95,
+            "tradition": 0.65,
+            "equality": 0.55
+          }
+        },
+        {
+          "id": "corte-recusar",
+          "label": "Recusar a sentença: a Constituição interna prevalece sobre foro externo.",
+          "hint": "Afirma soberania; gera isolamento e atrito diplomático.",
+          "weights": {
+            "global": -0.22,
+            "tradition": 0.15,
+            "authority": 0.12,
+            "equality": -0.08,
+            "security": 0.05
+          },
+          "salience": {
+            "global": 0.95,
+            "tradition": 0.7,
+            "authority": 0.55
+          }
+        },
+        {
+          "id": "corte-negociar",
+          "label": "Negociar cumprimento parcial e prazos longos, sem ruptura formal.",
+          "hint": "Evita choque; pode parecer má-fé para os dois lados.",
+          "weights": {
+            "global": 0.08,
+            "authority": 0.08,
+            "tradition": 0.05,
+            "equality": 0.05
+          },
+          "salience": {
+            "global": 0.55,
+            "authority": 0.4
+          }
+        },
+        {
+          "id": "corte-sair",
+          "label": "Denunciar o tratado e sair da jurisdição da corte.",
+          "hint": "Ruptura clara de vínculo externo; custo reputacional alto.",
+          "weights": {
+            "global": -0.25,
+            "tradition": 0.12,
+            "authority": 0.1,
+            "liberty": -0.05
+          },
+          "salience": {
+            "global": 0.95,
+            "tradition": 0.55,
+            "authority": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "dados-privacidade",
+      "title": "Dados pessoais e plataformas",
+      "body": "Grandes plataformas usam dados de comportamento para anúncios e crédito. Uma proposta exige consentimento forte e limite ao perfilamento. Empresas dizem que isso mata inovação e serviços gratuitos. Usuários pedem controle. Qual regra você apoiaria?",
+      "choices": [
+        {
+          "id": "dados-rigido",
+          "label": "Lei rígida: consentimento explícito, direito ao apagamento e multa pesada por abuso.",
+          "hint": "Fortalece privacidade; encarece serviços e freia modelos de negócio.",
+          "weights": {
+            "technology": -0.18,
+            "liberty": 0.15,
+            "authority": 0.15,
+            "equality": 0.1,
+            "economy": -0.08
+          },
+          "salience": {
+            "technology": 0.9,
+            "liberty": 0.85,
+            "authority": 0.65
+          }
+        },
+        {
+          "id": "dados-livre",
+          "label": "Pouca regulação: o usuário aceita os termos e o mercado decide o que vale a pena.",
+          "hint": "Acelera inovação e publicidade; concentra poder sobre a vida digital.",
+          "weights": {
+            "technology": 0.2,
+            "liberty": 0.1,
+            "economy": 0.12,
+            "authority": -0.15,
+            "equality": -0.1
+          },
+          "salience": {
+            "technology": 0.95,
+            "economy": 0.65,
+            "liberty": 0.55
+          }
+        },
+        {
+          "id": "dados-portabilidade",
+          "label": "Exigir portabilidade e interoperabilidade, sem banir o perfilamento comercial.",
+          "hint": "Reduz prisão de plataforma; a coleta de dados continua ampla.",
+          "weights": {
+            "technology": 0.1,
+            "liberty": 0.08,
+            "economy": 0.05,
+            "equality": 0.08,
+            "authority": 0.05
+          },
+          "salience": {
+            "technology": 0.7,
+            "liberty": 0.5,
+            "equality": 0.4
+          }
+        },
+        {
+          "id": "dados-publico",
+          "label": "Criar infraestrutura pública de identidade e dados essenciais, com regras claras de uso.",
+          "hint": "Estado como alternativa; risco de vigilância se mal governado.",
+          "weights": {
+            "technology": 0.05,
+            "authority": 0.12,
+            "equality": 0.12,
+            "liberty": -0.1,
+            "economy": -0.05
+          },
+          "salience": {
+            "authority": 0.7,
+            "technology": 0.6,
+            "liberty": 0.65
+          }
+        }
+      ]
+    },
+    {
+      "id": "edicao-genetica",
+      "title": "Edição genética em humanos",
+      "body": "Laboratórios pedem autorização para editar genes de embriões contra doenças graves. Parte da sociedade vê cura. Outra teme eugenia e desigualdade entre quem pode pagar. Como regular?",
+      "choices": [
+        {
+          "id": "gene-liberar",
+          "label": "Permitir edição terapêutica sob comitê ético rigoroso e acompanhamento de longo prazo.",
+          "hint": "Abre caminho médico; risco de deslizar para aprimoramento seletivo.",
+          "weights": {
+            "technology": 0.2,
+            "body": 0.1,
+            "liberty": 0.08,
+            "tradition": -0.15,
+            "equality": -0.08
+          },
+          "salience": {
+            "technology": 0.95,
+            "tradition": 0.7,
+            "body": 0.55
+          }
+        },
+        {
+          "id": "gene-proibir",
+          "label": "Proibir edição em linhagem germinativa; manter só terapia em células somáticas adultas.",
+          "hint": "Freio ético forte; adia possíveis curas hereditárias.",
+          "weights": {
+            "technology": -0.2,
+            "tradition": 0.15,
+            "authority": 0.12,
+            "body": -0.08,
+            "security": 0.08
+          },
+          "salience": {
+            "technology": 0.95,
+            "tradition": 0.75,
+            "authority": 0.55
+          }
+        },
+        {
+          "id": "gene-publico",
+          "label": "Permitir só em rede pública, gratuita e com critérios clínicos iguais para todos.",
+          "hint": "Reduz desigualdade de acesso; concentra poder no Estado.",
+          "weights": {
+            "technology": 0.1,
+            "equality": 0.18,
+            "economy": -0.1,
+            "authority": 0.1,
+            "body": 0.05
+          },
+          "salience": {
+            "equality": 0.85,
+            "technology": 0.7,
+            "authority": 0.5
+          }
+        },
+        {
+          "id": "gene-mercado",
+          "label": "Deixar clínicas privadas oferecerem o serviço a quem puder pagar, com aviso de risco.",
+          "hint": "Máxima escolha e inovação; amplia gap entre ricos e pobres.",
+          "weights": {
+            "technology": 0.18,
+            "liberty": 0.15,
+            "economy": 0.12,
+            "equality": -0.18,
+            "tradition": -0.1
+          },
+          "salience": {
+            "technology": 0.85,
+            "equality": 0.8,
+            "liberty": 0.65
+          }
+        }
+      ]
+    },
+    {
+      "id": "moeda-digital",
+      "title": "Moeda digital do Estado",
+      "body": "O banco central propõe uma moeda digital oficial. Promete inclusão e combate à lavagem. Críticos temem rastreamento total das compras. Criptoentusiastas pedem liberdade para moedas privadas. Qual linha você escolheria?",
+      "choices": [
+        {
+          "id": "moeda-cbdc",
+          "label": "Lançar moeda digital estatal com rastreabilidade ampla e limites a grandes transferências anônimas.",
+          "hint": "Fortalece controle e inclusão formal; reduz anonimato financeiro.",
+          "weights": {
+            "technology": 0.15,
+            "authority": 0.18,
+            "liberty": -0.15,
+            "security": 0.12,
+            "economy": 0.05
+          },
+          "salience": {
+            "technology": 0.9,
+            "liberty": 0.85,
+            "authority": 0.8
+          }
+        },
+        {
+          "id": "moeda-cripto-livre",
+          "label": "Não criar moeda estatal digital; proteger o uso de criptomoedas privadas com pouca restrição.",
+          "hint": "Maximiza experimentação e privacidade; dificulta tributação e combate a crime.",
+          "weights": {
+            "technology": 0.2,
+            "liberty": 0.18,
+            "authority": -0.18,
+            "security": -0.12,
+            "economy": 0.08
+          },
+          "salience": {
+            "technology": 0.95,
+            "liberty": 0.85,
+            "security": 0.6
+          }
+        },
+        {
+          "id": "moeda-hibrida",
+          "label": "Moeda digital estatal só para pagamentos básicos, com privacidade no varejo e auditoria no atacado.",
+          "hint": "Tenta equilibrar; a linha entre varejo e atacado é disputável.",
+          "weights": {
+            "technology": 0.1,
+            "liberty": 0.05,
+            "authority": 0.08,
+            "security": 0.08
+          },
+          "salience": {
+            "technology": 0.65,
+            "liberty": 0.5,
+            "security": 0.45
+          }
+        },
+        {
+          "id": "moeda-adiar",
+          "label": "Adiar a decisão e reforçar o sistema bancário atual com open finance.",
+          "hint": "Cautela; pode perder a janela tecnológica.",
+          "weights": {
+            "technology": -0.1,
+            "tradition": 0.1,
+            "authority": 0.05,
+            "economy": 0.05
+          },
+          "salience": {
+            "technology": 0.55,
+            "tradition": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "porte-armas",
+      "title": "Porte de armas por civis",
+      "body": "Após uma onda de assaltos, cresce a pressão para facilitar o porte de armas a cidadãos sem antecedentes. Especialistas divergem sobre efeito na violência. Famílias de vítimas pedem respostas rápidas. Qual regra você apoiaria?",
+      "choices": [
+        {
+          "id": "armas-facilitar",
+          "label": "Facilitar porte e posse para adultos sem ficha criminal, com curso básico.",
+          "hint": "Amplia autodefesa individual; aumenta armas em circulação.",
+          "weights": {
+            "security": -0.2,
+            "liberty": 0.18,
+            "authority": -0.12,
+            "tradition": 0.08,
+            "equality": -0.05
+          },
+          "salience": {
+            "security": 0.95,
+            "liberty": 0.85,
+            "authority": 0.6
+          }
+        },
+        {
+          "id": "armas-restringir",
+          "label": "Restringir ao máximo: porte só para categorias profissionais autorizadas.",
+          "hint": "Reduz armas civis; concentra a força legítima no Estado.",
+          "weights": {
+            "security": 0.22,
+            "authority": 0.15,
+            "liberty": -0.15,
+            "equality": 0.05,
+            "tradition": -0.05
+          },
+          "salience": {
+            "security": 0.95,
+            "liberty": 0.8,
+            "authority": 0.7
+          }
+        },
+        {
+          "id": "armas-casa",
+          "label": "Permitir posse em casa com registro, mas negar porte nas ruas na regra geral.",
+          "hint": "Meio-termo; armas em casa ainda entram em conflitos domésticos.",
+          "weights": {
+            "security": 0.12,
+            "liberty": 0.05,
+            "authority": 0.08,
+            "tradition": 0.05
+          },
+          "salience": {
+            "security": 0.75,
+            "liberty": 0.5
+          }
+        },
+        {
+          "id": "armas-local",
+          "label": "Deixar estados e municípios decidirem, sob piso federal de registro.",
+          "hint": "Resposta local; mosaico de regras e tráfico entre regiões.",
+          "weights": {
+            "authority": -0.12,
+            "security": 0.1,
+            "liberty": 0.08,
+            "equality": -0.08
+          },
+          "salience": {
+            "security": 0.7,
+            "authority": 0.65,
+            "liberty": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "crime-organizado",
+      "title": "Crime organizado nas periferias",
+      "body": "Facções controlam territórios e cobram taxas. A polícia pede poderes excepcionais de busca e bloqueio. Moradores pedem segurança sem invasão permanente. Assistentes sociais pedem investimento social. Qual ênfase você escolheria?",
+      "choices": [
+        {
+          "id": "crime-mao-dura",
+          "label": "Operações contínuas com poderes ampliados de busca, bloqueio e prisão preventiva.",
+          "hint": "Pressão forte sobre as facções; risco de abuso e trauma coletivo.",
+          "weights": {
+            "security": 0.25,
+            "authority": 0.18,
+            "liberty": -0.18,
+            "equality": -0.08,
+            "tradition": 0.05
+          },
+          "salience": {
+            "security": 0.95,
+            "liberty": 0.85,
+            "authority": 0.75
+          }
+        },
+        {
+          "id": "crime-social",
+          "label": "Priorizar escola, emprego e mediação comunitária, com polícia só em crimes graves.",
+          "hint": "Trata causas sociais; efeito na facção pode ser lento e incerto.",
+          "weights": {
+            "security": -0.15,
+            "equality": 0.15,
+            "liberty": 0.1,
+            "authority": -0.1,
+            "economy": -0.08
+          },
+          "salience": {
+            "security": 0.85,
+            "equality": 0.8,
+            "liberty": 0.55
+          }
+        },
+        {
+          "id": "crime-inteligencia",
+          "label": "Focar em inteligência financeira, confisco de bens e proteção a testemunhas.",
+          "hint": "Ataca o lucro do crime; exige capacidade institucional alta.",
+          "weights": {
+            "security": 0.18,
+            "authority": 0.1,
+            "technology": 0.08,
+            "liberty": -0.05,
+            "economy": 0.05
+          },
+          "salience": {
+            "security": 0.9,
+            "authority": 0.5,
+            "technology": 0.4
+          }
+        },
+        {
+          "id": "crime-negociar",
+          "label": "Abrir canais de trégua e redução de violência com mediação, sem legalizar a facção.",
+          "hint": "Pode baixar mortes no curto prazo; risco de legitimar poder paralelo.",
+          "weights": {
+            "security": -0.1,
+            "liberty": 0.05,
+            "authority": -0.12,
+            "equality": 0.08,
+            "tradition": -0.05
+          },
+          "salience": {
+            "security": 0.8,
+            "authority": 0.65,
+            "equality": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "saude-sistema",
+      "title": "Financiamento da saúde",
+      "body": "O sistema público de saúde está sob pressão. Uma proposta amplia o orçamento universal com imposto. Outra estimula planos privados e coparticipação. Profissionais alertam para filas. Qual modelo você priorizaria?",
+      "choices": [
+        {
+          "id": "saude-universal",
+          "label": "Reforçar o sistema público universal com mais imposto e fila única de acesso.",
+          "hint": "Equaliza o cuidado básico; eleva carga fiscal e pode gerar ineficiência.",
+          "weights": {
+            "equality": 0.2,
+            "economy": -0.18,
+            "authority": 0.1,
+            "liberty": -0.08,
+            "body": -0.05
+          },
+          "salience": {
+            "equality": 0.9,
+            "economy": 0.8,
+            "authority": 0.5
+          }
+        },
+        {
+          "id": "saude-mercado",
+          "label": "Priorizar planos privados e voucher, com rede pública só para extrema pobreza e emergências.",
+          "hint": "Mais escolha para quem paga; risco de duas saúdes bem diferentes.",
+          "weights": {
+            "economy": 0.2,
+            "liberty": 0.15,
+            "equality": -0.2,
+            "authority": -0.08,
+            "body": 0.08
+          },
+          "salience": {
+            "economy": 0.9,
+            "equality": 0.85,
+            "liberty": 0.65
+          }
+        },
+        {
+          "id": "saude-misto",
+          "label": "Manter público forte no básico e permitir privado complementar sem dedução fiscal generosa.",
+          "hint": "Compromisso clássico; disputa contínua pelo tamanho de cada fatia.",
+          "weights": {
+            "equality": 0.08,
+            "economy": 0.05,
+            "liberty": 0.05,
+            "authority": 0.05
+          },
+          "salience": {
+            "equality": 0.5,
+            "economy": 0.45
+          }
+        },
+        {
+          "id": "saude-resultados",
+          "label": "Pagar prestadores por resultado e qualidade, públicos ou privados, sob regra única de acesso.",
+          "hint": "Busca eficiência; métricas podem distorcer o cuidado.",
+          "weights": {
+            "economy": 0.1,
+            "technology": 0.08,
+            "equality": 0.1,
+            "authority": 0.08,
+            "liberty": -0.05
+          },
+          "salience": {
+            "economy": 0.55,
+            "equality": 0.55,
+            "technology": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "moradia-urbana",
+      "title": "Moradia e ocupação urbana",
+      "body": "Famílias ocupam um terreno ocioso no centro da cidade. O proprietário pede reintegração. Ativistas pedem moradia social. O mercado imobiliário teme precendente. Como o poder público deveria agir?",
+      "choices": [
+        {
+          "id": "moradia-reintegrar",
+          "label": "Cumprir a reintegração rápida e proteger a propriedade privada.",
+          "hint": "Afirma o direito de propriedade; pode gerar despejo sem alternativa.",
+          "weights": {
+            "economy": 0.18,
+            "liberty": 0.1,
+            "equality": -0.18,
+            "authority": 0.12,
+            "tradition": 0.05
+          },
+          "salience": {
+            "economy": 0.85,
+            "equality": 0.85,
+            "authority": 0.6
+          }
+        },
+        {
+          "id": "moradia-regularizar",
+          "label": "Regularizar a ocupação e criar programa público de moradia no local.",
+          "hint": "Prioriza teto e inclusão; gera atrito com proprietários e custo fiscal.",
+          "weights": {
+            "equality": 0.2,
+            "economy": -0.15,
+            "authority": 0.08,
+            "liberty": -0.1,
+            "tradition": -0.05
+          },
+          "salience": {
+            "equality": 0.95,
+            "economy": 0.75,
+            "liberty": 0.55
+          }
+        },
+        {
+          "id": "moradia-aluguel",
+          "label": "Remover a ocupação, mas garantir aluguel social temporário e fila de habitação.",
+          "hint": "Equilibra ordem e acolhimento; depende de vaga e orçamento.",
+          "weights": {
+            "equality": 0.12,
+            "authority": 0.1,
+            "economy": -0.08,
+            "liberty": -0.05
+          },
+          "salience": {
+            "equality": 0.65,
+            "authority": 0.55
+          }
+        },
+        {
+          "id": "moradia-imposto",
+          "label": "Manter a propriedade, mas taxar terreno ocioso até forçar uso ou venda para habitação.",
+          "hint": "Pressão de mercado por uso social; pode elevar preços no entorno.",
+          "weights": {
+            "economy": -0.08,
+            "equality": 0.1,
+            "authority": 0.1,
+            "liberty": -0.08
+          },
+          "salience": {
+            "economy": 0.6,
+            "equality": 0.55,
+            "authority": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "previdencia-idade",
+      "title": "Idade de aposentadoria",
+      "body": "A demografia aperta as contas da previdência. Uma reforma sobe a idade mínima e o tempo de contribuição. Sindicatos resistem. Jovens temem pagar mais por menos. Qual linha você apoiaria?",
+      "choices": [
+        {
+          "id": "prev-subir",
+          "label": "Subir a idade mínima de forma ampla e igual para a maioria das carreiras.",
+          "hint": "Alivia o déficit; exige mais anos de trabalho de quem já contribuiu.",
+          "weights": {
+            "economy": 0.15,
+            "authority": 0.12,
+            "equality": -0.1,
+            "liberty": -0.05,
+            "tradition": -0.05
+          },
+          "salience": {
+            "economy": 0.85,
+            "equality": 0.7,
+            "authority": 0.55
+          }
+        },
+        {
+          "id": "prev-manter",
+          "label": "Manter regras atuais e cobrir o rombo com imposto sobre altas rendas e patrimônios.",
+          "hint": "Protege a aposentadoria cedo; concentra o custo em quem tem mais.",
+          "weights": {
+            "economy": -0.15,
+            "equality": 0.18,
+            "authority": 0.08,
+            "liberty": -0.08
+          },
+          "salience": {
+            "equality": 0.85,
+            "economy": 0.8
+          }
+        },
+        {
+          "id": "prev-capitalizacao",
+          "label": "Migrar gradualmente para contas individuais de capitalização, com piso solidário mínimo.",
+          "hint": "Liga benefício à poupança; risco de desigualdade e de mercado.",
+          "weights": {
+            "economy": 0.18,
+            "liberty": 0.12,
+            "equality": -0.15,
+            "authority": -0.08,
+            "technology": 0.05
+          },
+          "salience": {
+            "economy": 0.9,
+            "equality": 0.75,
+            "liberty": 0.55
+          }
+        },
+        {
+          "id": "prev-diferenciada",
+          "label": "Subir a idade só para quem tem trabalho menos penoso; preservar regras para trabalho braçal.",
+          "hint": "Reconhece desigualdade de desgaste; complica a regra e a fiscalização.",
+          "weights": {
+            "equality": 0.15,
+            "economy": 0.05,
+            "authority": 0.05,
+            "tradition": 0.05
+          },
+          "salience": {
+            "equality": 0.75,
+            "economy": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "cotas-acesso",
+      "title": "Cotas no ensino superior",
+      "body": "Universidades públicas discutem ampliar cotas por origem social e racial. Defensores veem reparação e diversidade. Críticos veem mérito prejudicado e estigma. Qual política você escolheria?",
+      "choices": [
+        {
+          "id": "cotas-ampliar",
+          "label": "Ampliar cotas raciais e sociais com metas claras e acompanhamento de permanência.",
+          "hint": "Acelera inclusão de grupos historicamente excluídos; gera disputa sobre mérito.",
+          "weights": {
+            "equality": 0.22,
+            "tradition": -0.12,
+            "liberty": -0.08,
+            "authority": 0.1,
+            "economy": -0.05
+          },
+          "salience": {
+            "equality": 0.95,
+            "tradition": 0.65,
+            "liberty": 0.5
+          }
+        },
+        {
+          "id": "cotas-merito",
+          "label": "Acabar com cotas e selecionar só por prova, com bolsas para baixa renda depois do ingresso.",
+          "hint": "Afirma meritocracia formal; pode reproduzir desigualdades prévias.",
+          "weights": {
+            "equality": -0.18,
+            "liberty": 0.12,
+            "economy": 0.08,
+            "tradition": 0.08,
+            "authority": -0.05
+          },
+          "salience": {
+            "equality": 0.9,
+            "liberty": 0.7,
+            "economy": 0.45
+          }
+        },
+        {
+          "id": "cotas-renda",
+          "label": "Manter só cotas por renda e escola pública, sem critério racial explícito.",
+          "hint": "Foca classe; pode deixar inequidades raciais sem resposta direta.",
+          "weights": {
+            "equality": 0.12,
+            "tradition": 0.05,
+            "liberty": -0.05,
+            "authority": 0.05
+          },
+          "salience": {
+            "equality": 0.75,
+            "tradition": 0.4
+          }
+        },
+        {
+          "id": "cotas-temporarias",
+          "label": "Manter cotas amplas com prazo de revisão obrigatória e metas de saída gradual.",
+          "hint": "Reconhece provisoriedade; a revisão pode ser capturada politicamente.",
+          "weights": {
+            "equality": 0.15,
+            "authority": 0.08,
+            "tradition": -0.05,
+            "liberty": -0.05
+          },
+          "salience": {
+            "equality": 0.7,
+            "authority": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "terra-indigena",
+      "title": "Demarcação de terra indígena",
+      "body": "Um povo indígena pede a demarcação de território tradicional onde há garimpo e fazendas recentes. Produtores alegam título e emprego. Antropólogos apontam ocupação ancestral. Como decidir?",
+      "choices": [
+        {
+          "id": "terra-demarcar",
+          "label": "Demarcar integralmente e retirar atividades incompatíveis, com indenização onde couber.",
+          "hint": "Reconhece direito originário; gera conflito econômico imediato.",
+          "weights": {
+            "equality": 0.18,
+            "tradition": 0.15,
+            "environment": 0.15,
+            "economy": -0.15,
+            "authority": 0.1
+          },
+          "salience": {
+            "equality": 0.85,
+            "tradition": 0.75,
+            "environment": 0.7,
+            "economy": 0.7
+          }
+        },
+        {
+          "id": "terra-titulo",
+          "label": "Priorizar títulos de propriedade já registrados e negar a expansão da demarcação.",
+          "hint": "Protege segurança jurídica de quem comprou; ignora demanda indígena.",
+          "weights": {
+            "economy": 0.18,
+            "liberty": 0.1,
+            "equality": -0.15,
+            "tradition": -0.1,
+            "environment": -0.08
+          },
+          "salience": {
+            "economy": 0.85,
+            "equality": 0.8,
+            "tradition": 0.55
+          }
+        },
+        {
+          "id": "terra-uso-compartilhado",
+          "label": "Criar área compartilhada com regras de uso sustentável e veto a garimpo.",
+          "hint": "Tenta coexistência; pode insatisfazer os dois lados.",
+          "weights": {
+            "environment": 0.12,
+            "equality": 0.08,
+            "economy": 0.05,
+            "authority": 0.08,
+            "tradition": 0.05
+          },
+          "salience": {
+            "environment": 0.65,
+            "equality": 0.55,
+            "economy": 0.45
+          }
+        },
+        {
+          "id": "terra-marco",
+          "label": "Só demarcar se houver prova de ocupação contínua em uma data-corte legal fixa.",
+          "hint": "Critério objetivo; pode apagar histórias de expulsão anterior à data.",
+          "weights": {
+            "authority": 0.12,
+            "economy": 0.08,
+            "tradition": -0.08,
+            "equality": -0.08,
+            "liberty": 0.05
+          },
+          "salience": {
+            "authority": 0.7,
+            "equality": 0.6,
+            "tradition": 0.55
+          }
+        }
+      ]
+    },
+    {
+      "id": "laicidade-escola",
+      "title": "Religião na escola pública",
+      "body": "Uma rede pública discute se deve oferecer ensino religioso confessional, manter só história das religiões, ou banir símbolos e atos de fé no horário escolar. Famílias e igrejas se mobilizam. Qual regra você apoiaria?",
+      "choices": [
+        {
+          "id": "laico-banir",
+          "label": "Escola estritamente laica: sem culto, sem ensino confessional e sem símbolos religiosos oficiais.",
+          "hint": "Separa Estado e fé; pode ser vista como hostil a tradições.",
+          "weights": {
+            "tradition": -0.2,
+            "liberty": 0.1,
+            "equality": 0.12,
+            "authority": 0.1,
+            "body": 0.05
+          },
+          "salience": {
+            "tradition": 0.9,
+            "equality": 0.7,
+            "liberty": 0.55
+          }
+        },
+        {
+          "id": "laico-confessional",
+          "label": "Permitir ensino religioso confessional optativo conforme a maioria local da comunidade.",
+          "hint": "Acolhe fé local; minorias podem se sentir excluídas.",
+          "weights": {
+            "tradition": 0.22,
+            "authority": -0.08,
+            "equality": -0.12,
+            "liberty": 0.08,
+            "body": -0.05
+          },
+          "salience": {
+            "tradition": 0.95,
+            "equality": 0.7,
+            "liberty": 0.5
+          }
+        },
+        {
+          "id": "laico-historia",
+          "label": "Oferecer só disciplina não confessional sobre religiões e ética, obrigatória e plural.",
+          "hint": "Formação cívica plural; ainda obriga contato com tema sensível.",
+          "weights": {
+            "tradition": -0.05,
+            "equality": 0.1,
+            "authority": 0.08,
+            "liberty": -0.05
+          },
+          "salience": {
+            "equality": 0.55,
+            "tradition": 0.5,
+            "authority": 0.4
+          }
+        },
+        {
+          "id": "laico-pos-aula",
+          "label": "Manter a aula laica e permitir grupos religiosos voluntários só após o horário oficial.",
+          "hint": "Compromisso prático; a linha do 'oficial' pode ser contestada.",
+          "weights": {
+            "tradition": 0.08,
+            "liberty": 0.1,
+            "equality": 0.05,
+            "authority": -0.05
+          },
+          "salience": {
+            "tradition": 0.55,
+            "liberty": 0.55
+          }
+        }
+      ]
+    },
+    {
+      "id": "intervencao-externa",
+      "title": "Intervenção em conflito externo",
+      "body": "Um conflito armado explode além da fronteira. Aliados pedem tropas e armas. Pacifistas pedem só ajuda humanitária. Generais alertam para risco de escalada. O que você decidiria?",
+      "choices": [
+        {
+          "id": "guerra-intervenir",
+          "label": "Enviar apoio militar direto e integrar coalizão de intervenção.",
+          "hint": "Projeta força e solidariedade estratégica; risco de guerra longa.",
+          "weights": {
+            "global": 0.18,
+            "security": 0.15,
+            "authority": 0.12,
+            "liberty": -0.08,
+            "economy": -0.1
+          },
+          "salience": {
+            "global": 0.9,
+            "security": 0.85,
+            "authority": 0.6
+          }
+        },
+        {
+          "id": "guerra-neutro",
+          "label": "Manter neutralidade: só ajuda humanitária e mediação diplomática.",
+          "hint": "Reduz risco próprio; pode ser visto como omissão.",
+          "weights": {
+            "global": -0.1,
+            "security": -0.08,
+            "tradition": 0.1,
+            "equality": 0.08,
+            "economy": 0.05
+          },
+          "salience": {
+            "global": 0.75,
+            "security": 0.65,
+            "tradition": 0.45
+          }
+        },
+        {
+          "id": "guerra-armas",
+          "label": "Enviar armas e inteligência, sem tropas no chão.",
+          "hint": "Influência sem ocupação; ainda alimenta o conflito.",
+          "weights": {
+            "global": 0.12,
+            "security": 0.1,
+            "economy": -0.05,
+            "authority": 0.05,
+            "liberty": -0.05
+          },
+          "salience": {
+            "global": 0.7,
+            "security": 0.65
+          }
+        },
+        {
+          "id": "guerra-onu",
+          "label": "Só participar se houver mandato claro de organismo multilateral de paz.",
+          "hint": "Busca legitimidade; pode nunca materializar a ação.",
+          "weights": {
+            "global": 0.15,
+            "authority": -0.05,
+            "security": 0.05,
+            "equality": 0.05
+          },
+          "salience": {
+            "global": 0.8,
+            "security": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "judiciario-independencia",
+      "title": "Independência do Judiciário",
+      "body": "Depois de decisões impopulares, o Congresso discute formas de limitar mandatos de juízes e revisar sentenças. Magistrados veem ataque à independência. Eleitores pedem mais controle democrático. Qual equilíbrio você escolheria?",
+      "choices": [
+        {
+          "id": "jud-proteger",
+          "label": "Blindar a independência: mandatos longos, orçamento próprio e revisão política mínima.",
+          "hint": "Protege o Estado de Direito; reduz responsividade eleitoral.",
+          "weights": {
+            "authority": -0.1,
+            "liberty": 0.12,
+            "tradition": 0.1,
+            "equality": 0.05,
+            "security": 0.05
+          },
+          "salience": {
+            "liberty": 0.75,
+            "authority": 0.7,
+            "tradition": 0.55
+          }
+        },
+        {
+          "id": "jud-controle",
+          "label": "Aumentar controle político: mandatos curtos, sabatina frequente e mecanismo de anulação legislativa.",
+          "hint": "Alinha cortes à maioria eleita; risco de captura e retaliação.",
+          "weights": {
+            "authority": 0.2,
+            "liberty": -0.15,
+            "tradition": -0.1,
+            "equality": 0.05,
+            "security": -0.05
+          },
+          "salience": {
+            "authority": 0.9,
+            "liberty": 0.85,
+            "tradition": 0.5
+          }
+        },
+        {
+          "id": "jud-transparencia",
+          "label": "Manter independência, mas exigir transparência radical, metas de prazo e códigos de ética rígidos.",
+          "hint": "Accountability sem subordinar o mérito; burocracia pode crescer.",
+          "weights": {
+            "authority": 0.08,
+            "liberty": 0.05,
+            "equality": 0.1,
+            "technology": 0.05
+          },
+          "salience": {
+            "authority": 0.55,
+            "equality": 0.5,
+            "liberty": 0.45
+          }
+        },
+        {
+          "id": "jud-jurados",
+          "label": "Ampliar o papel de júri popular e reduzir o poder discricionário de juízes singulares.",
+          "hint": "Democratiza julgamento; risco de emoção coletiva e desigualdade regional.",
+          "weights": {
+            "authority": -0.12,
+            "equality": 0.1,
+            "liberty": 0.08,
+            "tradition": 0.05
+          },
+          "salience": {
+            "authority": 0.7,
+            "equality": 0.55,
+            "liberty": 0.5
+          }
+        }
+      ]
     }
   ]
 }
