@@ -132,10 +132,10 @@ export default function PosicoesPage() {
 
       <div className="mt-14 flex flex-wrap gap-3">
         <Link
-          href="/play"
+          href="/#modos"
           className="inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--ink)] transition-opacity hover:opacity-90"
         >
-          Fazer o teste
+          Escolher o teste
         </Link>
         <Link
           href="/"
