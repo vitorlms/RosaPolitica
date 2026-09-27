@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Fraunces, Source_Sans_3 } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
@@ -75,6 +77,8 @@ export default function RootLayout({
           </div>
         </header>
         <main className="flex flex-1 flex-col px-6 py-10">{children}</main>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
