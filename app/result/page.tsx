@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ResultView } from "@/components/ResultView";
 import { computeResult } from "@/lib/scoring";
 import {
+  clearInProgress,
   loadChoices,
   loadSavedResult,
   saveSavedResult,
@@ -28,6 +29,8 @@ export default function ResultPage() {
         savedAt: new Date().toISOString(),
       });
     }
+    const saved = loadSavedResult();
+    if (saved) clearInProgress(saved.mode);
     setResult(computeResult(ids));
   }, []);
 

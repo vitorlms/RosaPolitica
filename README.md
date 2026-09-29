@@ -106,7 +106,7 @@ O arquétipo final é o centróide mais próximo (distância euclidiana nas posi
 app/           # intro, play, result
 components/    # SceneCard, ChoiceButton, AxisRadar, AxisBars, EssentialSummary
 content/       # story.json, archetypes.json
-lib/           # types, scoring, storage (sessionStorage)
+lib/           # types, scoring, storage (localStorage + sessionStorage)
 ```
 
 ## Gancho futuro (não implementado)
@@ -115,5 +115,5 @@ A origem das noções políticas poderá afetar o **cenário inicial**. O tipo `
 
 ## Escopo
 
-Inclui: 40 cenas, 3 modos de teste (rápido / padrão / completo), 10 eixos, salience/essencialidade, radar, arquétipos.  
-Não inclui: login, salvar progresso, múltiplas histórias, IA gerando perguntas.
+Inclui: 40 cenas, 3 modos de teste (rápido / padrão / completo), retomada no meio do teste neste navegador, 10 eixos, salience/essencialidade, radar, arquétipos.  
+Não inclui: login, múltiplas histórias, IA gerando perguntas.

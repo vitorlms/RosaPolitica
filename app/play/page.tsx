@@ -2,10 +2,21 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { ChoiceButton } from "@/components/ChoiceButton";
 import { SceneCard } from "@/components/SceneCard";
-import { clearChoices, saveChoices, saveSavedResult } from "@/lib/storage";
+import {
+  IN_PROGRESS_UNREADY,
+  assessInProgress,
+  clearChoices,
+  finishQuiz,
+  getInProgressServerSnapshot,
+  getInProgressSnapshot,
+  quizzesFromSnapshot,
+  saveInProgress,
+  subscribeInProgress,
+  clearInProgress,
+} from "@/lib/storage";
 import {
   TEST_MODES,
   parseTestMode,
@@ -20,18 +31,23 @@ const ENTER_MS = 550;
 
 type Phase = "idle" | "exiting" | "entering";
 
-function PlayExperience() {
+function PlayExperience({ mode }: { mode: TestModeId }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const mode: TestModeId = parseTestMode(searchParams.get("modo"));
   const scenes = useMemo(() => scenesForMode(mode), [mode]);
+  const snapshot = useSyncExternalStore(
+    subscribeInProgress,
+    getInProgressSnapshot,
+    getInProgressServerSnapshot,
+  );
+  const saved = useMemo(() => {
+    if (snapshot === IN_PROGRESS_UNREADY) return undefined;
+    return quizzesFromSnapshot(snapshot).find((item) => item.mode === mode) ?? null;
+  }, [snapshot, mode]);
 
-  const [index, setIndex] = useState(0);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [answers, setAnswers] = useState<string[]>([]);
-  const [ready, setReady] = useState(false);
+  const [pendingChoice, setPendingChoice] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [phase, setPhase] = useState<Phase>("idle");
+  const [done, setDone] = useState(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   function clearTimers() {
@@ -46,16 +62,33 @@ function PlayExperience() {
 
   useEffect(() => {
     clearChoices();
-    setIndex(0);
-    setSelected(null);
-    setAnswers([]);
-    setLocked(false);
-    setPhase("idle");
-    setReady(true);
     return () => clearTimers();
-  }, [mode]);
+  }, []);
 
-  if (!ready) {
+  useEffect(() => {
+    if (locked || phase !== "idle") return;
+    if (saved == null) return;
+    const status = assessInProgress(saved, scenes);
+    if (status === "invalid") {
+      clearInProgress(mode);
+      return;
+    }
+    if (status === "complete") {
+      finishQuiz(saved.choiceIds, mode, { retainProgress: true });
+      router.replace("/result");
+    }
+  }, [saved, scenes, mode, router, locked, phase]);
+
+  const status =
+    saved === undefined
+      ? "loading"
+      : saved === null
+        ? "fresh"
+        : assessInProgress(saved, scenes);
+  const finishing =
+    status === "complete" && (locked || phase !== "idle" || pendingChoice !== null);
+
+  if (done || status === "loading" || (status === "complete" && !finishing)) {
     return (
       <p className="mx-auto text-[var(--muted)]" aria-live="polite">
         Preparando…
@@ -77,43 +110,54 @@ function PlayExperience() {
     );
   }
 
+  const restored =
+    saved && (status === "resume" || status === "complete") ? saved : null;
+  const index = restored ? restored.index : 0;
+  const answers = restored ? restored.choiceIds : [];
+  const selected =
+    pendingChoice ??
+    (index < answers.length ? answers[index] : null);
   const scene = scenes[index];
   const isFirst = index === 0;
   const isLast = index === scenes.length - 1;
   const modeLabel = TEST_MODES[mode].label;
 
-  function advanceTo(nextIndex: number, nextAnswers: string[]) {
-    setIndex(nextIndex);
-    setSelected(nextAnswers[nextIndex] ?? null);
-    setPhase("entering");
-    later(ENTER_MS, () => {
-      setPhase("idle");
-      setLocked(false);
-    });
+  if (!scene) {
+    return (
+      <p className="mx-auto text-[var(--muted)]" aria-live="polite">
+        Preparando…
+      </p>
+    );
   }
 
   function selectChoice(choiceId: string) {
     if (locked) return;
     setLocked(true);
-    setSelected(choiceId);
+    setPendingChoice(choiceId);
 
     const nextAnswers = [...answers.slice(0, index), choiceId];
-    setAnswers(nextAnswers);
+    saveInProgress({ mode, choiceIds: nextAnswers, index });
 
     later(SELECT_HOLD_MS, () => {
       setPhase("exiting");
       later(EXIT_MS, () => {
         if (isLast) {
-          saveChoices(nextAnswers);
-          saveSavedResult({
-            choiceIds: nextAnswers,
-            mode,
-            savedAt: new Date().toISOString(),
-          });
+          setDone(true);
+          finishQuiz(nextAnswers, mode);
           router.push("/result");
           return;
         }
-        advanceTo(index + 1, nextAnswers);
+        saveInProgress({
+          mode,
+          choiceIds: nextAnswers,
+          index: index + 1,
+        });
+        setPendingChoice(null);
+        setPhase("entering");
+        later(ENTER_MS, () => {
+          setPhase("idle");
+          setLocked(false);
+        });
       });
     });
   }
@@ -129,8 +173,17 @@ function PlayExperience() {
     clearTimers();
     setLocked(true);
     setPhase("exiting");
+    const nextIndex = index - 1;
     later(EXIT_MS, () => {
-      advanceTo(index - 1, answers);
+      if (answers.length > 0) {
+        saveInProgress({ mode, choiceIds: answers, index: nextIndex });
+      }
+      setPendingChoice(null);
+      setPhase("entering");
+      later(ENTER_MS, () => {
+        setPhase("idle");
+        setLocked(false);
+      });
     });
   }
 
@@ -175,6 +228,12 @@ function PlayExperience() {
   );
 }
 
+function PlayGate() {
+  const searchParams = useSearchParams();
+  const mode = parseTestMode(searchParams.get("modo"));
+  return <PlayExperience key={mode} mode={mode} />;
+}
+
 export default function PlayPage() {
   return (
     <Suspense
@@ -184,7 +243,7 @@ export default function PlayPage() {
         </p>
       }
     >
-      <PlayExperience />
+      <PlayGate />
     </Suspense>
   );
 }
