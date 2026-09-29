@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ResumeQuiz } from "@/components/ResumeQuiz";
 import { story } from "@/lib/scoring";
 import {
   TEST_MODE_ORDER,
@@ -30,6 +31,8 @@ export default function HomePage() {
         um perfil em dez eixos (para onde inclina e o que pesou mais) e um
         arquétipo resumido.
       </p>
+
+      <ResumeQuiz />
 
       <section id="modos" className="mt-10 scroll-mt-8">
         <h2 className="font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
