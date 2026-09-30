@@ -183,3 +183,95 @@ export interface OriginProfile {
   tags?: string[];
   preferredStoryId?: string;
 }
+
+/**
+ * One mutually exclusive way to arrange a piece of government.
+ * The label names a mechanism, not a regime, party, or ideology.
+ * Not used by axis scoring. See docs/governo-ideal.md.
+ */
+export interface InstitutionOption {
+  id: string;
+  /** Short player-facing label. */
+  label: string;
+  /** Problem this option mainly tries to solve. */
+  solves: string;
+  /** Cost the option accepts. */
+  tradeoff: string;
+  /** Author note. Not for the result UI. */
+  notes?: string;
+}
+
+/** Law-style category. Options inside it are mutually exclusive. */
+export interface InstitutionCategory {
+  id: string;
+  name: string;
+  /** What this category decides. */
+  question: string;
+  options: InstitutionOption[];
+}
+
+/**
+ * Catalog for a future “governo ideal” block.
+ * Content skeleton only — not imported by scoring, play, or result.
+ */
+export interface InstitutionCatalog {
+  id: string;
+  status: "skeleton";
+  title: string;
+  /** Future result heading, separate from the axis profile. */
+  resultTitle: string;
+  /** Future lead under that heading. */
+  resultLead: string;
+  summary: string;
+  /** Authoring rule. Not for the result UI. */
+  authorNote: string;
+  categories: InstitutionCategory[];
+}
+
+/** How strongly a story choice leans toward one institution option. */
+export interface InstitutionLean {
+  categoryId: string;
+  optionId: string;
+  /** 0–1. How directly the choice is about that arrangement. */
+  strength: number;
+}
+
+/** Story choice plus an institution lean. Axis fields match {@link Choice}. */
+export interface DraftChoice extends Choice {
+  /**
+   * Future input to the ideal-government profile.
+   * Ignored by axis scoring.
+   */
+  leans?: InstitutionLean[];
+}
+
+export interface DraftScene {
+  id: string;
+  title: string;
+  body: string;
+  choices: DraftChoice[];
+}
+
+/**
+ * Dilemma drafts that probe institutional preferences.
+ * Same scene shape as the live story, kept out of the 40-scene path.
+ */
+export interface InstitutionDraft {
+  status: "draft";
+  /** Why this file exists and that scoring must not import it yet. */
+  note: string;
+  scenes: DraftScene[];
+}
+
+/**
+ * Future result row: one option per category.
+ * Not computed yet.
+ */
+export interface InstitutionPick {
+  categoryId: string;
+  optionId: string;
+  /** Sum of lean strengths that supported this option. */
+  support?: number;
+  /** True when the category stayed open because the top options were too close. */
+  open?: boolean;
+}

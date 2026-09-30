@@ -1,0 +1,832 @@
+{
+  "status": "draft",
+  "note": "Rascunho de dilemas que sondam o governo ideal. O formato de cena é o mesmo de content/story.json (id, title, body, choices com label, hint, weights e salience), com o campo extra leans. Não importar este arquivo em lib/scoring.ts: o caminho ao vivo continua com as 40 cenas. leans não entra no placar dos eixos.",
+  "scenes": [
+    {
+      "id": "emenda-travada",
+      "title": "A emenda que não passa",
+      "body": "Quase todas as bancadas concordam em atualizar o mapa eleitoral, velho desde o último censo. O que trava é o caminho: o texto fundamental de Valmora exige acordo de duas legislaturas e das regiões. A eleição se aproxima. O que você faria?",
+      "choices": [
+        {
+          "id": "emenda-quorum",
+          "label": "Manter o acordo largo: a regra só muda se as duas legislaturas e as regiões concordarem.",
+          "hint": "Segura o pacto antigo; o mapa velho vale mais uma eleição.",
+          "leans": [
+            {
+              "categoryId": "contencao-do-poder",
+              "optionId": "regras-dificeis",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "tradition": 0.18,
+            "authority": -0.08,
+            "liberty": 0.06,
+            "equality": -0.06
+          },
+          "salience": {
+            "tradition": 0.7,
+            "authority": 0.65
+          }
+        },
+        {
+          "id": "emenda-maioria",
+          "label": "Deixar esta maioria aprovar a mudança sozinha e seguir em frente.",
+          "hint": "Destrava a reforma; a próxima maioria ganha o mesmo atalho.",
+          "leans": [
+            {
+              "categoryId": "contencao-do-poder",
+              "optionId": "poucas-travas",
+              "strength": 0.75
+            },
+            {
+              "categoryId": "limites-do-estado",
+              "optionId": "maioria-revisa",
+              "strength": 0.45
+            }
+          ],
+          "weights": {
+            "authority": 0.16,
+            "tradition": -0.14,
+            "equality": 0.08,
+            "liberty": -0.06
+          },
+          "salience": {
+            "authority": 0.75,
+            "tradition": 0.6
+          }
+        },
+        {
+          "id": "emenda-assembleia-extra",
+          "label": "Convocar uma assembleia eleita só para reescrever esse capítulo, com prazo para acabar.",
+          "hint": "Dá mandato específico; custa tempo e pode alargar a briga além do mapa.",
+          "leans": [
+            {
+              "categoryId": "contencao-do-poder",
+              "optionId": "mandato-revogavel",
+              "strength": 0.85
+            }
+          ],
+          "weights": {
+            "authority": -0.1,
+            "tradition": -0.08,
+            "equality": 0.1,
+            "liberty": 0.06
+          },
+          "salience": {
+            "authority": 0.65,
+            "equality": 0.4
+          }
+        },
+        {
+          "id": "emenda-tribunal",
+          "label": "Não mexer no texto: o tribunal diz se a regra antiga ainda se aplica.",
+          "hint": "Evita o atalho na assembleia; quem não foi eleito para isso passa a decidir.",
+          "leans": [
+            {
+              "categoryId": "contencao-do-poder",
+              "optionId": "travas-mutuas",
+              "strength": 0.85
+            },
+            {
+              "categoryId": "limites-do-estado",
+              "optionId": "lista-intangivel",
+              "strength": 0.35
+            }
+          ],
+          "weights": {
+            "authority": -0.12,
+            "tradition": 0.12,
+            "liberty": 0.08
+          },
+          "salience": {
+            "authority": 0.7,
+            "tradition": 0.55,
+            "liberty": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "hospital-transicao",
+      "title": "A troca de governo no hospital",
+      "body": "O governo de Valmora mudou. No hospital central, a direção e os chefes de compra foram nomeados pelo governo anterior. O inverno vem aí e a fila já está longa. O novo gabinete quer saber quem manda no corredor a partir de segunda. O que você faria?",
+      "choices": [
+        {
+          "id": "hospital-carreira",
+          "label": "Manter quem entrou por prova e trocar só o ministro e o conselho político.",
+          "hint": "Preserva o ofício; o rumo novo demora a chegar na ala.",
+          "leans": [
+            {
+              "categoryId": "conducao-do-dia",
+              "optionId": "carreira-permanente",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "tradition": 0.12,
+            "authority": -0.06,
+            "equality": 0.08,
+            "liberty": -0.04
+          },
+          "salience": {
+            "tradition": 0.55,
+            "authority": 0.6,
+            "equality": 0.4
+          }
+        },
+        {
+          "id": "hospital-confianca",
+          "label": "Substituir diretores e chefes de compra por gente da confiança do governo novo.",
+          "hint": "Alinha o hospital ao programa eleito; a memória da casa sai pela porta.",
+          "leans": [
+            {
+              "categoryId": "conducao-do-dia",
+              "optionId": "nomeacao-politica",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "authority": 0.18,
+            "tradition": -0.1,
+            "equality": -0.06
+          },
+          "salience": {
+            "authority": 0.85,
+            "tradition": 0.45
+          }
+        },
+        {
+          "id": "hospital-conselho",
+          "label": "Entregar fila e escala a um conselho de pacientes, trabalhadores e município.",
+          "hint": "Quem usa o hospital passa a decidir; o padrão pode mudar de ala para ala.",
+          "leans": [
+            {
+              "categoryId": "conducao-do-dia",
+              "optionId": "conselhos-locais",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "authority": -0.16,
+            "equality": 0.14,
+            "liberty": 0.06
+          },
+          "salience": {
+            "authority": 0.7,
+            "equality": 0.65
+          }
+        },
+        {
+          "id": "hospital-meta",
+          "label": "Licitar a gestão por metas de espera e de infecção, com o Estado só na fiscalização.",
+          "hint": "Cobra resultado; o contrato pode esconder custo, e fiscalizar vira o gargalo.",
+          "leans": [
+            {
+              "categoryId": "conducao-do-dia",
+              "optionId": "contrato-por-meta",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "economy": 0.16,
+            "authority": -0.06,
+            "equality": -0.08,
+            "liberty": 0.08
+          },
+          "salience": {
+            "economy": 0.75,
+            "equality": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "decreto-do-pao",
+      "title": "O decreto do pão",
+      "body": "O preço do pão dobrou em dez dias. O governo preparou um decreto com teto e multa já nesta semana. Um tribunal suspendeu o texto: não houve lei votada. A fila da padaria não espera a sessão. O que você faria?",
+      "choices": [
+        {
+          "id": "pao-respeitar",
+          "label": "Cumprir a suspensão e mandar o teto pelo caminho da lei na assembleia.",
+          "hint": "Mantém a trava; o preço segue solto enquanto o texto tramita.",
+          "leans": [
+            {
+              "categoryId": "contencao-do-poder",
+              "optionId": "travas-mutuas",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "authority": -0.12,
+            "liberty": 0.1,
+            "tradition": 0.06
+          },
+          "salience": {
+            "authority": 0.8,
+            "liberty": 0.55,
+            "tradition": 0.35
+          }
+        },
+        {
+          "id": "pao-decreto",
+          "label": "Manter o decreto em vigor até a assembleia dizer o contrário, e o tribunal fica no parecer.",
+          "hint": "Segura o preço agora; quem podia dizer não no meio do caminho perde a trava.",
+          "leans": [
+            {
+              "categoryId": "contencao-do-poder",
+              "optionId": "poucas-travas",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "authority": 0.2,
+            "liberty": -0.12,
+            "security": 0.06,
+            "economy": -0.12
+          },
+          "salience": {
+            "authority": 0.9,
+            "economy": 0.55,
+            "liberty": 0.55
+          }
+        },
+        {
+          "id": "pao-maioria",
+          "label": "A assembleia revalida o decreto por maioria simples, mesmo contra o tribunal.",
+          "hint": "A maioria eleita desempata; o tribunal deixa de segurar o governo.",
+          "leans": [
+            {
+              "categoryId": "contencao-do-poder",
+              "optionId": "mandato-revogavel",
+              "strength": 0.7
+            },
+            {
+              "categoryId": "limites-do-estado",
+              "optionId": "maioria-revisa",
+              "strength": 0.5
+            }
+          ],
+          "weights": {
+            "authority": 0.14,
+            "liberty": -0.08,
+            "equality": 0.06,
+            "tradition": -0.08
+          },
+          "salience": {
+            "authority": 0.75,
+            "liberty": 0.5
+          }
+        },
+        {
+          "id": "pao-texto-antigo",
+          "label": "Aplicar só o que o texto antigo já permite: acordo voluntário de preço, sem teto nem multa nova.",
+          "hint": "Não inventa poder no meio da alta; o teto que seguraria o pão não sai.",
+          "leans": [
+            {
+              "categoryId": "contencao-do-poder",
+              "optionId": "regras-dificeis",
+              "strength": 0.8
+            }
+          ],
+          "weights": {
+            "tradition": 0.16,
+            "authority": -0.08,
+            "liberty": 0.06,
+            "economy": 0.08,
+            "equality": 0.06
+          },
+          "salience": {
+            "tradition": 0.7,
+            "authority": 0.55,
+            "economy": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "regra-dos-setores",
+      "title": "Energia, porto e minério",
+      "body": "Valmora vai escrever a regra geral da energia, do porto e do minério — não o caso de uma empresa só. Esses setores acendem a cidade e, conforme o ano, quebram ou concentram o lucro. Sem eles, hospital e água param juntos. Qual regra fica valendo daqui para frente?",
+      "choices": [
+        {
+          "id": "setores-estado",
+          "label": "O Estado fica com esses setores e dirige produção e tarifa.",
+          "hint": "Garante a oferta; prejuízo e atraso passam para o orçamento de todos.",
+          "leans": [
+            {
+              "categoryId": "papel-economico",
+              "optionId": "estado-dirige",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "economy": -0.22,
+            "authority": 0.12,
+            "equality": 0.12
+          },
+          "salience": {
+            "economy": 0.9,
+            "authority": 0.5,
+            "equality": 0.55
+          }
+        },
+        {
+          "id": "setores-corrige",
+          "label": "Particulares produzem; o Estado mexe na tarifa e exige investimento mínimo quando a oferta falha.",
+          "hint": "Mantém dono privado; a conta sobe e a regra vira briga de contrato.",
+          "leans": [
+            {
+              "categoryId": "papel-economico",
+              "optionId": "estado-corrige",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "economy": 0.08,
+            "authority": 0.1,
+            "equality": 0.06,
+            "liberty": -0.04
+          },
+          "salience": {
+            "economy": 0.75,
+            "authority": 0.45
+          }
+        },
+        {
+          "id": "setores-jogo",
+          "label": "O Estado só garante contrato e propriedade; quem não se paga sai, e outro entra se quiser.",
+          "hint": "Não cobre prejuízo com imposto; enquanto ninguém entra, há apagão e preço solto.",
+          "leans": [
+            {
+              "categoryId": "papel-economico",
+              "optionId": "guarda-o-jogo",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "economy": 0.24,
+            "liberty": 0.12,
+            "equality": -0.14,
+            "authority": -0.08
+          },
+          "salience": {
+            "economy": 0.9,
+            "equality": 0.6,
+            "liberty": 0.45
+          }
+        },
+        {
+          "id": "setores-quem-trabalha",
+          "label": "Quem trabalha no setor conduz a atividade, com crédito público só para entrar e para a crise.",
+          "hint": "Quem está no setor conduz; o crédito de entrada sai do Tesouro e a escala é incerta.",
+          "leans": [
+            {
+              "categoryId": "papel-economico",
+              "optionId": "quem-trabalha-conduz",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "economy": -0.1,
+            "equality": 0.2,
+            "authority": -0.12,
+            "liberty": 0.06
+          },
+          "salience": {
+            "equality": 0.8,
+            "economy": 0.6,
+            "authority": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "policia-da-fronteira",
+      "title": "A polícia da fronteira",
+      "body": "Uma região de fronteira quer polícia própria, paga com imposto local e comandada pelo governo de lá. O centro diz que arma e cadeia não podem ter dois donos. Na semana passada as duas forças se cruzaram no mesmo bloqueio. O que você faria?",
+      "choices": [
+        {
+          "id": "policia-nacional",
+          "label": "Uma só polícia para o território, com o mesmo manual e o comando no centro.",
+          "hint": "A mesma regra vale na fronteira e na capital; a região perde voz sobre a própria rua.",
+          "leans": [
+            {
+              "categoryId": "centro-e-forca",
+              "optionId": "comando-unico",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "authority": 0.2,
+            "security": 0.14,
+            "equality": 0.08,
+            "liberty": -0.1
+          },
+          "salience": {
+            "authority": 0.85,
+            "security": 0.7,
+            "equality": 0.4
+          }
+        },
+        {
+          "id": "policia-regional",
+          "label": "Polícia da região para o crime local; o centro fica com fronteira, moeda e conflito entre regiões.",
+          "hint": "Cabe a diferença da fronteira; o direito e a arma ficam desiguais pelo mapa.",
+          "leans": [
+            {
+              "categoryId": "centro-e-forca",
+              "optionId": "regiao-no-cotidiano",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "authority": -0.18,
+            "tradition": 0.1,
+            "liberty": 0.08,
+            "equality": -0.1,
+            "security": 0.04
+          },
+          "salience": {
+            "authority": 0.85,
+            "equality": 0.55,
+            "security": 0.45
+          }
+        },
+        {
+          "id": "policia-separada",
+          "label": "Polícia civil sob o município, e a força de defesa restrita à fronteira, sem patrulha urbana.",
+          "hint": "Separa quem prende de quem guarda a fronteira; na crise as duas disputam o bloqueio.",
+          "leans": [
+            {
+              "categoryId": "centro-e-forca",
+              "optionId": "forcas-separadas",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "authority": -0.08,
+            "liberty": 0.12,
+            "security": 0.06
+          },
+          "salience": {
+            "liberty": 0.6,
+            "security": 0.7,
+            "authority": 0.55
+          }
+        },
+        {
+          "id": "policia-guarda-unica",
+          "label": "Fundir polícia e força de defesa numa guarda só, sob o governo central.",
+          "hint": "Acaba o rival armado; quem governa herda a força inteira.",
+          "leans": [
+            {
+              "categoryId": "centro-e-forca",
+              "optionId": "guarda-sob-o-governo",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "authority": 0.22,
+            "security": 0.18,
+            "liberty": -0.16
+          },
+          "salience": {
+            "authority": 0.9,
+            "security": 0.85,
+            "liberty": 0.7
+          }
+        }
+      ]
+    },
+    {
+      "id": "capitulo-de-emergencia",
+      "title": "O capítulo de emergência",
+      "body": "O surto no porto passou. A assembleia vai escrever o capítulo que valerá na próxima crise: o que o Estado pode exigir de fala, deslocamento e ofício quando o hospital lotar de novo. O que fica na regra?",
+      "choices": [
+        {
+          "id": "emergencia-lista",
+          "label": "Lista curta: pode isolar quem contagia; não pode calar crítica nem convocar ofício que a lei comum não previu.",
+          "hint": "Segura um piso de fala e de ofício; a resposta fica mais lenta que o surto.",
+          "leans": [
+            {
+              "categoryId": "limites-do-estado",
+              "optionId": "lista-intangivel",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "liberty": 0.16,
+            "authority": -0.1,
+            "security": -0.08,
+            "body": 0.1
+          },
+          "salience": {
+            "liberty": 0.85,
+            "body": 0.55,
+            "security": 0.5
+          }
+        },
+        {
+          "id": "emergencia-maioria",
+          "label": "A maioria pode autorizar, com prazo marcado, isolamento, plantão obrigatório e limite de boato.",
+          "hint": "A maioria assume a exceção; o prazo pode ser renovado sem data para acabar.",
+          "leans": [
+            {
+              "categoryId": "limites-do-estado",
+              "optionId": "maioria-revisa",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "authority": 0.12,
+            "liberty": -0.08,
+            "security": 0.1,
+            "equality": 0.06
+          },
+          "salience": {
+            "authority": 0.7,
+            "liberty": 0.65,
+            "security": 0.55
+          }
+        },
+        {
+          "id": "emergencia-dever",
+          "label": "Enquanto a emergência durar, o governo pode exigir serviço, deslocamento e silêncio do que atrapalhe a fila.",
+          "hint": "Mobiliza o porto inteiro; o 'enquanto durar' fica nas mãos de quem pede o silêncio.",
+          "leans": [
+            {
+              "categoryId": "limites-do-estado",
+              "optionId": "dever-coletivo",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "authority": 0.2,
+            "liberty": -0.18,
+            "security": 0.16,
+            "body": -0.1
+          },
+          "salience": {
+            "authority": 0.85,
+            "liberty": 0.8,
+            "security": 0.7,
+            "body": 0.45
+          }
+        },
+        {
+          "id": "emergencia-dano",
+          "label": "O Estado só impede dano direto: isola o caso confirmado, sem dever de ofício e sem campanha obrigatória.",
+          "hint": "Não convoca ninguém à força; o hospital pode ficar sem mão quando o voluntário faltar.",
+          "leans": [
+            {
+              "categoryId": "limites-do-estado",
+              "optionId": "so-dano-direto",
+              "strength": 0.9
+            }
+          ],
+          "weights": {
+            "liberty": 0.22,
+            "authority": -0.16,
+            "security": -0.14,
+            "body": 0.12
+          },
+          "salience": {
+            "liberty": 0.9,
+            "security": 0.65,
+            "body": 0.55
+          }
+        }
+      ]
+    },
+    {
+      "id": "cofre-da-regiao",
+      "title": "O cofre da região rica",
+      "body": "A região costeira arrecada muito e gasta pouco com pobreza. O interior pede um rateio obrigatório para escola e posto. A costa ameaça reter o imposto se o centro mexer no cofre. A regra vai valer no próximo ano, não só neste pedido. O que você faria?",
+      "choices": [
+        {
+          "id": "cofre-rateio",
+          "label": "Rateio obrigatório em todo o território: uma parte do imposto da costa financia um piso igual no interior.",
+          "hint": "Iguala o básico; a região que arrecada pode esconder a base ou desafiar o centro.",
+          "leans": [
+            {
+              "categoryId": "centro-e-forca",
+              "optionId": "comando-unico",
+              "strength": 0.7
+            },
+            {
+              "categoryId": "papel-economico",
+              "optionId": "estado-corrige",
+              "strength": 0.45
+            }
+          ],
+          "weights": {
+            "equality": 0.2,
+            "authority": 0.14,
+            "economy": -0.16,
+            "liberty": -0.06
+          },
+          "salience": {
+            "equality": 0.85,
+            "economy": 0.7,
+            "authority": 0.55
+          }
+        },
+        {
+          "id": "cofre-fica",
+          "label": "Cada região fica com o que arrecada e monta o serviço que conseguir.",
+          "hint": "Não transfere à força; escola e posto do interior ficam mais pobres.",
+          "leans": [
+            {
+              "categoryId": "centro-e-forca",
+              "optionId": "regiao-no-cotidiano",
+              "strength": 0.85
+            },
+            {
+              "categoryId": "papel-economico",
+              "optionId": "guarda-o-jogo",
+              "strength": 0.4
+            }
+          ],
+          "weights": {
+            "economy": 0.16,
+            "authority": -0.16,
+            "equality": -0.18,
+            "liberty": 0.08
+          },
+          "salience": {
+            "equality": 0.8,
+            "authority": 0.7,
+            "economy": 0.6
+          }
+        },
+        {
+          "id": "cofre-voluntario",
+          "label": "Fundo com meta publicada: a região adere se quiser o selo, e o centro não retém o imposto à força.",
+          "hint": "Evita o confisco; o fundo nasce pequeno se a costa não entrar.",
+          "leans": [
+            {
+              "categoryId": "conducao-do-dia",
+              "optionId": "contrato-por-meta",
+              "strength": 0.65
+            },
+            {
+              "categoryId": "centro-e-forca",
+              "optionId": "regiao-no-cotidiano",
+              "strength": 0.4
+            }
+          ],
+          "weights": {
+            "economy": 0.08,
+            "authority": -0.1,
+            "equality": 0.06,
+            "liberty": 0.1
+          },
+          "salience": {
+            "economy": 0.5,
+            "authority": 0.5,
+            "equality": 0.45
+          }
+        },
+        {
+          "id": "cofre-minimo",
+          "label": "O centro exige só um mínimo — água, escola primária, posto. O resto do cofre fica na região.",
+          "hint": "Garante um chão sem unificar o mapa; a briga seguinte é o que cabe no mínimo.",
+          "leans": [
+            {
+              "categoryId": "papel-economico",
+              "optionId": "estado-corrige",
+              "strength": 0.7
+            },
+            {
+              "categoryId": "centro-e-forca",
+              "optionId": "regiao-no-cotidiano",
+              "strength": 0.45
+            }
+          ],
+          "weights": {
+            "equality": 0.12,
+            "authority": 0.06,
+            "economy": -0.06,
+            "liberty": -0.04
+          },
+          "salience": {
+            "equality": 0.6,
+            "economy": 0.45,
+            "authority": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "ponte-no-meio",
+      "title": "A ponte no meio do mandato",
+      "body": "A ponte entre as duas margens está pela metade. O governo que assinou o contrato perdeu a eleição. O novo quer parar a obra, revisar o preço e trocar quem constrói. Quem espera a ponte só quer passar para o outro lado. O que você faria?",
+      "choices": [
+        {
+          "id": "ponte-contrato",
+          "label": "Contrato assinado vale: a obra segue, e só fraude comprovada no tribunal a interrompe.",
+          "hint": "A ponte termina; o governo novo herda uma escolha que não fez.",
+          "leans": [
+            {
+              "categoryId": "contencao-do-poder",
+              "optionId": "regras-dificeis",
+              "strength": 0.55
+            },
+            {
+              "categoryId": "papel-economico",
+              "optionId": "guarda-o-jogo",
+              "strength": 0.4
+            }
+          ],
+          "weights": {
+            "tradition": 0.1,
+            "economy": 0.12,
+            "authority": -0.1,
+            "liberty": 0.06
+          },
+          "salience": {
+            "economy": 0.55,
+            "authority": 0.6,
+            "tradition": 0.4
+          }
+        },
+        {
+          "id": "ponte-mandato",
+          "label": "O mandato novo pode romper o contrato e refazer a obra do jeito que foi eleito.",
+          "hint": "O programa novo manda; a ponte atrasa, e o próximo governo pode fazer igual.",
+          "leans": [
+            {
+              "categoryId": "contencao-do-poder",
+              "optionId": "poucas-travas",
+              "strength": 0.65
+            },
+            {
+              "categoryId": "conducao-do-dia",
+              "optionId": "nomeacao-politica",
+              "strength": 0.5
+            }
+          ],
+          "weights": {
+            "authority": 0.18,
+            "tradition": -0.12,
+            "economy": -0.06,
+            "liberty": -0.04
+          },
+          "salience": {
+            "authority": 0.8,
+            "tradition": 0.45
+          }
+        },
+        {
+          "id": "ponte-margens",
+          "label": "Um conselho das duas margens assume a obra; o Tesouro entra só com o crédito já previsto.",
+          "hint": "Quem espera a ponte decide; as margens podem não concordar entre si.",
+          "leans": [
+            {
+              "categoryId": "conducao-do-dia",
+              "optionId": "conselhos-locais",
+              "strength": 0.8
+            }
+          ],
+          "weights": {
+            "authority": -0.14,
+            "equality": 0.1,
+            "economy": -0.06,
+            "liberty": 0.06
+          },
+          "salience": {
+            "authority": 0.65,
+            "equality": 0.5
+          }
+        },
+        {
+          "id": "ponte-meta",
+          "label": "A empreiteira fica só se cumprir o prazo; se falhar, a licitação reabre sozinha.",
+          "hint": "Cobra resultado sem trocar por política; relicitar no meio da ponte custa caro.",
+          "leans": [
+            {
+              "categoryId": "conducao-do-dia",
+              "optionId": "contrato-por-meta",
+              "strength": 0.8
+            },
+            {
+              "categoryId": "papel-economico",
+              "optionId": "estado-corrige",
+              "strength": 0.35
+            }
+          ],
+          "weights": {
+            "economy": 0.12,
+            "authority": 0.04,
+            "equality": 0.04
+          },
+          "salience": {
+            "economy": 0.65,
+            "authority": 0.35
+          }
+        }
+      ]
+    }
+  ]
+}

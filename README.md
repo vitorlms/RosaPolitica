@@ -100,18 +100,23 @@ O arquétipo final é o centróide mais próximo (distância euclidiana nas posi
 
 3. Recarregue o `dev` — o motor em [`lib/scoring.ts`](lib/scoring.ts) lê esses JSON.
 
+4. **Governo ideal (esqueleto, fora do placar)** — [`content/institutions.json`](content/institutions.json) e o rascunho [`content/story-institutions-draft.json`](content/story-institutions-draft.json). Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
+
 ## Estrutura
 
 ```
 app/           # intro, play, result
 components/    # SceneCard, ChoiceButton, AxisRadar, AxisBars, EssentialSummary
-content/       # story.json, archetypes.json
-lib/           # types, scoring, storage (localStorage + sessionStorage)
+content/       # story.json, archetypes.json, institutions.json, story-institutions-draft.json
+docs/          # governo-ideal.md
+lib/           # types, scoring, storage (sessionStorage)
 ```
 
 ## Gancho futuro (não implementado)
 
 A origem das noções políticas poderá afetar o **cenário inicial**. O tipo `OriginProfile` em [`lib/types.ts`](lib/types.ts) já existe como placeholder.
+
+Um segundo resultado, separado dos dez eixos, está só em conteúdo: **seu governo ideal** — categorias de arranjo, sem nome de regime. Não entra no placar nem na tela. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
 
 ## Escopo
 
