@@ -98,6 +98,11 @@ export interface Choice {
    * High = near-essential / border of the acceptable; low = negotiable preference.
    */
   salience?: AxisSalience;
+  /**
+   * Arrangement this choice supports.
+   * Ignored by axis scoring. See docs/governo-ideal.md.
+   */
+  leans?: InstitutionLean[];
 }
 
 export interface Scene {
@@ -211,8 +216,8 @@ export interface InstitutionCategory {
 }
 
 /**
- * Catalog for a future “governo ideal” block.
- * Content skeleton only — not imported by scoring, play, or result.
+ * Catalog for the “governo ideal” block.
+ * Separate from the ten-axis profile. See docs/governo-ideal.md.
  */
 export interface InstitutionCatalog {
   id: string;
@@ -264,14 +269,23 @@ export interface InstitutionDraft {
 }
 
 /**
- * Future result row: one option per category.
- * Not computed yet.
+ * One row of the ideal-government profile.
+ * Recomputed from saved choice ids — not stored on its own.
  */
 export interface InstitutionPick {
   categoryId: string;
-  optionId: string;
-  /** Sum of lean strengths that supported this option. */
+  /**
+   * Leading option, when any lean landed here.
+   * Null when the category was never touched.
+   */
+  optionId: string | null;
+  /** Sum of lean strengths that supported {@link optionId}. */
   support?: number;
-  /** True when the category stayed open because the top options were too close. */
+  /**
+   * True when there is no winner: nothing was answered, or the runner-up
+   * was too close to crown one arrangement.
+   */
   open?: boolean;
+  /** The other close option, when `open` is a near tie. */
+  runnerUpOptionId?: string | null;
 }

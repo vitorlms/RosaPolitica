@@ -12,9 +12,11 @@ export interface ResultViewProps {
   meta?: ReactNode;
   /** Footer actions; defaults to posições + recomeçar. */
   actions?: ReactNode;
+  /** Extra block after the axes, still above the footer. */
+  below?: ReactNode;
 }
 
-export function ResultView({ result, meta, actions }: ResultViewProps) {
+export function ResultView({ result, meta, actions, below }: ResultViewProps) {
   const examples = result.archetype.examples ?? [];
 
   return (
@@ -108,6 +110,8 @@ export function ResultView({ result, meta, actions }: ResultViewProps) {
       </div>
 
       <ShareResult result={result} />
+
+      {below}
 
       <div className="mt-12 flex flex-wrap justify-center gap-3">
         {actions ?? (

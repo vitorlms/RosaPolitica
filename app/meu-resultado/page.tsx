@@ -1,16 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { GovernoIdeal } from "@/components/GovernoIdeal";
 import { ResultView } from "@/components/ResultView";
+import { scoreInstitutions } from "@/lib/institutions";
 import { computeResult } from "@/lib/scoring";
 import {
-  clearSavedResult,
+  clearAllSavedResults,
+  loadSavedGovernment,
   loadSavedResult,
+  type SavedGovernment,
   type SavedResult,
 } from "@/lib/storage";
 import { TEST_MODES } from "@/lib/testModes";
-import type { ScoreResult } from "@/lib/types";
+import type { InstitutionPick, ScoreResult } from "@/lib/types";
 
 function formatSavedAt(iso: string): string {
   try {
@@ -25,12 +29,19 @@ function formatSavedAt(iso: string): string {
 
 export default function MeuResultadoPage() {
   const [saved, setSaved] = useState<SavedResult | null | undefined>(undefined);
+  const [governo, setGoverno] = useState<SavedGovernment | null>(null);
   const [result, setResult] = useState<ScoreResult | null>(null);
+  const [institutions, setInstitutions] = useState<InstitutionPick[] | null>(
+    null,
+  );
 
   const refresh = useCallback(() => {
     const next = loadSavedResult();
+    const arrangement = loadSavedGovernment();
     setSaved(next);
+    setGoverno(arrangement);
     setResult(next ? computeResult(next.choiceIds) : null);
+    setInstitutions(arrangement ? scoreInstitutions(arrangement.choiceIds) : null);
   }, []);
 
   useEffect(() => {
@@ -38,9 +49,11 @@ export default function MeuResultadoPage() {
   }, [refresh]);
 
   function handleClear() {
-    clearSavedResult();
+    clearAllSavedResults();
     setSaved(null);
+    setGoverno(null);
     setResult(null);
+    setInstitutions(null);
   }
 
   if (saved === undefined) {
@@ -51,7 +64,7 @@ export default function MeuResultadoPage() {
     );
   }
 
-  if (!saved || !result) {
+  if (!saved && !governo) {
     return (
       <div className="mx-auto max-w-lg text-center">
         <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
@@ -61,52 +74,81 @@ export default function MeuResultadoPage() {
           Nada salvo ainda
         </h1>
         <p className="mt-4 text-[var(--ink-soft)]">
-          Quando você terminar um teste, o perfil fica guardado neste navegador
-          — sem precisar de conta.
+          O perfil nos dez eixos e o governo ideal ficam guardados neste
+          navegador, cada um quando você termina aquele teste — sem conta, e
+          sem precisar fazer os dois.
         </p>
-        <Link
-          href="/#modos"
-          className="mt-6 inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold"
-        >
-          Fazer o teste
-        </Link>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Link
+            href="/#modos"
+            className="inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold"
+          >
+            Fazer o teste de perfil
+          </Link>
+          <Link
+            href="/#governo-ideal"
+            className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
+          >
+            Fazer o governo ideal
+          </Link>
+        </div>
       </div>
     );
   }
 
-  const modeLabel = TEST_MODES[saved.mode].label;
+  const actions = (
+    <>
+      <Link
+        href="/"
+        className="inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--ink)] transition-opacity hover:opacity-90"
+      >
+        Fazer de novo
+      </Link>
+      <Link
+        href="/posicoes"
+        className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
+      >
+        Ver todas as posições
+      </Link>
+      <button
+        type="button"
+        onClick={handleClear}
+        className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--muted)] transition-colors hover:border-[var(--accent-muted)] hover:text-[var(--ink)]"
+      >
+        Apagar resultado
+      </button>
+    </>
+  );
+
+  const governoBlock: ReactNode =
+    governo && institutions ? (
+      <GovernoIdeal
+        picks={institutions}
+        standalone={!result}
+        meta={<>Salvo em {formatSavedAt(governo.savedAt)}</>}
+      />
+    ) : null;
+
+  if (result && saved) {
+    const modeLabel = TEST_MODES[saved.mode].label;
+    return (
+      <ResultView
+        result={result}
+        meta={
+          <>
+            Modo {modeLabel} · salvo em {formatSavedAt(saved.savedAt)}
+          </>
+        }
+        below={governoBlock}
+        actions={actions}
+      />
+    );
+  }
 
   return (
-    <ResultView
-      result={result}
-      meta={
-        <>
-          Modo {modeLabel} · salvo em {formatSavedAt(saved.savedAt)}
-        </>
-      }
-      actions={
-        <>
-          <Link
-            href="/"
-            className="inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--ink)] transition-opacity hover:opacity-90"
-          >
-            Fazer de novo
-          </Link>
-          <Link
-            href="/posicoes"
-            className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
-          >
-            Ver todas as posições
-          </Link>
-          <button
-            type="button"
-            onClick={handleClear}
-            className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--muted)] transition-colors hover:border-[var(--accent-muted)] hover:text-[var(--ink)]"
-          >
-            Apagar resultado
-          </button>
-        </>
-      }
-    />
+    <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-16">
+      {governoBlock}
+      <div className="mt-12 flex flex-wrap justify-center gap-3">{actions}</div>
+    </div>
   );
 }

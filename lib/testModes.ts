@@ -74,7 +74,7 @@ export function sceneSalienceScore(scene: Scene): number {
 
 /**
  * Scenes for a mode. Rápido/padrão keep story order among the highest-salience
- * subset; completo returns every scene.
+ * subset; completo returns every scene. Government dilemmas are not included.
  */
 export function scenesForMode(
   mode: TestModeId,
