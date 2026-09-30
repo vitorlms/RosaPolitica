@@ -100,7 +100,7 @@ O arquétipo final é o centróide mais próximo (distância euclidiana nas posi
 
 3. Recarregue o `dev` — o motor em [`lib/scoring.ts`](lib/scoring.ts) lê esses JSON.
 
-4. **Governo ideal** — [`content/institutions.json`](content/institutions.json) e os dilemas [`content/story-institutions-draft.json`](content/story-institutions-draft.json). `leans` não entra nos dez eixos. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
+4. **Governo ideal** — teste separado em [`/governo`](app/governo/page.tsx). Conteúdo em [`content/institutions.json`](content/institutions.json) e [`content/story-institutions-draft.json`](content/story-institutions-draft.json). Não entra nos modos rápido / padrão / completo. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
 
 ## Estrutura
 
@@ -114,7 +114,7 @@ lib/           # types, scoring, storage (sessionStorage)
 
 ## Governo ideal
 
-No fim do teste e em Meu resultado há um segundo bloco, separado dos dez eixos: **seu governo ideal** — uma opção por categoria de arranjo, sem nome de regime. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
+Teste à parte, na home, com os oito dilemas de arranjo. O resultado mostra uma opção por categoria, sem nome de regime, e não altera o perfil dos dez eixos. Meu resultado junta os dois só quando cada um foi terminado. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
 
 ## Gancho futuro (não implementado)
 
@@ -122,5 +122,5 @@ A origem das noções políticas poderá afetar o **cenário inicial**. O tipo `
 
 ## Escopo
 
-Inclui: 40 cenas de posicionamento, 8 dilemas de governo ideal (acrescentados ao fim de cada modo), 3 modos de teste (rápido / padrão / completo), retomada no meio do teste neste navegador, 10 eixos, salience/essencialidade, radar, arquétipos.  
+Inclui: 40 cenas de posicionamento, 3 modos de teste (rápido / padrão / completo), um teste separado de governo ideal (8 dilemas), retomada no meio de cada teste neste navegador, 10 eixos, salience/essencialidade, radar, arquétipos.  
 Não inclui: login, múltiplas histórias, IA gerando perguntas.

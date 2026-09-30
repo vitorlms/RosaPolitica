@@ -1,6 +1,5 @@
 import archetypesData from "@/content/archetypes.json";
 import storyData from "@/content/story.json";
-import { institutionDraft } from "@/lib/institutions";
 import {
   AGENDA_THRESHOLD,
   AXIS_IDS,
@@ -49,20 +48,10 @@ export function addWeights(
   return next;
 }
 
-/**
- * Positioning scenes, then arrangement dilemmas.
- * Only weights are read. Leans are scored in lib/institutions.ts.
- * Unknown choice ids are skipped, so a save from before those dilemmas
- * still scores the ten axes as it did then.
- */
-function axisScenes(): Story["scenes"] {
-  return [...story.scenes, ...institutionDraft.scenes];
-}
-
 /** Sum choice weights in scene order; missing choiceIds are skipped. */
 export function scoreFromChoices(choiceIds: string[]): AxisScores {
   let scores = emptyScores();
-  for (const scene of axisScenes()) {
+  for (const scene of story.scenes) {
     const choice = scene.choices.find((c) => choiceIds.includes(c.id));
     if (choice) {
       scores = addWeights(scores, choice.weights);
@@ -81,7 +70,7 @@ export function essentialityFromChoices(
   const sum = emptyScores();
   const count = emptyScores();
 
-  for (const scene of axisScenes()) {
+  for (const scene of story.scenes) {
     const choice = scene.choices.find((c) => choiceIds.includes(c.id));
     if (!choice) continue;
 
@@ -349,7 +338,7 @@ function answeredChoices(choiceIds: string[]): {
 }[] {
   const ids = new Set(choiceIds);
   const out: { scene: Story["scenes"][number]; choice: Choice }[] = [];
-  for (const scene of axisScenes()) {
+  for (const scene of story.scenes) {
     const choice = scene.choices.find((c) => ids.has(c.id));
     if (choice) out.push({ scene, choice });
   }

@@ -1,8 +1,13 @@
+import type { ReactNode } from "react";
 import { institutionCatalog } from "@/lib/institutions";
 import type { InstitutionOption, InstitutionPick } from "@/lib/types";
 
 interface GovernoIdealProps {
   picks: InstitutionPick[];
+  /** Line under the title, e.g. when the block was saved. */
+  meta?: ReactNode;
+  /** Dedicated page, without a positioning profile above. */
+  standalone?: boolean;
 }
 
 function optionById(
@@ -17,7 +22,11 @@ function optionById(
  * Second result block. Labels name a mechanism, a problem, and a cost —
  * never a regime, party, or ideology.
  */
-export function GovernoIdeal({ picks }: GovernoIdealProps) {
+export function GovernoIdeal({
+  picks,
+  meta,
+  standalone = false,
+}: GovernoIdealProps) {
   const byCategory = new Map(picks.map((pick) => [pick.categoryId, pick]));
   const anySupport = picks.some((pick) => (pick.support ?? 0) > 0);
 
@@ -25,7 +34,11 @@ export function GovernoIdeal({ picks }: GovernoIdealProps) {
     <section
       aria-labelledby="governo-ideal-title"
       data-block="governo-ideal"
-      className="mt-16 w-full border-t border-[var(--line)] pt-12"
+      className={
+        standalone
+          ? "w-full"
+          : "mt-16 w-full border-t border-[var(--line)] pt-12"
+      }
     >
       <p className="text-center text-sm tracking-wide text-[var(--accent)] uppercase">
         Arranjo
@@ -36,9 +49,11 @@ export function GovernoIdeal({ picks }: GovernoIdealProps) {
       >
         {institutionCatalog.resultTitle}
       </h2>
+      {meta ? (
+        <p className="mt-2 text-center text-sm text-[var(--muted)]">{meta}</p>
+      ) : null}
       <p className="mx-auto mt-3 max-w-xl text-center text-sm leading-relaxed text-[var(--muted)]">
-        {institutionCatalog.resultLead} Os dez eixos acima não entram nesta
-        conta.
+        {institutionCatalog.resultLead} Não usa o perfil dos dez eixos.
       </p>
 
       {anySupport ? (

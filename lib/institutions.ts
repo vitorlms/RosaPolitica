@@ -11,9 +11,8 @@ import type {
 } from "@/lib/types";
 
 /**
- * Ideal-government profile.
- * Axis scoring may read these scenes for weights only.
- * Leans are summed here and never added to the ten axes.
+ * Ideal-government quiz, separate from the ten-axis profile.
+ * Axis scoring does not read this module. Leans are summed here.
  * See docs/governo-ideal.md.
  */
 export const institutionCatalog = {
@@ -32,26 +31,10 @@ export const institutionDraft = {
  */
 export const INSTITUTION_CLOSE_RATIO = 0.8;
 
-/**
- * One dilemma per category, in draft order.
- * Padrão and completo play every draft scene; rápido stays a short reading.
- */
-const RAPIDO_SCENE_IDS = [
-  "emenda-travada",
-  "hospital-transicao",
-  "regra-dos-setores",
-  "policia-da-fronteira",
-  "capitulo-de-emergencia",
-] as const;
-
 const OPTION_MIN = 3;
 const OPTION_MAX = 4;
 const SCENE_MIN = 6;
 const SCENE_MAX = 8;
-
-const institutionSceneIds = new Set(
-  institutionDraft.scenes.map((scene) => scene.id),
-);
 
 /** Dev check: draft leans point at real options, and every option is probed. */
 export function assertInstitutionDraft(
@@ -181,31 +164,6 @@ function assertNoIdCollision(): void {
   }
 }
 
-function draftScenesForMode(mode: string): InstitutionDraft["scenes"] {
-  if (mode !== "rapido") return institutionDraft.scenes;
-  return RAPIDO_SCENE_IDS.map((id) => {
-    const scene = institutionDraft.scenes.find((item) => item.id === id);
-    if (!scene) {
-      throw new Error(`Modo rápido is missing institution scene ${id}.`);
-    }
-    return scene;
-  });
-}
-
-function assertRapidoCoversCategories(): void {
-  const seen = new Set<string>();
-  for (const scene of draftScenesForMode("rapido")) {
-    for (const choice of scene.choices) {
-      for (const lean of choice.leans ?? []) seen.add(lean.categoryId);
-    }
-  }
-  for (const category of institutionCatalog.categories) {
-    if (!seen.has(category.id)) {
-      throw new Error(`Modo rápido never leans on ${category.id}.`);
-    }
-  }
-}
-
 function toPlayScene(scene: InstitutionDraft["scenes"][number]): Scene {
   return {
     id: scene.id,
@@ -221,13 +179,9 @@ function toPlayScene(scene: InstitutionDraft["scenes"][number]): Scene {
   };
 }
 
-/** Arrangement dilemmas appended after the positioning scenes of a mode. */
-export function institutionPlayScenes(mode: string): Scene[] {
-  return draftScenesForMode(mode).map(toPlayScene);
-}
-
-export function isInstitutionScene(sceneId: string): boolean {
-  return institutionSceneIds.has(sceneId);
+/** All arrangement dilemmas, in draft order. Not part of rápido/padrão/completo. */
+export function institutionPlayScenes(): Scene[] {
+  return institutionDraft.scenes.map(toPlayScene);
 }
 
 const leansByChoiceId = new Map<string, InstitutionLean[]>();
@@ -321,5 +275,4 @@ function pickCategory(
 
 assertInstitutionDraft();
 assertNoIdCollision();
-assertRapidoCoversCategories();
 indexLeans();

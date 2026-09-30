@@ -3,15 +3,28 @@ import type { TestModeId } from "@/lib/testModes";
 const STORAGE_KEY = "rosa-politica-choices";
 const SAVED_RESULT_KEY = "rosa-politica-saved-result";
 const IN_PROGRESS_KEY = "rosa-politica-in-progress";
+const GOVERNO_SESSION_KEY = "rosa-politica-governo-choices";
+const GOVERNO_RESULT_KEY = "rosa-politica-governo-result";
+const GOVERNO_PROGRESS_KEY = "rosa-politica-governo-progress";
 
 export interface SavedResult {
-  /**
-   * Answers in play order: positioning scenes, then government dilemmas.
-   * Meu resultado recomputes both profiles from these ids.
-   */
+  /** Positioning answers only. Government dilemmas live in {@link SavedGovernment}. */
   choiceIds: string[];
   mode: TestModeId;
   savedAt: string;
+}
+
+/** Finished ideal-government quiz. Independent of {@link SavedResult}. */
+export interface SavedGovernment {
+  choiceIds: string[];
+  savedAt: string;
+}
+
+/** Unfinished ideal-government quiz. Not stored with the positioning modes. */
+export interface GovernmentProgress {
+  choiceIds: string[];
+  index: number;
+  updatedAt: string;
 }
 
 /** Unfinished quiz for one mode on this browser. Modes are stored separately. */
@@ -87,6 +100,72 @@ export function clearSavedResult(): void {
   localStorage.removeItem(SAVED_RESULT_KEY);
 }
 
+export function loadGovernmentChoices(): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = sessionStorage.getItem(GOVERNO_SESSION_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as unknown;
+    return Array.isArray(parsed)
+      ? parsed.filter((id): id is string => typeof id === "string")
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveGovernmentChoices(choiceIds: string[]): void {
+  sessionStorage.setItem(GOVERNO_SESSION_KEY, JSON.stringify(choiceIds));
+}
+
+export function clearGovernmentChoices(): void {
+  sessionStorage.removeItem(GOVERNO_SESSION_KEY);
+}
+
+export function getGovernmentSessionSnapshot(): string {
+  return sessionStorage.getItem(GOVERNO_SESSION_KEY) ?? "";
+}
+
+export function getGovernmentSessionServerSnapshot(): string {
+  return IN_PROGRESS_UNREADY;
+}
+
+export function loadSavedGovernment(): SavedGovernment | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(GOVERNO_RESULT_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as unknown;
+    if (!parsed || typeof parsed !== "object") return null;
+    const record = parsed as Record<string, unknown>;
+    if (!Array.isArray(record.choiceIds)) return null;
+    const choiceIds = record.choiceIds.filter(
+      (id): id is string => typeof id === "string",
+    );
+    if (choiceIds.length === 0) return null;
+    if (typeof record.savedAt !== "string") return null;
+    return { choiceIds, savedAt: record.savedAt };
+  } catch {
+    return null;
+  }
+}
+
+export function saveSavedGovernment(result: SavedGovernment): void {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(GOVERNO_RESULT_KEY, JSON.stringify(result));
+}
+
+export function clearSavedGovernment(): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(GOVERNO_RESULT_KEY);
+}
+
+/** Drops both finished results. Does not touch an in-progress quiz. */
+export function clearAllSavedResults(): void {
+  clearSavedResult();
+  clearSavedGovernment();
+}
+
 const PROGRESS_MODES: TestModeId[] = ["rapido", "padrao", "completo"];
 
 /** Snapshot while the server (and hydration) cannot read localStorage. */
@@ -104,7 +183,13 @@ export function subscribeInProgress(listener: () => void): () => void {
     return () => progressListeners.delete(listener);
   }
   const onStorage = (event: StorageEvent) => {
-    if (event.key === null || event.key === IN_PROGRESS_KEY) listener();
+    if (
+      event.key === null ||
+      event.key === IN_PROGRESS_KEY ||
+      event.key === GOVERNO_PROGRESS_KEY
+    ) {
+      listener();
+    }
   };
   window.addEventListener("storage", onStorage);
   return () => {
@@ -233,7 +318,7 @@ export function clearInProgress(mode: TestModeId): void {
  * `complete` means every scene has an answer (finish, don’t resume).
  */
 export function assessInProgress(
-  progress: InProgressQuiz,
+  progress: { index: number; choiceIds: string[] },
   scenes: readonly ProgressScene[],
 ): InProgressStatus {
   const { index, choiceIds } = progress;
@@ -270,4 +355,59 @@ export function finishQuiz(
     savedAt: new Date().toISOString(),
   });
   if (!options?.retainProgress) clearInProgress(mode);
+}
+
+export function getGovernmentProgressSnapshot(): string {
+  return localStorage.getItem(GOVERNO_PROGRESS_KEY) ?? "";
+}
+
+export function getGovernmentProgressServerSnapshot(): string {
+  return IN_PROGRESS_UNREADY;
+}
+
+export function governmentProgressFromSnapshot(
+  raw: string,
+): GovernmentProgress | null {
+  if (!raw || raw === IN_PROGRESS_UNREADY) return null;
+  try {
+    return parseStoredProgress(JSON.parse(raw) as unknown);
+  } catch {
+    return null;
+  }
+}
+
+export function saveGovernmentProgress(
+  progress: Pick<GovernmentProgress, "choiceIds" | "index">,
+): void {
+  if (typeof window === "undefined") return;
+  if (progress.choiceIds.length === 0) return;
+  const stored: GovernmentProgress = {
+    choiceIds: progress.choiceIds,
+    index: progress.index,
+    updatedAt: new Date().toISOString(),
+  };
+  localStorage.setItem(GOVERNO_PROGRESS_KEY, JSON.stringify(stored));
+  notifyProgress();
+}
+
+export function clearGovernmentProgress(): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(GOVERNO_PROGRESS_KEY);
+  notifyProgress();
+}
+
+/**
+ * Persist a finished ideal-government run without touching the positioning save.
+ * `retainProgress` keeps the mid-quiz snapshot until the result page clears it.
+ */
+export function finishGovernment(
+  choiceIds: string[],
+  options?: { retainProgress?: boolean },
+): void {
+  saveGovernmentChoices(choiceIds);
+  saveSavedGovernment({
+    choiceIds,
+    savedAt: new Date().toISOString(),
+  });
+  if (!options?.retainProgress) clearGovernmentProgress();
 }
