@@ -33,3 +33,7 @@ Os dez eixos saem só das cenas de posicionamento. Os dilemas de arranjo não en
 ## O que ainda não faz
 
 As 40 cenas de posicionamento não declaram `leans`. O texto de compartilhar continua sendo só o arquétipo. [`lib/institutions.ts`](../lib/institutions.ts) roda `assertInstitutionDraft` ao carregar: todo `leans` aponta para uma opção real, e toda opção é sondada ao menos uma vez no conjunto dos oito.
+
+## Desenho seguinte (não implementado)
+
+Um fluxograma por parâmetros, com perfis internos que a tela não nomeia, está em [`governo-ideal-fluxograma.md`](./governo-ideal-fluxograma.md). É desenho para revisão. Não muda o teste que já está no ar.
