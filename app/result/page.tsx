@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ResultView } from "@/components/ResultView";
+import { scoreInstitutions } from "@/lib/institutions";
 import { computeResult } from "@/lib/scoring";
 import {
   clearInProgress,
@@ -10,10 +11,11 @@ import {
   loadSavedResult,
   saveSavedResult,
 } from "@/lib/storage";
-import type { ScoreResult } from "@/lib/types";
+import type { InstitutionPick, ScoreResult } from "@/lib/types";
 
 export default function ResultPage() {
   const [result, setResult] = useState<ScoreResult | null>(null);
+  const [institutions, setInstitutions] = useState<InstitutionPick[]>([]);
   const [empty, setEmpty] = useState(false);
 
   useEffect(() => {
@@ -32,6 +34,7 @@ export default function ResultPage() {
     const saved = loadSavedResult();
     if (saved) clearInProgress(saved.mode);
     setResult(computeResult(ids));
+    setInstitutions(scoreInstitutions(ids));
   }, []);
 
   if (empty) {
@@ -58,5 +61,5 @@ export default function ResultPage() {
     );
   }
 
-  return <ResultView result={result} />;
+  return <ResultView result={result} institutions={institutions} />;
 }

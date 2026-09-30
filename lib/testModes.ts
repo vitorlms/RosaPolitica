@@ -1,3 +1,4 @@
+import { institutionPlayScenes } from "@/lib/institutions";
 import { story } from "@/lib/scoring";
 import type { Scene } from "@/lib/types";
 
@@ -23,19 +24,20 @@ export const TEST_MODES: Record<TestModeId, TestMode> = {
     id: "rapido",
     label: "Rápido",
     sceneCount: 5,
-    summary: "Até 5 minutos — os dilemas de maior peso no resultado.",
+    summary:
+      "As cenas de maior peso no perfil, e um dilema de governo por categoria.",
   },
   padrao: {
     id: "padrao",
     label: "Padrão",
     sceneCount: 15,
-    summary: "Até 15 minutos — cobertura ampla com as cenas mais salientes.",
+    summary: "Cobertura ampla do perfil, mais o governo ideal completo.",
   },
   completo: {
     id: "completo",
     label: "Completo",
     sceneCount: null,
-    summary: "Todos os dilemas — o perfil mais detalhado.",
+    summary: "Todos os dilemas — perfil e governo ideal no detalhe.",
   },
 };
 
@@ -73,12 +75,13 @@ export function sceneSalienceScore(scene: Scene): number {
 }
 
 /**
- * Scenes for a mode. Rápido/padrão keep story order among the highest-salience
- * subset; completo returns every scene.
+ * Positioning scenes for a mode. Rápido/padrão keep story order among the
+ * highest-salience subset; completo returns every positioning scene.
+ * Government dilemmas are not part of this selection.
  */
-export function scenesForMode(
+function positioningScenesForMode(
   mode: TestModeId,
-  allScenes: Scene[] = story.scenes,
+  allScenes: Scene[],
 ): Scene[] {
   const total = allScenes.length;
   if (total === 0) return allScenes;
@@ -96,9 +99,21 @@ export function scenesForMode(
   return allScenes.filter((s) => selected.has(s.id));
 }
 
-export function modeDurationMinutes(mode: TestModeId, sceneCount: number): number {
-  if (mode === "rapido") return 5;
-  if (mode === "padrao") return 15;
+/**
+ * Scenes actually played. The positioning prefix matches the mode as before;
+ * arrangement dilemmas are appended, so a mid-quiz save still lines up.
+ */
+export function scenesForMode(
+  mode: TestModeId,
+  allScenes: Scene[] = story.scenes,
+): Scene[] {
+  const positioning = positioningScenesForMode(mode, allScenes);
+  if (allScenes !== story.scenes) return positioning;
+  return [...positioning, ...institutionPlayScenes(mode)];
+}
+
+/** About one minute per scene the player will actually see. */
+export function modeDurationMinutes(sceneCount: number): number {
   return Math.max(sceneCount * MINUTES_PER_SCENE, sceneCount);
 }
 

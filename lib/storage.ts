@@ -5,6 +5,10 @@ const SAVED_RESULT_KEY = "rosa-politica-saved-result";
 const IN_PROGRESS_KEY = "rosa-politica-in-progress";
 
 export interface SavedResult {
+  /**
+   * Answers in play order: positioning scenes, then government dilemmas.
+   * Meu resultado recomputes both profiles from these ids.
+   */
   choiceIds: string[];
   mode: TestModeId;
   savedAt: string;

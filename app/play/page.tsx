@@ -17,6 +17,7 @@ import {
   subscribeInProgress,
   clearInProgress,
 } from "@/lib/storage";
+import { isInstitutionScene } from "@/lib/institutions";
 import {
   TEST_MODES,
   parseTestMode,
@@ -202,7 +203,12 @@ function PlayExperience({ mode }: { mode: TestModeId }) {
         {scenes.length} dilemas
       </p>
       <div key={scene.id} className={sceneMotion} data-phase={phase}>
-        <SceneCard scene={scene} index={index} total={scenes.length}>
+        <SceneCard
+          scene={scene}
+          index={index}
+          total={scenes.length}
+          kicker={isInstitutionScene(scene.id) ? "Governo ideal" : undefined}
+        >
           {scene.choices.map((choice) => (
             <ChoiceButton
               key={choice.id}

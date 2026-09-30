@@ -100,7 +100,7 @@ O arquétipo final é o centróide mais próximo (distância euclidiana nas posi
 
 3. Recarregue o `dev` — o motor em [`lib/scoring.ts`](lib/scoring.ts) lê esses JSON.
 
-4. **Governo ideal (esqueleto, fora do placar)** — [`content/institutions.json`](content/institutions.json) e o rascunho [`content/story-institutions-draft.json`](content/story-institutions-draft.json). Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
+4. **Governo ideal** — [`content/institutions.json`](content/institutions.json) e os dilemas [`content/story-institutions-draft.json`](content/story-institutions-draft.json). `leans` não entra nos dez eixos. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
 
 ## Estrutura
 
@@ -112,13 +112,15 @@ docs/          # governo-ideal.md
 lib/           # types, scoring, storage (sessionStorage)
 ```
 
+## Governo ideal
+
+No fim do teste e em Meu resultado há um segundo bloco, separado dos dez eixos: **seu governo ideal** — uma opção por categoria de arranjo, sem nome de regime. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
+
 ## Gancho futuro (não implementado)
 
 A origem das noções políticas poderá afetar o **cenário inicial**. O tipo `OriginProfile` em [`lib/types.ts`](lib/types.ts) já existe como placeholder.
 
-Um segundo resultado, separado dos dez eixos, está só em conteúdo: **seu governo ideal** — categorias de arranjo, sem nome de regime. Não entra no placar nem na tela. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
-
 ## Escopo
 
-Inclui: 40 cenas, 3 modos de teste (rápido / padrão / completo), retomada no meio do teste neste navegador, 10 eixos, salience/essencialidade, radar, arquétipos.  
+Inclui: 40 cenas de posicionamento, 8 dilemas de governo ideal (acrescentados ao fim de cada modo), 3 modos de teste (rápido / padrão / completo), retomada no meio do teste neste navegador, 10 eixos, salience/essencialidade, radar, arquétipos.  
 Não inclui: login, múltiplas histórias, IA gerando perguntas.

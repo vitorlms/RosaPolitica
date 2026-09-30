@@ -1,6 +1,6 @@
 {
   "status": "draft",
-  "note": "Rascunho de dilemas que sondam o governo ideal. O formato de cena é o mesmo de content/story.json (id, title, body, choices com label, hint, weights e salience), com o campo extra leans. Não importar este arquivo em lib/scoring.ts: o caminho ao vivo continua com as 40 cenas. leans não entra no placar dos eixos.",
+  "note": "Dilemas do governo ideal. O formato de cena é o mesmo de content/story.json (id, title, body, choices com label, hint, weights e salience), com o campo extra leans. O jogo acrescenta estas cenas depois do perfil do modo. weights seguem para os dez eixos; leans só entram no arranjo, em lib/institutions.ts.",
   "scenes": [
     {
       "id": "emenda-travada",

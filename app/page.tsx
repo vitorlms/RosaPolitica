@@ -6,12 +6,10 @@ import {
   TEST_MODES,
   modeDurationMinutes,
   playHref,
-  resolvedSceneCount,
+  scenesForMode,
 } from "@/lib/testModes";
 
 export default function HomePage() {
-  const totalScenes = story.scenes.length;
-
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center">
       <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
@@ -28,8 +26,9 @@ export default function HomePage() {
       </p>
       <p className="mt-4 text-[var(--muted)]">
         Não há resposta certa — só escolhas com prós e contras. No fim, você vê
-        um perfil em dez eixos (para onde inclina e o que pesou mais) e um
-        arquétipo resumido.
+        um perfil em dez eixos (para onde inclina e o que pesou mais), um
+        arquétipo resumido, e um segundo bloco: o arranjo de governo, sem nome
+        de regime.
       </p>
 
       <ResumeQuiz />
@@ -39,15 +38,16 @@ export default function HomePage() {
           Escolha o teste
         </h2>
         <p className="mt-1 text-sm text-[var(--muted)]">
-          Cada dilema leva cerca de 1 minuto. Nos modos rápido e padrão, entram
-          primeiro as cenas de maior saliência — as que mais pesam no resultado.
+          Cada dilema leva cerca de 1 minuto. Nos modos rápido e padrão, o
+          perfil usa as cenas de maior saliência. No fim de cada modo entram
+          dilemas de governo ideal — separados dos dez eixos.
         </p>
 
         <ul className="mt-5 flex flex-col gap-3">
           {TEST_MODE_ORDER.map((id) => {
             const mode = TEST_MODES[id];
-            const count = resolvedSceneCount(id, totalScenes);
-            const minutes = modeDurationMinutes(id, count);
+            const count = scenesForMode(id).length;
+            const minutes = modeDurationMinutes(count);
             const primary = id === "padrao";
 
             return (

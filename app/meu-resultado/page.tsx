@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { ResultView } from "@/components/ResultView";
+import { scoreInstitutions } from "@/lib/institutions";
 import { computeResult } from "@/lib/scoring";
 import {
   clearSavedResult,
@@ -10,7 +11,7 @@ import {
   type SavedResult,
 } from "@/lib/storage";
 import { TEST_MODES } from "@/lib/testModes";
-import type { ScoreResult } from "@/lib/types";
+import type { InstitutionPick, ScoreResult } from "@/lib/types";
 
 function formatSavedAt(iso: string): string {
   try {
@@ -26,11 +27,13 @@ function formatSavedAt(iso: string): string {
 export default function MeuResultadoPage() {
   const [saved, setSaved] = useState<SavedResult | null | undefined>(undefined);
   const [result, setResult] = useState<ScoreResult | null>(null);
+  const [institutions, setInstitutions] = useState<InstitutionPick[]>([]);
 
   const refresh = useCallback(() => {
     const next = loadSavedResult();
     setSaved(next);
     setResult(next ? computeResult(next.choiceIds) : null);
+    setInstitutions(next ? scoreInstitutions(next.choiceIds) : []);
   }, []);
 
   useEffect(() => {
@@ -41,6 +44,7 @@ export default function MeuResultadoPage() {
     clearSavedResult();
     setSaved(null);
     setResult(null);
+    setInstitutions([]);
   }
 
   if (saved === undefined) {
@@ -79,6 +83,7 @@ export default function MeuResultadoPage() {
   return (
     <ResultView
       result={result}
+      institutions={institutions}
       meta={
         <>
           Modo {modeLabel} · salvo em {formatSavedAt(saved.savedAt)}

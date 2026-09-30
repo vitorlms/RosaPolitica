@@ -2,19 +2,27 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { AxisBars } from "@/components/AxisBars";
 import { AxisRadar } from "@/components/AxisRadar";
+import { GovernoIdeal } from "@/components/GovernoIdeal";
 import { PoliticalAgenda } from "@/components/PoliticalAgenda";
 import { ShareResult } from "@/components/ShareResult";
-import type { ScoreResult } from "@/lib/types";
+import type { InstitutionPick, ScoreResult } from "@/lib/types";
 
 export interface ResultViewProps {
   result: ScoreResult;
+  /** Ideal-government rows, recomputed from the same choice ids. */
+  institutions: InstitutionPick[];
   /** Optional line under the eyebrow (e.g. saved date / mode). */
   meta?: ReactNode;
   /** Footer actions; defaults to posições + recomeçar. */
   actions?: ReactNode;
 }
 
-export function ResultView({ result, meta, actions }: ResultViewProps) {
+export function ResultView({
+  result,
+  institutions,
+  meta,
+  actions,
+}: ResultViewProps) {
   const examples = result.archetype.examples ?? [];
 
   return (
@@ -106,6 +114,8 @@ export function ResultView({ result, meta, actions }: ResultViewProps) {
       <div className="mt-8 w-full flex justify-center">
         <AxisBars profiles={result.profiles} />
       </div>
+
+      <GovernoIdeal picks={institutions} />
 
       <ShareResult result={result} />
 

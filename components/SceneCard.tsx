@@ -5,12 +5,25 @@ interface SceneCardProps {
   scene: Scene;
   index: number;
   total: number;
+  /** Short chapter label above the situation counter. */
+  kicker?: string;
   children: ReactNode;
 }
 
-export function SceneCard({ scene, index, total, children }: SceneCardProps) {
+export function SceneCard({
+  scene,
+  index,
+  total,
+  kicker,
+  children,
+}: SceneCardProps) {
   return (
     <article className="mx-auto w-full max-w-2xl">
+      {kicker ? (
+        <p className="mb-1 text-sm tracking-wide text-[var(--accent)] uppercase">
+          {kicker}
+        </p>
+      ) : null}
       <p className="mb-3 text-sm tracking-wide text-[var(--muted)] uppercase">
         Situação {index + 1} de {total}
       </p>
