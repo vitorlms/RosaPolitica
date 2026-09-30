@@ -5,8 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import { ChoiceButton } from "@/components/ChoiceButton";
 import { SceneCard } from "@/components/SceneCard";
 import {
+  COUNTRY_NAME_BODY,
+  COUNTRY_NAME_BUTTON,
+  COUNTRY_NAME_TITLE,
+  DEFAULT_COUNTRY_NAME,
   assessGovernment,
   choiceCompletes,
+  sanitizeCountryName,
   sceneAt,
 } from "@/lib/governoFlow";
 import type { Choice } from "@/lib/types";
@@ -14,6 +19,7 @@ import type { Choice } from "@/lib/types";
 interface FlowProgress {
   choiceIds: string[];
   index: number;
+  countryName?: string;
 }
 
 const SELECT_HOLD_MS = 650;
@@ -26,7 +32,10 @@ interface GovernoPlayerProps {
   saved: FlowProgress | null | undefined;
   onSave: (progress: FlowProgress) => void;
   onClear: () => void;
-  onFinish: (choiceIds: string[], options?: { retainProgress?: boolean }) => void;
+  onFinish: (
+    choiceIds: string[],
+    options?: { retainProgress?: boolean; countryName?: string },
+  ) => void;
   resultHref: string;
 }
 
@@ -42,6 +51,8 @@ export function GovernoPlayer({
   const [locked, setLocked] = useState(false);
   const [phase, setPhase] = useState<Phase>("idle");
   const [done, setDone] = useState(false);
+  const [editingName, setEditingName] = useState(false);
+  const [draftName, setDraftName] = useState(DEFAULT_COUNTRY_NAME);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const onClearRef = useRef(onClear);
   const onFinishRef = useRef(onFinish);
@@ -69,7 +80,10 @@ export function GovernoPlayer({
       return;
     }
     if (status === "complete") {
-      onFinishRef.current(saved.choiceIds, { retainProgress: true });
+      onFinishRef.current(saved.choiceIds, {
+        retainProgress: true,
+        countryName: saved.countryName,
+      });
       router.replace(resultHref);
     }
   }, [saved, router, locked, phase, resultHref]);
@@ -95,7 +109,28 @@ export function GovernoPlayer({
     saved && (status === "resume" || status === "complete") ? saved : null;
   const index = restored ? restored.index : 0;
   const answers = restored ? restored.choiceIds : [];
-  const scene = sceneAt(answers, index);
+  const countryName = saved?.countryName;
+  const showName = status === "fresh" || editingName;
+
+  if (showName) {
+    return (
+      <NameStep
+        draftName={draftName}
+        onDraftName={setDraftName}
+        onStart={() => {
+          const name = sanitizeCountryName(draftName);
+          onSave({
+            choiceIds: answers,
+            index: 0,
+            countryName: name,
+          });
+          setEditingName(false);
+        }}
+      />
+    );
+  }
+
+  const scene = sceneAt(answers, index, countryName);
   const selected =
     pendingChoice ?? (index < answers.length ? answers[index] : null);
   const isFirst = index === 0;
@@ -118,18 +153,18 @@ export function GovernoPlayer({
       ? answers
       : [...answers.slice(0, index), choiceId];
     const finished = choiceCompletes(answers, index, choiceId);
-    onSave({ choiceIds: nextAnswers, index });
+    onSave({ choiceIds: nextAnswers, index, countryName });
 
     later(SELECT_HOLD_MS, () => {
       setPhase("exiting");
       later(EXIT_MS, () => {
         if (finished) {
           setDone(true);
-          onFinish(nextAnswers);
+          onFinish(nextAnswers, { countryName });
           router.push(resultHref);
           return;
         }
-        onSave({ choiceIds: nextAnswers, index: index + 1 });
+        onSave({ choiceIds: nextAnswers, index: index + 1, countryName });
         setPendingChoice(null);
         setPhase("entering");
         later(ENTER_MS, () => {
@@ -143,7 +178,8 @@ export function GovernoPlayer({
   function goBack() {
     if (locked) return;
     if (isFirst) {
-      router.push("/");
+      setDraftName(countryName || DEFAULT_COUNTRY_NAME);
+      setEditingName(true);
       return;
     }
 
@@ -153,7 +189,7 @@ export function GovernoPlayer({
     const nextIndex = index - 1;
     later(EXIT_MS, () => {
       if (answers.length > 0) {
-        onSave({ choiceIds: answers, index: nextIndex });
+        onSave({ choiceIds: answers, index: nextIndex, countryName });
       }
       setPendingChoice(null);
       setPhase("entering");
@@ -174,7 +210,7 @@ export function GovernoPlayer({
   return (
     <div className="flex flex-1 flex-col">
       <p className="mx-auto mb-4 w-full max-w-2xl text-sm text-[var(--muted)]">
-        Governo ideal
+        Governo ideal · fundando {sanitizeCountryName(countryName)}
       </p>
       <div key={`${index}-${scene.id}`} className={sceneMotion} data-phase={phase}>
         <SceneCard scene={toScene(scene)} index={index} total={null}>
@@ -215,6 +251,46 @@ function toScene(scene: {
     body: scene.body,
     choices: scene.choices.map(toChoice),
   };
+}
+
+function NameStep({
+  draftName,
+  onDraftName,
+  onStart,
+}: {
+  draftName: string;
+  onDraftName: (value: string) => void;
+  onStart: () => void;
+}) {
+  return (
+    <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col">
+      <p className="mb-4 text-sm text-[var(--muted)]">Governo ideal</p>
+      <h1 className="font-[family-name:var(--font-display)] text-3xl leading-tight text-[var(--ink)] sm:text-4xl">
+        {COUNTRY_NAME_TITLE}
+      </h1>
+      <p className="mt-5 text-lg leading-relaxed text-[var(--ink-soft)]">
+        {COUNTRY_NAME_BODY}
+      </p>
+      <label className="mt-8 block text-sm text-[var(--muted)]" htmlFor="country-name">
+        Nome do país
+      </label>
+      <input
+        id="country-name"
+        value={draftName}
+        onChange={(event) => onDraftName(event.target.value)}
+        maxLength={40}
+        autoComplete="off"
+        className="mt-2 w-full rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-lg text-[var(--ink)] outline-none focus:border-[var(--accent)]"
+      />
+      <button
+        type="button"
+        onClick={onStart}
+        className="mt-6 inline-flex w-fit rounded-lg bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--ink)]"
+      >
+        {COUNTRY_NAME_BUTTON}
+      </button>
+    </div>
+  );
 }
 
 function toChoice(choice: { id: string; label: string; hint: string }): Choice {

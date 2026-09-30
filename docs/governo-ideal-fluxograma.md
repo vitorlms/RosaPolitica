@@ -2,7 +2,11 @@
 
 Mapa do teste jogável em `/governo`. O código está em [`lib/governoFlow.ts`](../lib/governoFlow.ts). Não muda os dez eixos. A pessoa não vê nome de regime: os ids desta página ficam no placar, e a tela usa o título descritivo.
 
-Este documento propõe o modelo de conteúdo seguinte: um fluxograma de Valmora em que cada resposta empurra **parâmetros mudos**. No fim, a distância até centróides internos escolhe um arranjo principal e, se couber, um segundo. A pessoa não vê nome de regime, partido ou ideologia — nem no meio do teste, nem como opção, nem como título do resultado.
+O posicionamento (rápido, padrão, completo) continua na Confederação de Valmora. Este teste não. A pessoa ajuda a escrever o primeiro arranjo de um país novo, na mesma ficção, numa costa longe de Valmora. O nome sugerido é **Pontal**. Ela pode ficar com a sugestão ou escrever outro (até 40 caracteres). O nome entra em alguns dilemas e na frase do resultado. Não altera parâmetro, centróide, guarda nem id interno.
+
+Cada resposta empurra **parâmetros mudos**. No fim, a distância até centróides internos escolhe um arranjo principal e, se couber, um segundo. A pessoa não vê nome de regime, partido ou ideologia — nem no meio do teste, nem como opção, nem como título do resultado.
+
+O texto que a pessoa lê está no código, em português falado. Os parágrafos de dilema abaixo são o mapa de parâmetros. Onde ainda aparece mina ou inverno, isso é o rascunho do mecanismo; a tela usa porto, lavoura, povoado e acordo.
 
 Rótulos como `monarquista` ou `colonia` existem só nesta página, na coluna “interno”. A UI usa o título descritivo.
 
@@ -11,9 +15,9 @@ Rótulos como `monarquista` ou `colonia` existem só nesta página, na coluna �
 1. **Sem nome taxativo no meio do teste.** A opção descreve um mecanismo (quem senta, até quando, quem pode desfazer). Não oferece “monarquia”, “presidencialismo”, “teocracia”, “república soviética”, “estado corporação”, “colônia” nem equivalentes.
 2. **Problema e preço em toda opção.** O mesmo espírito do `hint` / `solves` / `tradeoff` de hoje. Nenhuma opção é a resposta moralmente certa.
 3. **Trilha separada dos dez eixos.** Este fluxo não lê nem escreve economia, autoridade, liberdade, igualdade, tradição, ambiente, segurança, global, tecnologia ou corpo. Não muda arquétipo. Meu resultado só mostra este bloco se a pessoa terminou esta trilha.
-4. **Parâmetro mudo, título falado.** A conta usa ids internos. A frase que a pessoa lê descreve o arranjo (“uma linhagem no mando, com dever de pão e terra”), não o verbete.
+4. **Parâmetro mudo, título falado.** A conta usa ids internos. A frase que a pessoa lê descreve o arranjo (“uma família no mando, com dever de comida, terra e teto”), não o verbete.
 5. **Fluxograma de verdade.** Nem toda pergunta aparece. Uma resposta abre, pula ou troca o texto da seguinte. Caminho típico: 6 a 8 nós, de um baralho de 11.
-6. **Valmora, não o mapa real.** Aldeia, câmara, linhagem, ofício, mina, fronteira, carta vinda de fora. Sem país, partido ou líder do mundo real.
+6. **Ficção, não o mapa real.** Povoado, porto, lavoura, câmara, família, acordo com quem está de fora. Sem país, partido ou líder do mundo real. Valmora só aparece para deixar claro que este teste é outro lugar. O nome que a pessoa digita não passa pela lista negra.
 7. **Empate fica visível.** Se dois centróides ficam perto, o resultado mostra os dois títulos e não finge um vencedor único. O mesmo espírito do “em aberto” atual, agora entre arranjos e não entre opções de uma categoria.
 
 ### Lista negra (texto que a pessoa vê)
@@ -76,17 +80,17 @@ Diferenças que o mapa precisa guardar:
 
 | Interno | Título | Linha de apoio |
 | --- | --- | --- |
-| `monarquista` | Uma linhagem no mando, por costume, difícil de desfazer | A casa antiga segue. A regra não muda com o ano. Uma geração pode ficar presa ao desenho. |
-| `monarquia_social` | Uma linhagem no mando, com dever de pão e terra | A casa fica, e o título se explica pelo cuidado. O cuidado pode virar favor de quem está perto. |
-| `presidencialista` | Um chefe com prazo marcado, que a câmara não derruba no meio | Uma pessoa governa até a data, mesmo se a casa resmungar. O erro dura até lá. |
-| `parlamentarista` | Um governo que cai quando a câmara retira a confiança | Quem governa sai da casa e sai quando a casa deixa de confiar. Obra longa não atravessa a briga. |
-| `teocrata` | A lei sagrada acima da lei comum | A regra civil para onde o texto não deixa passar. Quem lê o texto vira o cargo. |
-| `sovietica` | Conselhos de quem trabalha, com volta fácil do delegado | O mando sobe da atividade, não desce da capital. O plano miúdo trava, e quem não está na base não senta. |
-| `corporacao` | Os ofícios no mando, os dois lados do ramo | Quem produz e quem emprega no mesmo ramo sentam juntos, sob quem coordena. O ramo pode virar feudo. |
-| `colonia` | Guerra e tratado nas mãos de fora; o cotidiano fica aqui | A frota e a assinatura externa não dependem do nosso caixa. Quando a carta muda, não há como dizer não. |
-| `tribal` | O círculo do sangue e do costume, sem máquina de país | A aldeia decide. O que houver de maior é aliança, não um mando único. A regra muda de vale para vale. |
+| `monarquista` | Uma família no mando, por costume, difícil de desfazer | A família antiga continua. A regra não muda todo ano. Uma geração inteira pode ficar presa nesse desenho. |
+| `monarquia_social` | Uma família no mando, com dever de comida, terra e teto | A família fica, e o cargo se explica pelo cuidado com quem está embaixo. Esse cuidado pode virar favor para quem chega perto. |
+| `presidencialista` | Um chefe com data para sair, que a câmara não derruba no meio | Uma pessoa governa até a data, mesmo se a câmara reclamar. O erro dura até essa data. |
+| `parlamentarista` | Um governo que cai quando a câmara tira a confiança | Quem governa sai da câmara e sai quando a câmara deixa de confiar. Obra longa não atravessa a briga. |
+| `teocrata` | A lei sagrada acima da lei comum | A lei comum só vai até onde o texto sagrado deixa. Quem lê o texto vira o cargo. |
+| `sovietica` | Conselhos de quem trabalha, com o delegado fácil de trocar | O mando sobe de quem faz o trabalho, não desce da capital. O plano miúdo emperra, e quem não está na base não senta. |
+| `corporacao` | Os ramos de trabalho no mando, os dois lados juntos | Quem produz e quem emprega no mesmo ramo sentam juntos, com alguém coordenando. O ramo pode virar feudo. |
+| `colonia` | Guerra e tratado na mão de quem está de fora; o dia a dia fica aqui | Navio e assinatura de fora não dependem do nosso caixa. Quando o acordo muda, não tem como dizer não. |
+| `tribal` | O grupo do sangue e do costume, sem máquina de país | O povoado decide. O que for maior que isso é aliança, não um mando único. A regra muda de um lugar para o outro. |
 
-O resultado mostra o título, a linha de apoio, e duas ou três escolhas que mais puxaram aquele centróide (cena + opção + uma frase). Não mostra o id interno, nem a tabela, nem “você é X”.
+O resultado mostra o título, o problema, o preço, e duas ou três escolhas que mais puxaram aquele centróide (cena + opção + uma frase). A frase de abertura usa o nome do país. Não mostra o id interno, nem a tabela, nem “você é X”.
 
 ## Mapa do fluxo
 
@@ -148,7 +152,7 @@ Cada opção lista parâmetros (inteiros) e um peso **mole** de perfil. O peso m
 
 Sempre a primeira.
 
-Valmora cabe numa viagem de semanas. Tem aldeia que só obedece a quem viu nascer, região com caixa próprio, e gente que quer uma regra só da mina até a fronteira. Onde a decisão mora de verdade?
+Pontal (ou o nome que a pessoa deu) ainda está nascendo, numa costa que não tinha país. Tem povoado que só obedece a quem se conhece, região com caixa próprio, e gente que quer a mesma regra do porto até o interior. Onde a decisão fica de verdade?
 
 **A. `aldeia` — No círculo de quem se conhece pelo nome.** O que houver de maior é aliança, não um mando único.
 
@@ -358,7 +362,7 @@ A lei sagrada proíbe o que a maioria, ou o ancião, agora quer permitir. Quem c
 - Mole: `teocrata` −2
 - Segue: N4 se veio do país. N9 se veio da aldeia.
 
-**C. `culto_miudo` — Cada círculo guarda o seu culto.** Não há um texto só para Valmora.
+**C. `culto_miudo` — Cada grupo guarda o próprio culto.** Não tem um texto só para o país inteiro.
 
 - Problema: o vale não reza a regra do vizinho.
 - Preço: não existe um chão comum quando os círculos se encontram.
