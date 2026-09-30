@@ -144,6 +144,18 @@ export interface AxisProfile {
   tier: "essential" | "moderate" | "peripheral" | "untouched";
 }
 
+/**
+ * An answered choice that materially shaped the matched profile.
+ * Shown on the result screen as a short attribution, not a full trace.
+ */
+export interface ProfileDriver {
+  choiceId: string;
+  sceneTitle: string;
+  choiceLabel: string;
+  /** One plain-language sentence tying the choice to the profile and/or agenda. */
+  reason: string;
+}
+
 export interface ScoreResult {
   scores: AxisScores;
   /** Position mapped to 0–100 for display. */
@@ -156,6 +168,11 @@ export interface ScoreResult {
   archetype: Archetype;
   /** Euclidean distance to the chosen archetype centroid (lower = closer). */
   distance: number;
+  /**
+   * Two or three choices that most explain this archetype and agenda.
+   * Empty when no answered choice moved the score.
+   */
+  drivers: ProfileDriver[];
 }
 
 /**

@@ -52,6 +52,38 @@ export function ResultView({ result, meta, actions }: ResultViewProps) {
         </section>
       ) : null}
 
+      {result.drivers.length > 0 ? (
+        <section className="mt-10 w-full max-w-xl">
+          <h2 className="text-center font-[family-name:var(--font-display)] text-xl text-[var(--ink)] sm:text-left">
+            Por que este perfil?
+          </h2>
+          <p className="mt-1 text-center text-sm text-[var(--muted)] sm:text-left">
+            As escolhas que mais puxaram este resultado.
+          </p>
+          <ol className="mt-4 flex list-none flex-col gap-3 p-0">
+            {result.drivers.map((driver, index) => (
+              <li
+                key={driver.choiceId}
+                className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-left"
+              >
+                <p className="text-sm text-[var(--accent)]">
+                  <span className="mr-2 tabular-nums text-[var(--muted)]">
+                    {index + 1}
+                  </span>
+                  {driver.sceneTitle}
+                </p>
+                <p className="mt-1.5 text-[0.95rem] leading-snug text-[var(--ink)]">
+                  {driver.choiceLabel}
+                </p>
+                <p className="mt-1.5 text-sm leading-relaxed text-[var(--muted)]">
+                  {driver.reason}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
       <div className="mt-10 w-full flex justify-center">
         <PoliticalAgenda
           ranked={result.rankedByEssentiality}
