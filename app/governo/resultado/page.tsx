@@ -10,6 +10,7 @@ import {
   getGovernmentSessionServerSnapshot,
   getGovernmentSessionSnapshot,
   loadSavedGovernment,
+  parseGovernmentSession,
   saveSavedGovernment,
 } from "@/lib/storage";
 
@@ -17,16 +18,9 @@ function subscribe() {
   return () => {};
 }
 
-function choiceIdsFromSession(raw: string): string[] {
-  if (!raw || raw === IN_PROGRESS_UNREADY) return [];
-  try {
-    const parsed = JSON.parse(raw) as unknown;
-    return Array.isArray(parsed)
-      ? parsed.filter((id): id is string => typeof id === "string")
-      : [];
-  } catch {
-    return [];
-  }
+function sessionFromRaw(raw: string): { choiceIds: string[]; countryName?: string } {
+  if (!raw || raw === IN_PROGRESS_UNREADY) return { choiceIds: [] };
+  return parseGovernmentSession(raw);
 }
 
 export default function GovernoResultadoPage() {
@@ -35,7 +29,8 @@ export default function GovernoResultadoPage() {
     getGovernmentSessionSnapshot,
     getGovernmentSessionServerSnapshot,
   );
-  const choiceIds = useMemo(() => choiceIdsFromSession(raw), [raw]);
+  const session = useMemo(() => sessionFromRaw(raw), [raw]);
+  const choiceIds = session.choiceIds;
   const result = useMemo(
     () => (choiceIds.length > 0 ? scoreGovernment(choiceIds) : null),
     [choiceIds],
@@ -48,10 +43,11 @@ export default function GovernoResultadoPage() {
       saveSavedGovernment({
         choiceIds,
         savedAt: new Date().toISOString(),
+        countryName: session.countryName,
       });
     }
     clearGovernmentProgress();
-  }, [ready, result, choiceIds]);
+  }, [ready, result, choiceIds, session.countryName]);
 
   if (!ready) {
     return (
@@ -81,7 +77,11 @@ export default function GovernoResultadoPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-16">
-      <GovernoIdeal result={result} standalone />
+      <GovernoIdeal
+        result={result}
+        countryName={session.countryName}
+        standalone
+      />
       <div className="mt-12 flex flex-wrap justify-center gap-3">
         <Link
           href="/meu-resultado"

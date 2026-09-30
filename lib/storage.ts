@@ -18,6 +18,8 @@ export interface SavedResult {
 export interface SavedGovernment {
   choiceIds: string[];
   savedAt: string;
+  /** Name the player gave the country being founded. */
+  countryName?: string;
 }
 
 /** Unfinished ideal-government quiz. Not stored with the positioning modes. */
@@ -25,6 +27,8 @@ export interface GovernmentProgress {
   choiceIds: string[];
   index: number;
   updatedAt: string;
+  /** Set once the player confirms the country name, even before the first dilemma. */
+  countryName?: string;
 }
 
 /** Unfinished quiz for one mode on this browser. Modes are stored separately. */
@@ -100,22 +104,47 @@ export function clearSavedResult(): void {
   localStorage.removeItem(SAVED_RESULT_KEY);
 }
 
-export function loadGovernmentChoices(): string[] {
-  if (typeof window === "undefined") return [];
+export interface GovernmentSession {
+  choiceIds: string[];
+  countryName?: string;
+}
+
+export function parseGovernmentSession(raw: string): GovernmentSession {
+  if (!raw || raw === IN_PROGRESS_UNREADY) return { choiceIds: [] };
   try {
-    const raw = sessionStorage.getItem(GOVERNO_SESSION_KEY);
-    if (!raw) return [];
     const parsed = JSON.parse(raw) as unknown;
-    return Array.isArray(parsed)
-      ? parsed.filter((id): id is string => typeof id === "string")
+    if (Array.isArray(parsed)) {
+      return {
+        choiceIds: parsed.filter((id): id is string => typeof id === "string"),
+      };
+    }
+    if (!parsed || typeof parsed !== "object") return { choiceIds: [] };
+    const record = parsed as Record<string, unknown>;
+    const choiceIds = Array.isArray(record.choiceIds)
+      ? record.choiceIds.filter((id): id is string => typeof id === "string")
       : [];
+    const countryName =
+      typeof record.countryName === "string" ? record.countryName : undefined;
+    return { choiceIds, countryName };
   } catch {
-    return [];
+    return { choiceIds: [] };
   }
 }
 
-export function saveGovernmentChoices(choiceIds: string[]): void {
-  sessionStorage.setItem(GOVERNO_SESSION_KEY, JSON.stringify(choiceIds));
+export function loadGovernmentChoices(): string[] {
+  if (typeof window === "undefined") return [];
+  return parseGovernmentSession(sessionStorage.getItem(GOVERNO_SESSION_KEY) ?? "")
+    .choiceIds;
+}
+
+export function saveGovernmentChoices(
+  choiceIds: string[],
+  countryName?: string,
+): void {
+  sessionStorage.setItem(
+    GOVERNO_SESSION_KEY,
+    JSON.stringify({ choiceIds, countryName }),
+  );
 }
 
 export function clearGovernmentChoices(): void {
@@ -144,7 +173,9 @@ export function loadSavedGovernment(): SavedGovernment | null {
     );
     if (choiceIds.length === 0) return null;
     if (typeof record.savedAt !== "string") return null;
-    return { choiceIds, savedAt: record.savedAt };
+    const countryName =
+      typeof record.countryName === "string" ? record.countryName : undefined;
+    return { choiceIds, savedAt: record.savedAt, countryName };
   } catch {
     return null;
   }
@@ -210,6 +241,7 @@ interface StoredProgress {
   choiceIds: string[];
   index: number;
   updatedAt: string;
+  countryName?: string;
 }
 
 function parseStoredProgress(value: unknown): StoredProgress | null {
@@ -225,10 +257,13 @@ function parseStoredProgress(value: unknown): StoredProgress | null {
     return null;
   }
   if (typeof record.updatedAt !== "string") return null;
+  const countryName =
+    typeof record.countryName === "string" ? record.countryName : undefined;
   return {
     choiceIds: record.choiceIds as string[],
     index: record.index,
     updatedAt: record.updatedAt,
+    countryName,
   };
 }
 
@@ -377,14 +412,15 @@ export function governmentProgressFromSnapshot(
 }
 
 export function saveGovernmentProgress(
-  progress: Pick<GovernmentProgress, "choiceIds" | "index">,
+  progress: Pick<GovernmentProgress, "choiceIds" | "index" | "countryName">,
 ): void {
   if (typeof window === "undefined") return;
-  if (progress.choiceIds.length === 0) return;
+  if (progress.choiceIds.length === 0 && !progress.countryName?.trim()) return;
   const stored: GovernmentProgress = {
     choiceIds: progress.choiceIds,
     index: progress.index,
     updatedAt: new Date().toISOString(),
+    countryName: progress.countryName,
   };
   localStorage.setItem(GOVERNO_PROGRESS_KEY, JSON.stringify(stored));
   notifyProgress();
@@ -402,12 +438,13 @@ export function clearGovernmentProgress(): void {
  */
 export function finishGovernment(
   choiceIds: string[],
-  options?: { retainProgress?: boolean },
+  options?: { retainProgress?: boolean; countryName?: string },
 ): void {
-  saveGovernmentChoices(choiceIds);
+  saveGovernmentChoices(choiceIds, options?.countryName);
   saveSavedGovernment({
     choiceIds,
     savedAt: new Date().toISOString(),
+    countryName: options?.countryName,
   });
   if (!options?.retainProgress) clearGovernmentProgress();
 }

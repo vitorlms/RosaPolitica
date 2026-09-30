@@ -105,10 +105,10 @@ export default function HomePage() {
           Governo ideal
         </h2>
         <p className="mt-1 text-sm text-[var(--muted)]">
-          Um caminho à parte: cada resposta abre a pergunta seguinte. No fim,
-          um arranjo descrito pelo que ele faz — problema e preço, sem nome de
-          regime. Não muda o perfil dos dez eixos, e terminar um teste não
-          exige o outro.
+          Você ajuda a fundar um país novo, longe de Valmora. Cada resposta
+          abre a pergunta seguinte. No fim, o arranjo — o problema e o preço —
+          sem nome de regime. Não muda o perfil dos dez eixos, e terminar um
+          teste não exige o outro.
         </p>
         <Link
           href="/governo"
@@ -117,7 +117,7 @@ export default function HomePage() {
           <span>
             <span className="block font-semibold">Governo ideal</span>
             <span className="mt-1 block text-sm text-[var(--muted)]">
-              O caminho muda com a resposta.
+              Fundar um país novo. O caminho muda com a resposta.
             </span>
           </span>
           <span className="shrink-0 text-sm tabular-nums text-[var(--muted)]">
