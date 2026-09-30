@@ -120,6 +120,8 @@ export interface GovernmentDriver {
 }
 
 export interface GovernmentArrangement {
+  /** Internal id. The result screen uses it only to name the classroom organization. */
+  profileId: ProfileId;
   title: string;
   support: string;
   problem: string;
@@ -1774,6 +1776,7 @@ function arrangement(
       sentence: row.step.sentence,
     }));
   return {
+    profileId: profile,
     title: copy.title,
     support: copy.support,
     problem: copy.problem,

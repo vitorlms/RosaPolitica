@@ -7,11 +7,11 @@ O Rosa Política tem dois testes. **Meu Perfil** é o posicionamento em Valmora:
 | | Meu Perfil | Meu Estado |
 | --- | --- | --- |
 | Pergunta | Para onde a pessoa inclina, e o quanto isso é inegociável | Que arranjo de mando a pessoa prefere |
-| Saída | Eixos + arquétipo | Título descritivo do arranjo, com problema, preço e as escolhas que puxaram |
+| Saída | Eixos + arquétipo | Título descritivo do arranjo, com o nome de aula mais próximo, problema, preço e as escolhas que puxaram |
 | Conteúdo | 40 cenas de posicionamento | [`lib/governoFlow.ts`](../lib/governoFlow.ts), mapa em [`governo-ideal-fluxograma.md`](./governo-ideal-fluxograma.md) |
-| Nome | Arquétipo ilustrativo | Nenhum nome de regime, partido ou ideologia |
+| Nome | Arquétipo ilustrativo | Nome de aula só no resultado (“Mais próximo de”). Os dilemas ficam sem nome de regime |
 
-O resultado se chama **Meu Estado Ideal**. Ele não substitui o radar nem o arquétipo. A página [`/organizacoes`](../app/organizacoes/page.tsx) explica os nove arranjos, com nome de aula e exemplos aproximados do mundo. Esses nomes não entram no teste.
+O resultado se chama **Meu Estado Ideal**. Ele não substitui o radar nem o arquétipo. A página [`/organizacoes`](../app/organizacoes/page.tsx) explica os nove arranjos, com nome de aula e exemplos aproximados do mundo. Esses nomes não entram nos dilemas. No resultado, a frase descritiva continua em primeiro, e “Mais próximo de” repete o nome de aula, com link para a organização.
 
 ## Como entra no jogo
 

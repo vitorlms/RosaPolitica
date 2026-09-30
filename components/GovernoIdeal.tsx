@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import {
   DEFAULT_COUNTRY_NAME,
   GOVERNMENT_RESULT_TITLE,
@@ -7,6 +8,7 @@ import {
   type GovernmentArrangement,
   type GovernmentResult,
 } from "@/lib/governoFlow";
+import { classroomNameFor } from "@/lib/organizacoes";
 
 interface GovernoIdealProps {
   result: GovernmentResult;
@@ -25,6 +27,7 @@ function Arrangement({
   arrangement: GovernmentArrangement;
   heading?: string;
 }) {
+  const classroomName = classroomNameFor(arrangement.profileId);
   return (
     <article className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-4 text-left">
       {heading ? (
@@ -33,6 +36,17 @@ function Arrangement({
       <h3 className="mt-1 font-[family-name:var(--font-display)] text-xl leading-snug text-[var(--ink)]">
         {arrangement.title}
       </h3>
+      {classroomName ? (
+        <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+          Mais próximo de:{" "}
+          <Link
+            href={`/organizacoes#${arrangement.profileId}`}
+            className="font-semibold text-[var(--accent)] underline decoration-[var(--line)] underline-offset-4 hover:decoration-[var(--accent)]"
+          >
+            {classroomName}
+          </Link>
+        </p>
+      ) : null}
       <p className="mt-3 text-sm leading-relaxed text-[var(--ink-soft)]">
         <span className="text-[var(--muted)]">Problema. </span>
         {arrangement.problem}
@@ -64,8 +78,8 @@ function Arrangement({
 }
 
 /**
- * Ideal-government result. Titles describe an arrangement.
- * Internal profile ids are not rendered.
+ * Ideal-government result. The descriptive title stays primary.
+ * The classroom name sits under it and links to that organization.
  */
 export function GovernoIdeal({
   result,

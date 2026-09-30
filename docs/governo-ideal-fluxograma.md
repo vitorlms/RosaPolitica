@@ -1,28 +1,28 @@
 # Governo ideal — fluxograma por parâmetros
 
-Mapa do teste jogável em `/estado` (Meu Estado; o resultado é Meu Estado Ideal). O código está em [`lib/governoFlow.ts`](../lib/governoFlow.ts). Não muda os dez eixos de Meu Perfil. A pessoa não vê nome de regime no teste: os ids desta página ficam no placar, e a tela usa o título descritivo. A página `/organizacoes` pode usar o nome de aula e exemplos do mundo.
+Mapa do teste jogável em `/estado` (Meu Estado; o resultado é Meu Estado Ideal). O código está em [`lib/governoFlow.ts`](../lib/governoFlow.ts). Não muda os dez eixos de Meu Perfil. A pessoa não vê nome de regime no meio do teste. O resultado mostra o título descritivo e, logo abaixo, o nome de aula (“Mais próximo de: …”), o mesmo de `/organizacoes`, com link para essa organização. Os ids internos ficam no placar.
 
 O posicionamento (rápido, padrão, completo) continua na Confederação de Valmora. Este teste não. A pessoa ajuda a escrever o primeiro arranjo de um país novo, na mesma ficção, numa costa longe de Valmora. O nome sugerido é **Pontal**. Ela pode ficar com a sugestão ou escrever outro (até 40 caracteres). O nome entra em alguns dilemas e na frase do resultado. Não altera parâmetro, centróide, guarda nem id interno.
 
-Cada resposta empurra **parâmetros mudos**. No fim, a distância até centróides internos escolhe um arranjo principal e, se couber, um segundo. A pessoa não vê nome de regime, partido ou ideologia — nem no meio do teste, nem como opção, nem como título do resultado.
+Cada resposta empurra **parâmetros mudos**. No fim, a distância até centróides internos escolhe um arranjo principal e, se couber, um segundo. A pessoa não vê nome de regime, partido ou ideologia no meio do teste, nem como opção, nem como título descritivo do resultado. O nome de aula entra só na linha “Mais próximo de”, debaixo desse título.
 
 O texto que a pessoa lê está no código, em português falado. Os parágrafos de dilema abaixo são o mapa de parâmetros. Onde ainda aparece mina ou inverno, isso é o rascunho do mecanismo; a tela usa porto, lavoura, povoado e acordo.
 
-Rótulos como `monarquista` ou `colonia` existem só nesta página, na coluna “interno”. A UI usa o título descritivo.
+Rótulos como `monarquista` ou `colonia` existem só nesta página, na coluna “interno”. A UI do teste usa o título descritivo. O resultado acrescenta o nome de aula já escrito em `lib/organizacoes.ts`.
 
 ## Princípios
 
 1. **Sem nome taxativo no meio do teste.** A opção descreve um mecanismo (quem senta, até quando, quem pode desfazer). Não oferece “monarquia”, “presidencialismo”, “teocracia”, “república soviética”, “estado corporação”, “colônia” nem equivalentes.
 2. **Problema e preço em toda opção.** O mesmo espírito do `hint` / `solves` / `tradeoff` de hoje. Nenhuma opção é a resposta moralmente certa.
 3. **Trilha separada dos dez eixos.** Este fluxo não lê nem escreve economia, autoridade, liberdade, igualdade, tradição, ambiente, segurança, global, tecnologia ou corpo. Não muda arquétipo. Meu Estado Ideal é outra página, não um bloco dentro de Meu Perfil.
-4. **Parâmetro mudo, título falado.** A conta usa ids internos. A frase que a pessoa lê descreve o arranjo (“uma família manda, mas tem de garantir comida, terra e teto”), não o verbete.
+4. **Parâmetro mudo, título falado.** A conta usa ids internos. A frase que a pessoa lê descreve o arranjo (“uma família manda, mas tem de garantir comida, terra e teto”), não o verbete. No resultado, debaixo dessa frase, a linha “Mais próximo de” mostra o nome de aula e leva a `/organizacoes`.
 5. **Fluxograma de verdade.** Nem toda pergunta aparece. Uma resposta abre, pula ou troca o texto da seguinte. O baralho tem 20 nós. Um caminho típico passa por 13 a 16: o tronco que já existia, mais um trilho comum de nove perguntas (princípios, poder, cidadania, religião, burocracia, exército, marinha, segurança interna e justiça) antes do fecho.
 6. **Ficção, não o mapa real.** Povoado, porto, lavoura, câmara, família, acordo com quem está de fora. Sem país, partido ou líder do mundo real. Valmora só aparece para deixar claro que este teste é outro lugar. O nome que a pessoa digita não passa pela lista negra.
 7. **Empate fica visível.** Se dois centróides ficam perto, o resultado mostra os dois títulos e não finge um vencedor único. O mesmo espírito do “em aberto” atual, agora entre arranjos e não entre opções de uma categoria.
 
 ### Lista negra (texto que a pessoa vê)
 
-Não usar, nem em título de resultado: monarquia, rei, rainha, presidencialismo, presidente, parlamentarismo, parlamento, teocracia, teocrata, soviete, soviético, corporativismo, corporação, fascismo, colônia, protetorado, república, democracia, socialismo, comunismo, partido, liberal, ditadura, anarquia.
+Não usar nos dilemas nem no título descritivo do resultado: monarquia, rei, rainha, presidencialismo, presidente, parlamentarismo, parlamento, teocracia, teocrata, soviete, soviético, corporativismo, corporação, fascismo, colônia, protetorado, república, democracia, socialismo, comunismo, partido, liberal, ditadura, anarquia. A linha “Mais próximo de” é a exceção: ela repete o nome de aula de `/organizacoes`.
 
 Pode usar: chefe, câmara, linhagem, costume, ofício, conselho, delegado, aldeia, ancião, lei sagrada, prazo, confiança, carta, ramo, base.
 
@@ -90,7 +90,7 @@ Diferenças que o mapa precisa guardar:
 | `colonia` | Guerra e tratado ficam com quem está de fora; o dia a dia fica aqui | Navio e assinatura de fora não dependem do nosso caixa. Se o acordo mudar, a gente não tem como dizer não. |
 | `tribal` | O povoado manda pelo sangue e pelo costume, sem um governo do país | Quem se conhece decide. O que for maior que o povoado é aliança, não um mando só. A regra de um lugar não vale no outro. |
 
-O resultado mostra o título, o problema, o preço, e duas ou três escolhas que mais puxaram aquele centróide (cena + opção + uma frase). A frase de abertura usa o nome do país. Não mostra o id interno, nem a tabela, nem “você é X”.
+O resultado mostra o título descritivo, a linha “Mais próximo de” com o nome de aula (link para a organização), o problema, o preço, e duas ou três escolhas que mais puxaram aquele centróide (cena + opção + uma frase). Se houver segundo arranjo, ele também leva o nome de aula. A frase de abertura usa o nome do país. Não mostra o id interno, nem a tabela, nem “você é X”.
 
 ## Mapa do fluxo
 
