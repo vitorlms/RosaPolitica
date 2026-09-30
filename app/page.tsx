@@ -28,19 +28,23 @@ export default function HomePage() {
       </p>
       <p className="mt-4 text-[var(--muted)]">
         Não há resposta certa — só escolhas com prós e contras. Há dois testes
-        independentes: o perfil em dez eixos, e o arranjo de um governo, sem
-        nome de regime.
+        independentes: Meu Perfil, em Valmora, e Meu Estado, a fundação de um
+        país novo.
       </p>
 
       <ResumeQuiz />
 
       <section id="modos" className="mt-10 scroll-mt-8">
-        <h2 className="font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
-          Perfil nos dez eixos
+        <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
+          Valmora
+        </p>
+        <h2 className="mt-2 font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
+          Meu Perfil
         </h2>
         <p className="mt-1 text-sm text-[var(--muted)]">
-          Cada dilema leva cerca de 1 minuto. Nos modos rápido e padrão, entram
-          primeiro as cenas de maior saliência — as que mais pesam no resultado.
+          Dez eixos, essencialidade e arquétipo. Cada dilema leva cerca de 1
+          minuto. Nos modos rápido e padrão, entram primeiro as cenas de maior
+          saliência — as que mais pesam no resultado.
         </p>
 
         <ul className="mt-5 flex flex-col gap-3">
@@ -97,25 +101,25 @@ export default function HomePage() {
         </Link>
       </div>
 
-      <section id="governo-ideal" className="mt-14 scroll-mt-8 border-t border-[var(--line)] pt-10">
+      <section id="meu-estado" className="mt-14 scroll-mt-8 border-t border-[var(--line)] pt-10">
         <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
           Outro teste
         </p>
         <h2 className="mt-2 font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
-          Governo ideal
+          Meu Estado
         </h2>
         <p className="mt-1 text-sm text-[var(--muted)]">
           Você ajuda a fundar um país novo, longe de Valmora. Cada resposta
-          abre a pergunta seguinte. No fim, o arranjo — o problema e o preço —
-          sem nome de regime. Não muda o perfil dos dez eixos, e terminar um
-          teste não exige o outro.
+          abre a pergunta seguinte. No fim, Meu Estado Ideal — o problema e o
+          preço — sem nome de regime. Não muda Meu Perfil, e terminar um teste
+          não exige o outro.
         </p>
         <Link
-          href="/governo"
+          href="/estado"
           className="mt-5 flex flex-col gap-1 rounded-lg border border-[var(--line)] px-5 py-4 text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)] sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
         >
           <span>
-            <span className="block font-semibold">Governo ideal</span>
+            <span className="block font-semibold">Meu Estado</span>
             <span className="mt-1 block text-sm text-[var(--muted)]">
               Fundar um país novo. O caminho muda com a resposta.
             </span>
@@ -123,6 +127,12 @@ export default function HomePage() {
           <span className="shrink-0 text-sm tabular-nums text-[var(--muted)]">
             Cerca de 6 a 8 dilemas · ~7 min
           </span>
+        </Link>
+        <Link
+          href="/organizacoes"
+          className="mt-4 inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
+        >
+          Ver organizações
         </Link>
       </section>
     </div>

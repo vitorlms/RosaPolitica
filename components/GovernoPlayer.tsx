@@ -210,7 +210,7 @@ export function GovernoPlayer({
   return (
     <div className="flex flex-1 flex-col">
       <p className="mx-auto mb-4 w-full max-w-2xl text-sm text-[var(--muted)]">
-        Governo ideal · fundando {sanitizeCountryName(countryName)}
+        Meu Estado · fundando {sanitizeCountryName(countryName)}
       </p>
       <div key={`${index}-${scene.id}`} className={sceneMotion} data-phase={phase}>
         <SceneCard scene={toScene(scene)} index={index} total={null}>
@@ -264,7 +264,7 @@ function NameStep({
 }) {
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col">
-      <p className="mb-4 text-sm text-[var(--muted)]">Governo ideal</p>
+      <p className="mb-4 text-sm text-[var(--muted)]">Meu Estado</p>
       <h1 className="font-[family-name:var(--font-display)] text-3xl leading-tight text-[var(--ink)] sm:text-4xl">
         {COUNTRY_NAME_TITLE}
       </h1>

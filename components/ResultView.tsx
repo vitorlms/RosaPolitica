@@ -22,7 +22,7 @@ export function ResultView({ result, meta, actions, below }: ResultViewProps) {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-16">
       <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
-        Seu perfil
+        Meu Perfil
       </p>
       <h1 className="mt-2 text-center font-[family-name:var(--font-display)] text-3xl text-[var(--ink)] sm:text-4xl">
         {result.archetype.name}

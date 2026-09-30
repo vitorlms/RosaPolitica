@@ -54,12 +54,24 @@ export default function RootLayout({
             >
               Rosa Política
             </Link>
-            <nav className="flex items-center gap-4 text-sm text-[var(--muted)]">
+            <nav className="flex flex-wrap items-center justify-end gap-x-4 gap-y-1 text-sm text-[var(--muted)]">
               <Link
-                href="/meu-resultado"
+                href="/perfil"
                 className="transition-colors hover:text-[var(--ink)]"
               >
-                Meu resultado
+                Meu Perfil
+              </Link>
+              <Link
+                href="/estado/resultado"
+                className="transition-colors hover:text-[var(--ink)]"
+              >
+                Meu Estado
+              </Link>
+              <Link
+                href="/organizacoes"
+                className="transition-colors hover:text-[var(--ink)]"
+              >
+                Organizações
               </Link>
               <Link
                 href="/posicoes"

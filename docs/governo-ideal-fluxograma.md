@@ -1,6 +1,6 @@
 # Governo ideal — fluxograma por parâmetros
 
-Mapa do teste jogável em `/governo`. O código está em [`lib/governoFlow.ts`](../lib/governoFlow.ts). Não muda os dez eixos. A pessoa não vê nome de regime: os ids desta página ficam no placar, e a tela usa o título descritivo.
+Mapa do teste jogável em `/estado` (Meu Estado; o resultado é Meu Estado Ideal). O código está em [`lib/governoFlow.ts`](../lib/governoFlow.ts). Não muda os dez eixos de Meu Perfil. A pessoa não vê nome de regime no teste: os ids desta página ficam no placar, e a tela usa o título descritivo. A página `/organizacoes` pode usar o nome de aula e exemplos do mundo.
 
 O posicionamento (rápido, padrão, completo) continua na Confederação de Valmora. Este teste não. A pessoa ajuda a escrever o primeiro arranjo de um país novo, na mesma ficção, numa costa longe de Valmora. O nome sugerido é **Pontal**. Ela pode ficar com a sugestão ou escrever outro (até 40 caracteres). O nome entra em alguns dilemas e na frase do resultado. Não altera parâmetro, centróide, guarda nem id interno.
 
@@ -14,7 +14,7 @@ Rótulos como `monarquista` ou `colonia` existem só nesta página, na coluna �
 
 1. **Sem nome taxativo no meio do teste.** A opção descreve um mecanismo (quem senta, até quando, quem pode desfazer). Não oferece “monarquia”, “presidencialismo”, “teocracia”, “república soviética”, “estado corporação”, “colônia” nem equivalentes.
 2. **Problema e preço em toda opção.** O mesmo espírito do `hint` / `solves` / `tradeoff` de hoje. Nenhuma opção é a resposta moralmente certa.
-3. **Trilha separada dos dez eixos.** Este fluxo não lê nem escreve economia, autoridade, liberdade, igualdade, tradição, ambiente, segurança, global, tecnologia ou corpo. Não muda arquétipo. Meu resultado só mostra este bloco se a pessoa terminou esta trilha.
+3. **Trilha separada dos dez eixos.** Este fluxo não lê nem escreve economia, autoridade, liberdade, igualdade, tradição, ambiente, segurança, global, tecnologia ou corpo. Não muda arquétipo. Meu Estado Ideal é outra página, não um bloco dentro de Meu Perfil.
 4. **Parâmetro mudo, título falado.** A conta usa ids internos. A frase que a pessoa lê descreve o arranjo (“uma família no mando, com dever de comida, terra e teto”), não o verbete.
 5. **Fluxograma de verdade.** Nem toda pergunta aparece. Uma resposta abre, pula ou troca o texto da seguinte. Caminho típico: 6 a 8 nós, de um baralho de 11.
 6. **Ficção, não o mapa real.** Povoado, porto, lavoura, câmara, família, acordo com quem está de fora. Sem país, partido ou líder do mundo real. Valmora só aparece para deixar claro que este teste é outro lugar. O nome que a pessoa digita não passa pela lista negra.
@@ -620,4 +620,4 @@ Contraste curto, não é um quarto percurso completo: a mesma abertura (país, �
 - Não ligar estes parâmetros aos dez eixos.
 - Não resolver o híbrido “rosto com prazo debaixo de uma carta de fora” com um perfil novo. O desenho prefere dois títulos perto um do outro a inventar um décimo rótulo interno.
 
-O teste jogável segue este arquivo. O encaixe na home e em Meu resultado está em [`governo-ideal.md`](./governo-ideal.md).
+O teste jogável segue este arquivo. O encaixe na home, em Meu Perfil e em Meu Estado Ideal está em [`governo-ideal.md`](./governo-ideal.md).

@@ -47,7 +47,7 @@ function PlayExperience({ mode }: { mode: TestModeId }) {
       onSave={(progress) => saveInProgress({ mode, ...progress })}
       onClear={() => clearInProgress(mode)}
       onFinish={(choiceIds, options) => finishQuiz(choiceIds, mode, options)}
-      resultHref="/result"
+      resultHref="/perfil"
     />
   );
 }
