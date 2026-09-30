@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { ResumeQuiz } from "@/components/ResumeQuiz";
-import { institutionDraft } from "@/lib/institutions";
 import { story } from "@/lib/scoring";
 import {
-  MINUTES_PER_SCENE,
   TEST_MODE_ORDER,
   TEST_MODES,
   modeDurationMinutes,
@@ -13,8 +11,6 @@ import {
 
 export default function HomePage() {
   const totalScenes = story.scenes.length;
-  const governoCount = institutionDraft.scenes.length;
-  const governoMinutes = governoCount * MINUTES_PER_SCENE;
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center">
@@ -109,9 +105,10 @@ export default function HomePage() {
           Governo ideal
         </h2>
         <p className="mt-1 text-sm text-[var(--muted)]">
-          Dilemas à parte, sobre como montar o arranjo. O resultado é uma opção
-          por categoria — o problema e o preço — sem nome de regime. Não muda
-          o perfil dos dez eixos, e terminar um teste não exige o outro.
+          Um caminho à parte: cada resposta abre a pergunta seguinte. No fim,
+          um arranjo descrito pelo que ele faz — problema e preço, sem nome de
+          regime. Não muda o perfil dos dez eixos, e terminar um teste não
+          exige o outro.
         </p>
         <Link
           href="/governo"
@@ -120,11 +117,11 @@ export default function HomePage() {
           <span>
             <span className="block font-semibold">Governo ideal</span>
             <span className="mt-1 block text-sm text-[var(--muted)]">
-              Dilemas de arranjo, do começo ao fim.
+              O caminho muda com a resposta.
             </span>
           </span>
           <span className="shrink-0 text-sm tabular-nums text-[var(--muted)]">
-            {governoCount} dilemas · ~{governoMinutes} min
+            Cerca de 6 a 8 dilemas · ~7 min
           </span>
         </Link>
       </section>

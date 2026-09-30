@@ -1,6 +1,6 @@
 # Governo ideal — fluxograma por parâmetros
 
-Desenho para revisão. **Não está implementado.** Não há tipo, placar nem rota nova neste passo. O teste que já está no ar continua o de [`governo-ideal.md`](./governo-ideal.md): dilemas lineares, `leans` por categoria, resultado em mecanismo / problema / preço.
+Mapa do teste jogável em `/governo`. O código está em [`lib/governoFlow.ts`](../lib/governoFlow.ts). Não muda os dez eixos. A pessoa não vê nome de regime: os ids desta página ficam no placar, e a tela usa o título descritivo.
 
 Este documento propõe o modelo de conteúdo seguinte: um fluxograma de Valmora em que cada resposta empurra **parâmetros mudos**. No fim, a distância até centróides internos escolhe um arranjo principal e, se couber, um segundo. A pessoa não vê nome de regime, partido ou ideologia — nem no meio do teste, nem como opção, nem como título do resultado.
 
@@ -611,12 +611,9 @@ Saldo útil: `escala` +2, `fora` +2, `quem` +2, `prazo` +1, `queda` +2, `voto` +
 
 Contraste curto, não é um quarto percurso completo: a mesma abertura (país, última palavra aqui, linhagem, vida inteira) com N8 = `pao_e_terra` e N9 = `cuidado_fim` cai em `monarquia_social`, não em `monarquista`. Trocar só N8 para `continuidade` e N9 para `continuidade_fim` inverte o par. É esse o motivo de N8 existir.
 
-## Fora de escopo
+## Fora deste mapa
 
-- Nenhum TypeScript, JSON de conteúdo, rota, placar ou tela neste passo.
-- Não substituir, aqui, os oito dilemas nem as cinco categorias já no ar.
 - Não ligar estes parâmetros aos dez eixos.
-- Não escolher cópia final de interface além dos títulos e das falas de dilema acima. Cabeçalho, retomada e “em aberto” visual ficam para o passe que implementar.
 - Não resolver o híbrido “rosto com prazo debaixo de uma carta de fora” com um perfil novo. O desenho prefere dois títulos perto um do outro a inventar um décimo rótulo interno.
 
-Se este mapa for aceito, o passe de implementação deve nascer de outra revisão: nós, centróides, guardas e a lista negra viram conteúdo. Até lá, o teste jogável permanece o descrito em [`governo-ideal.md`](./governo-ideal.md).
+O teste jogável segue este arquivo. O encaixe na home e em Meu resultado está em [`governo-ideal.md`](./governo-ideal.md).

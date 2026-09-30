@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useSyncExternalStore } from "react";
-import { QuizPlayer } from "@/components/QuizPlayer";
-import { institutionPlayScenes } from "@/lib/institutions";
+import { GovernoPlayer } from "@/components/GovernoPlayer";
 import {
   IN_PROGRESS_UNREADY,
   clearGovernmentChoices,
@@ -16,7 +15,6 @@ import {
 } from "@/lib/storage";
 
 export default function GovernoPage() {
-  const scenes = useMemo(() => institutionPlayScenes(), []);
   const snapshot = useSyncExternalStore(
     subscribeInProgress,
     getGovernmentProgressSnapshot,
@@ -32,9 +30,7 @@ export default function GovernoPage() {
   }, []);
 
   return (
-    <QuizPlayer
-      scenes={scenes}
-      eyebrow={`Governo ideal · ${scenes.length} dilemas`}
+    <GovernoPlayer
       saved={saved}
       onSave={saveGovernmentProgress}
       onClear={clearGovernmentProgress}

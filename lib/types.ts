@@ -99,8 +99,8 @@ export interface Choice {
    */
   salience?: AxisSalience;
   /**
-   * Arrangement this choice supports.
-   * Ignored by axis scoring. See docs/governo-ideal.md.
+   * Unused by the live quizzes. The ideal-government track scores its own
+   * flowchart in lib/governoFlow.ts and does not read this field.
    */
   leans?: InstitutionLean[];
 }

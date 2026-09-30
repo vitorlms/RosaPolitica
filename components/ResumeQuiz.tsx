@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useSyncExternalStore } from "react";
-import { institutionPlayScenes } from "@/lib/institutions";
+import { assessGovernment } from "@/lib/governoFlow";
 import {
   IN_PROGRESS_UNREADY,
   assessInProgress,
@@ -30,7 +30,7 @@ import {
 
 type ResumeEntry =
   | { kind: "positioning"; progress: InProgressQuiz; total: number }
-  | { kind: "governo"; progress: GovernmentProgress; total: number };
+  | { kind: "governo"; progress: GovernmentProgress };
 
 export function ResumeQuiz() {
   const router = useRouter();
@@ -44,8 +44,6 @@ export function ResumeQuiz() {
     getGovernmentProgressSnapshot,
     getGovernmentProgressServerSnapshot,
   );
-
-  const governoScenes = useMemo(() => institutionPlayScenes(), []);
 
   const items = useMemo(() => {
     if (
@@ -66,21 +64,17 @@ export function ResumeQuiz() {
       }
     }
     const governo = governmentProgressFromSnapshot(governoSnapshot);
-    if (
-      governo &&
-      assessInProgress(governo, governoScenes) === "resume"
-    ) {
+    if (governo && assessGovernment(governo) === "resume") {
       resumable.push({
         kind: "governo",
         progress: governo,
-        total: governoScenes.length,
       });
     }
     resumable.sort((a, b) =>
       b.progress.updatedAt.localeCompare(a.progress.updatedAt),
     );
     return resumable;
-  }, [positioningSnapshot, governoSnapshot, governoScenes]);
+  }, [positioningSnapshot, governoSnapshot]);
 
   useEffect(() => {
     if (
@@ -98,9 +92,7 @@ export function ResumeQuiz() {
     }
 
     const governo = governmentProgressFromSnapshot(governoSnapshot);
-    const governoStatus = governo
-      ? assessInProgress(governo, governoScenes)
-      : null;
+    const governoStatus = governo ? assessGovernment(governo) : null;
     if (governo && governoStatus !== "resume" && governoStatus !== "complete") {
       clearGovernmentProgress();
     }
@@ -124,7 +116,7 @@ export function ResumeQuiz() {
     } else if (newestPositioning) {
       router.replace("/result");
     }
-  }, [positioningSnapshot, governoSnapshot, governoScenes, router]);
+  }, [positioningSnapshot, governoSnapshot, router]);
 
   function discardPositioning(mode: TestModeId) {
     clearInProgress(mode);
@@ -151,8 +143,8 @@ export function ResumeQuiz() {
             return (
               <li key="governo">
                 <p className="text-sm text-[var(--ink-soft)]">
-                  Você parou em Governo ideal, na situação {situation} de{" "}
-                  {entry.total}.
+                  Você parou em Governo ideal, na situação {situation}. O
+                  caminho muda com a resposta.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-3">
                   <Link
