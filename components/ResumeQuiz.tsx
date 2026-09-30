@@ -149,8 +149,8 @@ export function ResumeQuiz() {
                       ? `Você parou em Meu Estado, logo depois de escolher o nome ${place}.`
                       : "Você parou em Meu Estado, logo depois de escolher o nome do país."
                     : place
-                      ? `Você parou em Meu Estado, na fundação de ${place}, na situação ${situation}. O caminho muda com a resposta.`
-                      : `Você parou em Meu Estado, na situação ${situation}. O caminho muda com a resposta.`}
+                      ? `Você parou em Meu Estado, na fundação de ${place}, na situação ${situation}. A próxima pergunta depende do que você já escolheu.`
+                      : `Você parou em Meu Estado, na situação ${situation}. A próxima pergunta depende do que você já escolheu.`}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-3">
                   <Link

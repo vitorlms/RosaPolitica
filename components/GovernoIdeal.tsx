@@ -43,7 +43,7 @@ function Arrangement({
       </p>
       {arrangement.drivers.length > 0 ? (
         <div className="mt-4 border-t border-[var(--line)] pt-3">
-          <p className="text-sm text-[var(--muted)]">O que mais pesou nisso</p>
+          <p className="text-sm text-[var(--muted)]">O que mais puxou este arranjo</p>
           <ul className="mt-2 flex list-none flex-col gap-3 p-0">
             {arrangement.drivers.map((driver) => (
               <li key={`${driver.sceneTitle}-${driver.choiceLabel}`}>

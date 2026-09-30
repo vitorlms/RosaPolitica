@@ -15,7 +15,7 @@ Rótulos como `monarquista` ou `colonia` existem só nesta página, na coluna �
 1. **Sem nome taxativo no meio do teste.** A opção descreve um mecanismo (quem senta, até quando, quem pode desfazer). Não oferece “monarquia”, “presidencialismo”, “teocracia”, “república soviética”, “estado corporação”, “colônia” nem equivalentes.
 2. **Problema e preço em toda opção.** O mesmo espírito do `hint` / `solves` / `tradeoff` de hoje. Nenhuma opção é a resposta moralmente certa.
 3. **Trilha separada dos dez eixos.** Este fluxo não lê nem escreve economia, autoridade, liberdade, igualdade, tradição, ambiente, segurança, global, tecnologia ou corpo. Não muda arquétipo. Meu Estado Ideal é outra página, não um bloco dentro de Meu Perfil.
-4. **Parâmetro mudo, título falado.** A conta usa ids internos. A frase que a pessoa lê descreve o arranjo (“uma família no mando, com dever de comida, terra e teto”), não o verbete.
+4. **Parâmetro mudo, título falado.** A conta usa ids internos. A frase que a pessoa lê descreve o arranjo (“uma família manda, mas tem de garantir comida, terra e teto”), não o verbete.
 5. **Fluxograma de verdade.** Nem toda pergunta aparece. Uma resposta abre, pula ou troca o texto da seguinte. Caminho típico: 6 a 8 nós, de um baralho de 11.
 6. **Ficção, não o mapa real.** Povoado, porto, lavoura, câmara, família, acordo com quem está de fora. Sem país, partido ou líder do mundo real. Valmora só aparece para deixar claro que este teste é outro lugar. O nome que a pessoa digita não passa pela lista negra.
 7. **Empate fica visível.** Se dois centróides ficam perto, o resultado mostra os dois títulos e não finge um vencedor único. O mesmo espírito do “em aberto” atual, agora entre arranjos e não entre opções de uma categoria.
@@ -80,15 +80,15 @@ Diferenças que o mapa precisa guardar:
 
 | Interno | Título | Linha de apoio |
 | --- | --- | --- |
-| `monarquista` | Uma família no mando, por costume, difícil de desfazer | A família antiga continua. A regra não muda todo ano. Uma geração inteira pode ficar presa nesse desenho. |
-| `monarquia_social` | Uma família no mando, com dever de comida, terra e teto | A família fica, e o cargo se explica pelo cuidado com quem está embaixo. Esse cuidado pode virar favor para quem chega perto. |
-| `presidencialista` | Um chefe com data para sair, que a câmara não derruba no meio | Uma pessoa governa até a data, mesmo se a câmara reclamar. O erro dura até essa data. |
-| `parlamentarista` | Um governo que cai quando a câmara tira a confiança | Quem governa sai da câmara e sai quando a câmara deixa de confiar. Obra longa não atravessa a briga. |
-| `teocrata` | A lei sagrada acima da lei comum | A lei comum só vai até onde o texto sagrado deixa. Quem lê o texto vira o cargo. |
-| `sovietica` | Conselhos de quem trabalha, com o delegado fácil de trocar | O mando sobe de quem faz o trabalho, não desce da capital. O plano miúdo emperra, e quem não está na base não senta. |
-| `corporacao` | Os ramos de trabalho no mando, os dois lados juntos | Quem produz e quem emprega no mesmo ramo sentam juntos, com alguém coordenando. O ramo pode virar feudo. |
-| `colonia` | Guerra e tratado na mão de quem está de fora; o dia a dia fica aqui | Navio e assinatura de fora não dependem do nosso caixa. Quando o acordo muda, não tem como dizer não. |
-| `tribal` | O grupo do sangue e do costume, sem máquina de país | O povoado decide. O que for maior que isso é aliança, não um mando único. A regra muda de um lugar para o outro. |
+| `monarquista` | Uma família manda por costume, e é difícil tirar | A família antiga continua no cargo. A regra não muda todo ano. Quem nasce fora dessa família pode passar a vida inteira sem escolher de novo. |
+| `monarquia_social` | Uma família manda, mas tem de garantir comida, terra e teto | A família fica no cargo porque cuida de quem está embaixo. Esse cuidado pode virar favor para quem chega perto da família. |
+| `presidencialista` | Um chefe fica até a data marcada, e a câmara não tira no meio | Uma pessoa governa até o dia combinado, mesmo se a câmara reclamar. Se errar, o erro fica até essa data. |
+| `parlamentarista` | Quem governa cai quando a câmara deixa de confiar | Quem governa vem da câmara e sai no dia em que a câmara tira a confiança. Uma obra longa pode morrer no meio da briga. |
+| `teocrata` | A lei sagrada fica acima da lei do dia a dia | A lei do dia a dia só vale até onde o texto sagrado deixa. Quem interpreta o texto é quem manda de verdade. |
+| `sovietica` | Quem trabalha manda, e pode trocar o representante fácil | A ordem vem de quem faz o trabalho, não de um gabinete na capital. Um grupo pequeno pode travar a obra, e quem não trabalha na base não tem cadeira. |
+| `corporacao` | Os ramos de trabalho mandam, patrão e empregado juntos | No mesmo ramo, quem emprega e quem trabalha sentam na mesma mesa, com alguém por cima. O ramo pode fechar a porta para quem está de fora. |
+| `colonia` | Guerra e tratado ficam com quem está de fora; o dia a dia fica aqui | Navio e assinatura de fora não dependem do nosso caixa. Se o acordo mudar, a gente não tem como dizer não. |
+| `tribal` | O povoado manda pelo sangue e pelo costume, sem um governo do país | Quem se conhece decide. O que for maior que o povoado é aliança, não um mando só. A regra de um lugar não vale no outro. |
 
 O resultado mostra o título, o problema, o preço, e duas ou três escolhas que mais puxaram aquele centróide (cena + opção + uma frase). A frase de abertura usa o nome do país. Não mostra o id interno, nem a tabela, nem “você é X”.
 
@@ -152,7 +152,7 @@ Cada opção lista parâmetros (inteiros) e um peso **mole** de perfil. O peso m
 
 Sempre a primeira.
 
-Pontal (ou o nome que a pessoa deu) ainda está nascendo, numa costa que não tinha país. Tem povoado que só obedece a quem se conhece, região com caixa próprio, e gente que quer a mesma regra do porto até o interior. Onde a decisão fica de verdade?
+Pontal (ou o nome que a pessoa deu) ainda não tem capital nem lei antiga. Tem povoado que só obedece a quem se conhece pelo nome, região com caixa e escola próprios, e gente que quer a mesma regra do porto até o interior. Onde as decisões do dia a dia vão ficar?
 
 **A. `aldeia` — No círculo de quem se conhece pelo nome.** O que houver de maior é aliança, não um mando único.
 
