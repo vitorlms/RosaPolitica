@@ -100,7 +100,7 @@ O arquétipo final é o centróide mais próximo (distância euclidiana nas posi
 
 3. Recarregue o `dev` — o motor em [`lib/scoring.ts`](lib/scoring.ts) lê esses JSON.
 
-4. **Governo ideal** — teste separado em [`/governo`](app/governo/page.tsx). A pessoa funda um país novo (nome sugerido: Pontal), longe de Valmora. O caminho e o placar estão em [`lib/governoFlow.ts`](lib/governoFlow.ts). Não entra nos modos rápido / padrão / completo. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md) e [`docs/governo-ideal-fluxograma.md`](docs/governo-ideal-fluxograma.md).
+4. **Meu Estado** — teste separado em [`/estado`](app/estado/page.tsx). A pessoa funda um país novo (nome sugerido: Pontal), longe de Valmora. O resultado é Meu Estado Ideal. As nove organizações estão em [`/organizacoes`](app/organizacoes/page.tsx). O caminho e o placar estão em [`lib/governoFlow.ts`](lib/governoFlow.ts). Não entra nos modos rápido / padrão / completo. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md) e [`docs/governo-ideal-fluxograma.md`](docs/governo-ideal-fluxograma.md).
 
 ## Estrutura
 
@@ -112,9 +112,9 @@ docs/          # governo-ideal.md, governo-ideal-fluxograma.md
 lib/           # types, scoring, storage (sessionStorage)
 ```
 
-## Governo ideal
+## Meu Estado
 
-Teste à parte, na home. A pessoa ajuda a fundar um país novo, longe de Valmora, e pode ficar com o nome sugerido (Pontal) ou escrever outro. O caminho muda com a resposta (cerca de 6 a 8 dilemas). O resultado descreve o arranjo, sem nome de regime, e não altera o perfil dos dez eixos. Meu resultado junta os dois só quando cada um foi terminado. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
+Teste à parte, na home. A pessoa ajuda a fundar um país novo, longe de Valmora, e pode ficar com o nome sugerido (Pontal) ou escrever outro. O caminho muda com a resposta (cerca de 6 a 8 dilemas). Meu Estado Ideal descreve o arranjo, sem nome de regime, e não altera Meu Perfil. A página de organizações explica os nove tipos com exemplos aproximados do mundo. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
 
 ## Gancho futuro (não implementado)
 
@@ -122,5 +122,5 @@ A origem das noções políticas poderá afetar o **cenário inicial**. O tipo `
 
 ## Escopo
 
-Inclui: 40 cenas de posicionamento, 3 modos de teste (rápido / padrão / completo), um teste separado de governo ideal (fluxograma), retomada no meio de cada teste neste navegador, 10 eixos, salience/essencialidade, radar, arquétipos.  
+Inclui: 40 cenas de posicionamento, 3 modos de teste (rápido / padrão / completo), Meu Estado (fluxograma), uma página das nove organizações, retomada no meio de cada teste neste navegador, 10 eixos, salience/essencialidade, radar, arquétipos.  
 Não inclui: login, múltiplas histórias, IA gerando perguntas.

@@ -47,11 +47,9 @@ interface ProgressScene {
   choices: readonly { id: string }[];
 }
 
-export function loadChoices(): string[] {
-  if (typeof window === "undefined") return [];
+export function parseChoiceIds(raw: string): string[] {
+  if (!raw || raw === IN_PROGRESS_UNREADY) return [];
   try {
-    const raw = sessionStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
     const parsed = JSON.parse(raw) as unknown;
     return Array.isArray(parsed)
       ? parsed.filter((id): id is string => typeof id === "string")
@@ -59,6 +57,19 @@ export function loadChoices(): string[] {
   } catch {
     return [];
   }
+}
+
+export function getChoicesSnapshot(): string {
+  return sessionStorage.getItem(STORAGE_KEY) ?? "";
+}
+
+export function getChoicesServerSnapshot(): string {
+  return IN_PROGRESS_UNREADY;
+}
+
+export function loadChoices(): string[] {
+  if (typeof window === "undefined") return [];
+  return parseChoiceIds(sessionStorage.getItem(STORAGE_KEY) ?? "");
 }
 
 export function saveChoices(choiceIds: string[]): void {
@@ -73,11 +84,17 @@ function isTestModeId(value: unknown): value is TestModeId {
   return value === "rapido" || value === "padrao" || value === "completo";
 }
 
-export function loadSavedResult(): SavedResult | null {
-  if (typeof window === "undefined") return null;
+export function getSavedResultSnapshot(): string {
+  return localStorage.getItem(SAVED_RESULT_KEY) ?? "";
+}
+
+export function getSavedResultServerSnapshot(): string {
+  return IN_PROGRESS_UNREADY;
+}
+
+export function parseSavedResult(raw: string): SavedResult | null {
+  if (!raw || raw === IN_PROGRESS_UNREADY) return null;
   try {
-    const raw = localStorage.getItem(SAVED_RESULT_KEY);
-    if (!raw) return null;
     const parsed = JSON.parse(raw) as unknown;
     if (!parsed || typeof parsed !== "object") return null;
     const record = parsed as Record<string, unknown>;
@@ -92,6 +109,11 @@ export function loadSavedResult(): SavedResult | null {
   } catch {
     return null;
   }
+}
+
+export function loadSavedResult(): SavedResult | null {
+  if (typeof window === "undefined") return null;
+  return parseSavedResult(localStorage.getItem(SAVED_RESULT_KEY) ?? "");
 }
 
 export function saveSavedResult(result: SavedResult): void {
@@ -159,11 +181,17 @@ export function getGovernmentSessionServerSnapshot(): string {
   return IN_PROGRESS_UNREADY;
 }
 
-export function loadSavedGovernment(): SavedGovernment | null {
-  if (typeof window === "undefined") return null;
+export function getSavedGovernmentSnapshot(): string {
+  return localStorage.getItem(GOVERNO_RESULT_KEY) ?? "";
+}
+
+export function getSavedGovernmentServerSnapshot(): string {
+  return IN_PROGRESS_UNREADY;
+}
+
+export function parseSavedGovernment(raw: string): SavedGovernment | null {
+  if (!raw || raw === IN_PROGRESS_UNREADY) return null;
   try {
-    const raw = localStorage.getItem(GOVERNO_RESULT_KEY);
-    if (!raw) return null;
     const parsed = JSON.parse(raw) as unknown;
     if (!parsed || typeof parsed !== "object") return null;
     const record = parsed as Record<string, unknown>;
@@ -179,6 +207,11 @@ export function loadSavedGovernment(): SavedGovernment | null {
   } catch {
     return null;
   }
+}
+
+export function loadSavedGovernment(): SavedGovernment | null {
+  if (typeof window === "undefined") return null;
+  return parseSavedGovernment(localStorage.getItem(GOVERNO_RESULT_KEY) ?? "");
 }
 
 export function saveSavedGovernment(result: SavedGovernment): void {

@@ -1,20 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState, type ReactNode } from "react";
-import { GovernoIdeal } from "@/components/GovernoIdeal";
-import { ResultView } from "@/components/ResultView";
-import { scoreGovernment, type GovernmentResult } from "@/lib/governoFlow";
-import { computeResult } from "@/lib/scoring";
+import { useMemo, useSyncExternalStore } from "react";
 import {
-  clearAllSavedResults,
-  loadSavedGovernment,
-  loadSavedResult,
-  type SavedGovernment,
-  type SavedResult,
+  IN_PROGRESS_UNREADY,
+  getSavedGovernmentServerSnapshot,
+  getSavedGovernmentSnapshot,
+  getSavedResultServerSnapshot,
+  getSavedResultSnapshot,
+  parseSavedGovernment,
+  parseSavedResult,
 } from "@/lib/storage";
 import { TEST_MODES } from "@/lib/testModes";
-import type { ScoreResult } from "@/lib/types";
+
+function subscribe() {
+  return () => {};
+}
 
 function formatSavedAt(iso: string): string {
   try {
@@ -28,35 +29,22 @@ function formatSavedAt(iso: string): string {
 }
 
 export default function MeuResultadoPage() {
-  const [saved, setSaved] = useState<SavedResult | null | undefined>(undefined);
-  const [governo, setGoverno] = useState<SavedGovernment | null>(null);
-  const [result, setResult] = useState<ScoreResult | null>(null);
-  const [arrangement, setArrangement] = useState<GovernmentResult | null>(null);
+  const perfilRaw = useSyncExternalStore(
+    subscribe,
+    getSavedResultSnapshot,
+    getSavedResultServerSnapshot,
+  );
+  const estadoRaw = useSyncExternalStore(
+    subscribe,
+    getSavedGovernmentSnapshot,
+    getSavedGovernmentServerSnapshot,
+  );
+  const ready =
+    perfilRaw !== IN_PROGRESS_UNREADY && estadoRaw !== IN_PROGRESS_UNREADY;
+  const perfil = useMemo(() => parseSavedResult(perfilRaw), [perfilRaw]);
+  const estado = useMemo(() => parseSavedGovernment(estadoRaw), [estadoRaw]);
 
-  const refresh = useCallback(() => {
-    const next = loadSavedResult();
-    const savedArrangement = loadSavedGovernment();
-    setSaved(next);
-    setGoverno(savedArrangement);
-    setResult(next ? computeResult(next.choiceIds) : null);
-    setArrangement(
-      savedArrangement ? scoreGovernment(savedArrangement.choiceIds) : null,
-    );
-  }, []);
-
-  useEffect(() => {
-    refresh();
-  }, [refresh]);
-
-  function handleClear() {
-    clearAllSavedResults();
-    setSaved(null);
-    setGoverno(null);
-    setResult(null);
-    setArrangement(null);
-  }
-
-  if (saved === undefined) {
+  if (!ready) {
     return (
       <p className="mx-auto text-[var(--muted)]" aria-live="polite">
         Carregando…
@@ -64,106 +52,67 @@ export default function MeuResultadoPage() {
     );
   }
 
-  if (!saved && !governo) {
-    return (
-      <div className="mx-auto max-w-lg text-center">
-        <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
-          Meu resultado
-        </p>
-        <h1 className="mt-2 font-[family-name:var(--font-display)] text-3xl text-[var(--ink)]">
-          Nada salvo ainda
-        </h1>
-        <p className="mt-4 text-[var(--ink-soft)]">
-          O perfil nos dez eixos e o governo ideal ficam guardados neste
-          navegador, cada um quando você termina aquele teste — sem conta, e
-          sem precisar fazer os dois.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Link
-            href="/#modos"
-            className="inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold"
-          >
-            Fazer o teste de perfil
-          </Link>
-          <Link
-            href="/#governo-ideal"
-            className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
-          >
-            Fazer o governo ideal
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const actions = (
-    <>
-      <Link
-        href="/"
-        className="inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--ink)] transition-opacity hover:opacity-90"
-      >
-        Fazer de novo
-      </Link>
-      <Link
-        href="/posicoes"
-        className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
-      >
-        Ver todas as posições
-      </Link>
-      <button
-        type="button"
-        onClick={handleClear}
-        className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--muted)] transition-colors hover:border-[var(--accent-muted)] hover:text-[var(--ink)]"
-      >
-        Apagar resultado
-      </button>
-    </>
-  );
-
-  const governoBlock: ReactNode = governo ? (
-    arrangement ? (
-      <GovernoIdeal
-        result={arrangement}
-        standalone={!result}
-        countryName={governo.countryName}
-        meta={<>Salvo em {formatSavedAt(governo.savedAt)}</>}
-      />
-    ) : (
-      <section className="mt-16 w-full border-t border-[var(--line)] pt-12 text-center">
-        <p className="text-sm text-[var(--ink-soft)]">
-          O governo ideal salvo não fecha o caminho deste teste. Faça de novo
-          para ver o arranjo.
-        </p>
-        <Link
-          href="/governo"
-          className="mt-4 inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)]"
-        >
-          Refazer o governo ideal
-        </Link>
-      </section>
-    )
-  ) : null;
-
-  if (result && saved) {
-    const modeLabel = TEST_MODES[saved.mode].label;
-    return (
-      <ResultView
-        result={result}
-        meta={
-          <>
-            Modo {modeLabel} · salvo em {formatSavedAt(saved.savedAt)}
-          </>
-        }
-        below={governoBlock}
-        actions={actions}
-      />
-    );
-  }
+  const perfilLine = perfil
+    ? `Modo ${TEST_MODES[perfil.mode].label} · salvo em ${formatSavedAt(perfil.savedAt)}`
+    : null;
+  const estadoLine = estado
+    ? `Salvo em ${formatSavedAt(estado.savedAt)}${
+        estado.countryName?.trim() ? ` · ${estado.countryName.trim()}` : ""
+      }`
+    : null;
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-16">
-      {governoBlock}
-      <div className="mt-12 flex flex-wrap justify-center gap-3">{actions}</div>
+    <div className="mx-auto flex w-full max-w-2xl flex-col pb-16">
+      <p className="text-sm tracking-wide text-[var(--accent)] uppercase">
+        Dois resultados
+      </p>
+      <h1 className="mt-2 font-[family-name:var(--font-display)] text-3xl text-[var(--ink)] sm:text-4xl">
+        Meu Perfil e Meu Estado Ideal
+      </h1>
+      <p className="mt-4 text-[var(--ink-soft)]">
+        Cada teste tem a própria página. Terminar um não exige o outro. Os dois
+        ficam neste navegador, sem conta.
+      </p>
+
+      <ul className="mt-8 flex flex-col gap-4">
+        <li className="rounded-lg border border-[var(--line)] px-5 py-4">
+          <h2 className="font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
+            Meu Perfil
+          </h2>
+          <p className="mt-1 text-sm text-[var(--muted)]">
+            {perfilLine ?? "Nada salvo. O teste é em Valmora, nos dez eixos."}
+          </p>
+          <Link
+            href={perfilLine ? "/perfil" : "/#modos"}
+            className="mt-4 inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--ink)]"
+          >
+            {perfilLine ? "Abrir Meu Perfil" : "Fazer Meu Perfil"}
+          </Link>
+        </li>
+        <li className="rounded-lg border border-[var(--line)] px-5 py-4">
+          <h2 className="font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
+            Meu Estado Ideal
+          </h2>
+          <p className="mt-1 text-sm text-[var(--muted)]">
+            {estadoLine ??
+              "Nada salvo. O teste funda um país novo, longe de Valmora."}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Link
+              href={estadoLine ? "/estado/resultado" : "/estado"}
+              className="inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--ink)]"
+            >
+              {estadoLine ? "Abrir Meu Estado Ideal" : "Fazer Meu Estado"}
+            </Link>
+            <Link
+              href="/organizacoes"
+              className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)]"
+            >
+              Ver organizações
+            </Link>
+          </div>
+        </li>
+      </ul>
     </div>
   );
 }

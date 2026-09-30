@@ -14,7 +14,7 @@ export const COUNTRY_NAME_TITLE = "Como vai se chamar o país?";
 export const COUNTRY_NAME_BODY =
   "Um grupo chegou numa costa nova, longe de Valmora, para escrever as primeiras regras. Ainda não tem capital nem lei antiga. Pode ficar com o nome sugerido ou escrever outro.";
 export const COUNTRY_NAME_BUTTON = "Começar com esse nome";
-export const GOVERNMENT_RESULT_TITLE = "Seu governo ideal";
+export const GOVERNMENT_RESULT_TITLE = "Meu Estado Ideal";
 export const NEAR_TIE_LINE =
   "Ficou perto. Os dois arranjos cabem no que você escolheu. Nenhum leva sozinho.";
 
@@ -32,7 +32,7 @@ export function sanitizeCountryName(value: string | null | undefined): string {
 
 export function governmentResultLead(countryName: string): string {
   const name = sanitizeCountryName(countryName);
-  return `É o arranjo que essas escolhas desenham para ${name}. Não entra no perfil dos dez eixos e não põe nome de regime.`;
+  return `É o arranjo que essas escolhas desenham para ${name}. Isto é Meu Estado Ideal: não entra em Meu Perfil e não põe nome de regime.`;
 }
 
 const MOLE_BONUS = 0.15;
@@ -57,7 +57,7 @@ type BipolarId = (typeof BIPOLAR)[number];
 type ChannelId = (typeof CHANNELS)[number];
 type ParamId = BipolarId | ChannelId;
 
-const PROFILE_IDS = [
+export const PROFILE_IDS = [
   "monarquista",
   "monarquia_social",
   "presidencialista",
@@ -1186,6 +1186,26 @@ export function choiceCompletes(
 ): boolean {
   const prefix = choiceIds.slice(0, index);
   return walkChoices([...prefix, choiceId]).complete;
+}
+
+export interface OrganizationSummary {
+  id: (typeof PROFILE_IDS)[number];
+  title: string;
+  problem: string;
+  cost: string;
+}
+
+/** Descriptive titles for the explainer. Internal ids stay off the quiz UI. */
+export function organizationSummaries(): OrganizationSummary[] {
+  return PROFILE_IDS.map((id) => {
+    const copy = PROFILE_COPY[id];
+    return {
+      id,
+      title: copy.title,
+      problem: copy.problem,
+      cost: copy.cost,
+    };
+  });
 }
 
 const BLACKLIST = [

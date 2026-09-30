@@ -105,16 +105,16 @@ export function ResumeQuiz() {
       for (const item of olderPositioning) clearInProgress(item.mode);
     }
     if (governo && governoStatus === "complete") {
-      finishGovernment(governo.choiceIds);
+      finishGovernment(governo.choiceIds, { countryName: governo.countryName });
     }
 
     const positioningAt = newestPositioning?.updatedAt ?? "";
     const governoAt =
       governo && governoStatus === "complete" ? governo.updatedAt : "";
     if (governoAt > positioningAt) {
-      router.replace("/governo/resultado");
+      router.replace("/estado/resultado");
     } else if (newestPositioning) {
-      router.replace("/result");
+      router.replace("/perfil");
     }
   }, [positioningSnapshot, governoSnapshot, router]);
 
@@ -133,8 +133,8 @@ export function ResumeQuiz() {
         Continuar de onde parou
       </h2>
       <p className="mt-1 text-sm text-[var(--muted)]">
-        Pode fechar a aba e voltar depois — fica neste navegador. O perfil e o
-        governo ideal não se misturam.
+        Pode fechar a aba e voltar depois — fica neste navegador. Meu Perfil e
+        Meu Estado não se misturam.
       </p>
       <ul className="mt-4 flex flex-col gap-4">
         {items.map((entry) => {
@@ -146,16 +146,16 @@ export function ResumeQuiz() {
                 <p className="text-sm text-[var(--ink-soft)]">
                   {entry.progress.choiceIds.length === 0
                     ? place
-                      ? `Você parou em Governo ideal, logo depois de escolher o nome ${place}.`
-                      : "Você parou em Governo ideal, logo depois de escolher o nome do país."
+                      ? `Você parou em Meu Estado, logo depois de escolher o nome ${place}.`
+                      : "Você parou em Meu Estado, logo depois de escolher o nome do país."
                     : place
-                      ? `Você parou em Governo ideal, na fundação de ${place}, na situação ${situation}. O caminho muda com a resposta.`
-                      : `Você parou em Governo ideal, na situação ${situation}. O caminho muda com a resposta.`}
+                      ? `Você parou em Meu Estado, na fundação de ${place}, na situação ${situation}. O caminho muda com a resposta.`
+                      : `Você parou em Meu Estado, na situação ${situation}. O caminho muda com a resposta.`}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-3">
                   <Link
-                    href="/governo"
-                    aria-label="Continuar o governo ideal"
+                    href="/estado"
+                    aria-label="Continuar Meu Estado"
                     className="inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--ink)] transition-opacity hover:opacity-90"
                   >
                     Continuar
@@ -163,7 +163,7 @@ export function ResumeQuiz() {
                   <button
                     type="button"
                     onClick={() => clearGovernmentProgress()}
-                    aria-label="Apagar o governo ideal e escolher de novo"
+                    aria-label="Apagar Meu Estado e escolher de novo"
                     className="inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)] transition-colors hover:border-[var(--accent-muted)]"
                   >
                     Apagar e escolher de novo
@@ -178,8 +178,8 @@ export function ResumeQuiz() {
           return (
             <li key={entry.progress.mode}>
               <p className="text-sm text-[var(--ink-soft)]">
-                Você parou no modo {modeLabel}, na situação {situation} de{" "}
-                {entry.total}.
+                Você parou em Meu Perfil, no modo {modeLabel}, na situação{" "}
+                {situation} de {entry.total}.
               </p>
               <div className="mt-3 flex flex-wrap gap-3">
                 <Link

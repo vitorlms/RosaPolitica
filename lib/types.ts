@@ -216,7 +216,7 @@ export interface InstitutionCategory {
 }
 
 /**
- * Catalog for the “governo ideal” block.
+ * Catalog for the Meu Estado block (formerly “governo ideal”).
  * Separate from the ten-axis profile. See docs/governo-ideal.md.
  */
 export interface InstitutionCatalog {

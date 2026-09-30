@@ -88,12 +88,12 @@ export function GovernoIdeal({
       <p className="text-center text-sm tracking-wide text-[var(--accent)] uppercase">
         Arranjo
       </p>
-      <h2
+      <h1
         id="governo-ideal-title"
         className="mt-2 text-center font-[family-name:var(--font-display)] text-2xl text-[var(--ink)] sm:text-3xl"
       >
         {GOVERNMENT_RESULT_TITLE}
-      </h2>
+      </h1>
       {meta ? (
         <p className="mt-2 text-center text-sm text-[var(--muted)]">{meta}</p>
       ) : null}
