@@ -4,7 +4,8 @@ import type { Scene } from "@/lib/types";
 interface SceneCardProps {
   scene: Scene;
   index: number;
-  total: number;
+  /** Null when the path length is not fixed. */
+  total: number | null;
   /** Short chapter label above the situation counter. */
   kicker?: string;
   children: ReactNode;
@@ -25,7 +26,9 @@ export function SceneCard({
         </p>
       ) : null}
       <p className="mb-3 text-sm tracking-wide text-[var(--muted)] uppercase">
-        Situação {index + 1} de {total}
+        {total == null
+          ? `Situação ${index + 1}`
+          : `Situação ${index + 1} de ${total}`}
       </p>
       <h1 className="font-[family-name:var(--font-display)] text-3xl leading-tight text-[var(--ink)] sm:text-4xl">
         {scene.title}

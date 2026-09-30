@@ -30,7 +30,7 @@ export function ChoiceButton({
         {choice.label}
       </span>
       {choice.hint ? (
-        <span className="mt-1.5 block text-sm text-[var(--muted)]">
+        <span className="mt-1.5 block text-sm whitespace-pre-line text-[var(--muted)]">
           {choice.hint}
         </span>
       ) : null}

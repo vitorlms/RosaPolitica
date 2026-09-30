@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { GovernoIdeal } from "@/components/GovernoIdeal";
 import { ResultView } from "@/components/ResultView";
-import { scoreInstitutions } from "@/lib/institutions";
+import { scoreGovernment, type GovernmentResult } from "@/lib/governoFlow";
 import { computeResult } from "@/lib/scoring";
 import {
   clearAllSavedResults,
@@ -14,7 +14,7 @@ import {
   type SavedResult,
 } from "@/lib/storage";
 import { TEST_MODES } from "@/lib/testModes";
-import type { InstitutionPick, ScoreResult } from "@/lib/types";
+import type { ScoreResult } from "@/lib/types";
 
 function formatSavedAt(iso: string): string {
   try {
@@ -31,17 +31,17 @@ export default function MeuResultadoPage() {
   const [saved, setSaved] = useState<SavedResult | null | undefined>(undefined);
   const [governo, setGoverno] = useState<SavedGovernment | null>(null);
   const [result, setResult] = useState<ScoreResult | null>(null);
-  const [institutions, setInstitutions] = useState<InstitutionPick[] | null>(
-    null,
-  );
+  const [arrangement, setArrangement] = useState<GovernmentResult | null>(null);
 
   const refresh = useCallback(() => {
     const next = loadSavedResult();
-    const arrangement = loadSavedGovernment();
+    const savedArrangement = loadSavedGovernment();
     setSaved(next);
-    setGoverno(arrangement);
+    setGoverno(savedArrangement);
     setResult(next ? computeResult(next.choiceIds) : null);
-    setInstitutions(arrangement ? scoreInstitutions(arrangement.choiceIds) : null);
+    setArrangement(
+      savedArrangement ? scoreGovernment(savedArrangement.choiceIds) : null,
+    );
   }, []);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function MeuResultadoPage() {
     setSaved(null);
     setGoverno(null);
     setResult(null);
-    setInstitutions(null);
+    setArrangement(null);
   }
 
   if (saved === undefined) {
@@ -120,14 +120,28 @@ export default function MeuResultadoPage() {
     </>
   );
 
-  const governoBlock: ReactNode =
-    governo && institutions ? (
+  const governoBlock: ReactNode = governo ? (
+    arrangement ? (
       <GovernoIdeal
-        picks={institutions}
+        result={arrangement}
         standalone={!result}
         meta={<>Salvo em {formatSavedAt(governo.savedAt)}</>}
       />
-    ) : null;
+    ) : (
+      <section className="mt-16 w-full border-t border-[var(--line)] pt-12 text-center">
+        <p className="text-sm text-[var(--ink-soft)]">
+          O governo ideal salvo não fecha o caminho deste teste. Faça de novo
+          para ver o arranjo.
+        </p>
+        <Link
+          href="/governo"
+          className="mt-4 inline-flex rounded-lg border border-[var(--line)] px-5 py-2.5 font-medium text-[var(--ink)]"
+        >
+          Refazer o governo ideal
+        </Link>
+      </section>
+    )
+  ) : null;
 
   if (result && saved) {
     const modeLabel = TEST_MODES[saved.mode].label;

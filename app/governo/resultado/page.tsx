@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useSyncExternalStore } from "react";
 import { GovernoIdeal } from "@/components/GovernoIdeal";
-import { scoreInstitutions } from "@/lib/institutions";
+import { scoreGovernment } from "@/lib/governoFlow";
 import {
   IN_PROGRESS_UNREADY,
   clearGovernmentProgress,
@@ -36,10 +36,14 @@ export default function GovernoResultadoPage() {
     getGovernmentSessionServerSnapshot,
   );
   const choiceIds = useMemo(() => choiceIdsFromSession(raw), [raw]);
+  const result = useMemo(
+    () => (choiceIds.length > 0 ? scoreGovernment(choiceIds) : null),
+    [choiceIds],
+  );
   const ready = raw !== IN_PROGRESS_UNREADY;
 
   useEffect(() => {
-    if (!ready || choiceIds.length === 0) return;
+    if (!ready || !result) return;
     if (!loadSavedGovernment()) {
       saveSavedGovernment({
         choiceIds,
@@ -47,7 +51,7 @@ export default function GovernoResultadoPage() {
       });
     }
     clearGovernmentProgress();
-  }, [ready, choiceIds]);
+  }, [ready, result, choiceIds]);
 
   if (!ready) {
     return (
@@ -57,12 +61,13 @@ export default function GovernoResultadoPage() {
     );
   }
 
-  if (choiceIds.length === 0) {
+  if (choiceIds.length === 0 || !result) {
     return (
       <div className="mx-auto max-w-lg text-center">
         <p className="text-[var(--ink-soft)]">
-          Nenhuma escolha de governo ideal encontrada. Percorra esses dilemas
-          primeiro.
+          {choiceIds.length === 0
+            ? "Nenhuma escolha de governo ideal encontrada. Percorra o caminho primeiro."
+            : "Estas escolhas não fecham o caminho deste teste. Comece de novo."}
         </p>
         <Link
           href="/governo"
@@ -76,7 +81,7 @@ export default function GovernoResultadoPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-16">
-      <GovernoIdeal picks={scoreInstitutions(choiceIds)} standalone />
+      <GovernoIdeal result={result} standalone />
       <div className="mt-12 flex flex-wrap justify-center gap-3">
         <Link
           href="/meu-resultado"

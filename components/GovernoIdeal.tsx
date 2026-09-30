@@ -1,34 +1,75 @@
 import type { ReactNode } from "react";
-import { institutionCatalog } from "@/lib/institutions";
-import type { InstitutionOption, InstitutionPick } from "@/lib/types";
+import {
+  GOVERNMENT_RESULT_LEAD,
+  GOVERNMENT_RESULT_TITLE,
+  NEAR_TIE_LINE,
+  type GovernmentArrangement,
+  type GovernmentResult,
+} from "@/lib/governoFlow";
 
 interface GovernoIdealProps {
-  picks: InstitutionPick[];
+  result: GovernmentResult;
   /** Line under the title, e.g. when the block was saved. */
   meta?: ReactNode;
   /** Dedicated page, without a positioning profile above. */
   standalone?: boolean;
 }
 
-function optionById(
-  options: InstitutionOption[],
-  optionId: string | null | undefined,
-): InstitutionOption | null {
-  if (!optionId) return null;
-  return options.find((option) => option.id === optionId) ?? null;
+function Arrangement({
+  arrangement,
+  heading,
+}: {
+  arrangement: GovernmentArrangement;
+  heading?: string;
+}) {
+  return (
+    <article className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-4 text-left">
+      {heading ? (
+        <p className="text-sm text-[var(--accent)]">{heading}</p>
+      ) : null}
+      <h3 className="mt-1 font-[family-name:var(--font-display)] text-xl leading-snug text-[var(--ink)]">
+        {arrangement.title}
+      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-[var(--ink-soft)]">
+        <span className="text-[var(--muted)]">Problema. </span>
+        {arrangement.problem}
+      </p>
+      <p className="mt-1.5 text-sm leading-relaxed text-[var(--ink-soft)]">
+        <span className="text-[var(--muted)]">Preço. </span>
+        {arrangement.cost}
+      </p>
+      {arrangement.drivers.length > 0 ? (
+        <div className="mt-4 border-t border-[var(--line)] pt-3">
+          <p className="text-sm text-[var(--muted)]">O que puxou este arranjo</p>
+          <ul className="mt-2 flex list-none flex-col gap-3 p-0">
+            {arrangement.drivers.map((driver) => (
+              <li key={`${driver.sceneTitle}-${driver.choiceLabel}`}>
+                <p className="text-sm text-[var(--accent)]">{driver.sceneTitle}</p>
+                <p className="mt-1 text-sm leading-snug text-[var(--ink)]">
+                  {driver.choiceLabel}
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-[var(--ink-soft)]">
+                  {driver.sentence}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </article>
+  );
 }
 
 /**
- * Second result block. Labels name a mechanism, a problem, and a cost —
- * never a regime, party, or ideology.
+ * Ideal-government result. Titles describe an arrangement.
+ * Internal profile ids are not rendered.
  */
 export function GovernoIdeal({
-  picks,
+  result,
   meta,
   standalone = false,
 }: GovernoIdealProps) {
-  const byCategory = new Map(picks.map((pick) => [pick.categoryId, pick]));
-  const anySupport = picks.some((pick) => (pick.support ?? 0) > 0);
+  const peer = result.nearTie && result.secondary;
 
   return (
     <section
@@ -47,79 +88,36 @@ export function GovernoIdeal({
         id="governo-ideal-title"
         className="mt-2 text-center font-[family-name:var(--font-display)] text-2xl text-[var(--ink)] sm:text-3xl"
       >
-        {institutionCatalog.resultTitle}
+        {GOVERNMENT_RESULT_TITLE}
       </h2>
       {meta ? (
         <p className="mt-2 text-center text-sm text-[var(--muted)]">{meta}</p>
       ) : null}
       <p className="mx-auto mt-3 max-w-xl text-center text-sm leading-relaxed text-[var(--muted)]">
-        {institutionCatalog.resultLead} Não usa o perfil dos dez eixos.
+        {GOVERNMENT_RESULT_LEAD}
       </p>
 
-      {anySupport ? (
-        <ul className="mx-auto mt-8 flex w-full max-w-xl list-none flex-col gap-3 p-0">
-          {institutionCatalog.categories.map((category) => {
-            const pick = byCategory.get(category.id);
-            const open = !pick || pick.open !== false;
-            const winner = open
-              ? null
-              : optionById(category.options, pick?.optionId);
-            const leader = optionById(category.options, pick?.optionId);
-            const runnerUp = optionById(
-              category.options,
-              pick?.runnerUpOptionId,
-            );
-            const untouched = !leader;
-
-            return (
-              <li
-                key={category.id}
-                data-category={category.id}
-                data-open={open ? "true" : "false"}
-                className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-4 text-left"
-              >
-                <p className="text-sm text-[var(--accent)]">{category.name}</p>
-                <p className="mt-1 text-sm leading-relaxed text-[var(--muted)]">
-                  {category.question}
-                </p>
-                {winner ? (
-                  <>
-                    <p className="mt-3 text-[1.05rem] leading-snug font-semibold text-[var(--ink)]">
-                      {winner.label}
-                    </p>
-                    <p className="mt-3 text-sm leading-relaxed text-[var(--ink-soft)]">
-                      <span className="text-[var(--muted)]">Problema. </span>
-                      {winner.solves}
-                    </p>
-                    <p className="mt-1.5 text-sm leading-relaxed text-[var(--ink-soft)]">
-                      <span className="text-[var(--muted)]">Preço. </span>
-                      {winner.tradeoff}
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p className="mt-3 text-[1.05rem] leading-snug font-semibold text-[var(--ink)]">
-                      Em aberto
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--ink-soft)]">
-                      {untouched
-                        ? "Nenhuma escolha deste teste separou um arranjo aqui."
-                        : runnerUp && leader
-                          ? `Ficou perto entre “${leader.label}” e “${runnerUp.label}”. Sem margem para indicar um só.`
-                          : "Sem margem para indicar um arranjo."}
-                    </p>
-                  </>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
+      {peer ? (
         <p className="mx-auto mt-6 max-w-xl text-center text-sm leading-relaxed text-[var(--ink-soft)]">
-          As escolhas salvas não incluem os dilemas de arranjo. Um teste novo
-          preenche esta parte.
+          {NEAR_TIE_LINE}
         </p>
-      )}
+      ) : null}
+
+      <div
+        className={
+          peer
+            ? "mx-auto mt-6 grid w-full max-w-3xl gap-3 sm:grid-cols-2"
+            : "mx-auto mt-8 flex w-full max-w-xl flex-col gap-3"
+        }
+      >
+        <Arrangement arrangement={result.primary} />
+        {result.secondary ? (
+          <Arrangement
+            arrangement={result.secondary}
+            heading={peer ? undefined : "Também cabe, um pouco mais longe"}
+          />
+        ) : null}
+      </div>
     </section>
   );
 }

@@ -1,35 +1,28 @@
 # Posição política e governo ideal
 
-O Rosa Política continua centrado no **posicionamento**: dez eixos, essencialidade e arquétipo, a partir das cenas em [`content/story.json`](../content/story.json). Este documento descreve o segundo teste, **Governo ideal**, com dilemas, placar e tela próprios. Meu resultado mostra os dois quando cada um foi terminado.
+O Rosa Política continua centrado no **posicionamento**: dez eixos, essencialidade e arquétipo, a partir das cenas em [`content/story.json`](../content/story.json). O segundo teste, **Governo ideal**, é um fluxograma à parte. Meu resultado mostra os dois quando cada um foi terminado.
 
 ## Duas saídas
 
 | | Posicionamento | Governo ideal |
 | --- | --- | --- |
-| Pergunta | Para onde a pessoa inclina, e o quanto isso é inegociável | Como ela estruturaria o arranjo de um governo |
-| Saída | Eixos + arquétipo | Uma opção por categoria de lei |
-| Conteúdo | 40 cenas de posicionamento | [`content/institutions.json`](../content/institutions.json) e os dilemas de arranjo |
+| Pergunta | Para onde a pessoa inclina, e o quanto isso é inegociável | Que arranjo de mando a pessoa prefere |
+| Saída | Eixos + arquétipo | Título descritivo do arranjo, com problema, preço e as escolhas que puxaram |
+| Conteúdo | 40 cenas de posicionamento | [`lib/governoFlow.ts`](../lib/governoFlow.ts), mapa em [`governo-ideal-fluxograma.md`](./governo-ideal-fluxograma.md) |
 | Nome | Arquétipo ilustrativo | Nenhum nome de regime, partido ou ideologia |
 
-O resultado se chama **Seu governo ideal**. Ele não substitui o radar nem o arquétipo. É outro teste, para não misturar “em que você acredita” com “que máquina você montaria”.
-
-## Conteúdo
-
-- **Categorias** em [`content/institutions.json`](../content/institutions.json): contenção do poder, condução do dia a dia, limites do Estado, papel econômico do Estado, centro / território / força. Cada uma tem 3–4 opções exclusivas, com `label`, `solves` (o problema) e `tradeoff` (o custo) — o mesmo espírito do `hint` das cenas.
-- **Oito dilemas** em [`content/story-institutions-draft.json`](../content/story-institutions-draft.json). O formato é o das cenas ao vivo (`id`, `title`, `body`, escolhas com `label` e `hint`, mais `weights` / `salience`). O campo extra `leans` aponta para uma opção institucional. [`lib/scoring.ts`](../lib/scoring.ts) não lê este arquivo. O placar do arranjo está em [`lib/institutions.ts`](../lib/institutions.ts).
-- **Tipos** em [`lib/types.ts`](../lib/types.ts) (`InstitutionCatalog`, `InstitutionLean`, `InstitutionPick`, …). O placar e a tela usam esse módulo.
+O resultado se chama **Seu governo ideal**. Ele não substitui o radar nem o arquétipo.
 
 ## Como entra no jogo
 
-1. Cada escolha pode declarar `leans`: `{ categoryId, optionId, strength }` com `strength` de 0 a 1. As 40 cenas de posicionamento ainda não têm isso. Os oito dilemas são a sonda; um passe futuro pode anotar cenas antigas só quando elas já falarem de arranjo (Judiciário, escola, força).
-2. Os modos rápido, padrão e completo jogam só as cenas de posicionamento (5, 15 ou 40). O governo ideal é outro teste, com entrada própria na home (`/governo`) e os oito dilemas. A retomada de cada um fica numa chave separada, para não colidir.
-3. No fim do teste de arranjo, para cada categoria, somar `strength` das `leans` das escolhas feitas. A conta está em `scoreInstitutions` e usa só os ids daquele teste. Meu resultado mostra o perfil, o arranjo, ou os dois — terminar um não exige o outro. A tela de cada teste mostra só o resultado daquele teste.
-4. A opção com maior soma é a sugestão daquela categoria. Se a segunda chega a **80%** da primeira (`INSTITUTION_CLOSE_RATIO`), a categoria fica **em aberto**. Sem nenhum lean, também fica em aberto. Empate exato conta como perto.
-5. A UI mostra, por categoria, o nome, a pergunta, o `label`, `solves` (problema) e `tradeoff` (preço). Texto de apoio está em `resultTitle` e `resultLead`. Categoria em aberto não exibe problema nem preço de um vencedor.
-6. Não derivar um rótulo de regime a partir da combinação. O jogador vê o mecanismo e o preço, não uma bandeira.
+1. Os modos rápido, padrão e completo jogam só as cenas de posicionamento (5, 15 ou 40). O governo ideal tem entrada própria na home (`/governo`). A retomada de cada um fica numa chave separada.
+2. O caminho não é uma lista fixa. Cada resposta abre, pula ou troca a pergunta seguinte. Um percurso típico tem 6 a 8 nós, de um baralho de 11.
+3. As respostas somam parâmetros mudos. No fim, a distância até centróides internos escolhe um arranjo principal e, se couber, um segundo. Perto demais, os dois títulos aparecem lado a lado. A tela não mostra o id interno.
+4. Meu resultado mostra o perfil, o arranjo, ou os dois. Terminar um não exige o outro.
+5. Os dez eixos saem só das cenas de posicionamento. Este fluxo não escreve neles.
 
-Os dez eixos saem só das cenas de posicionamento. Os dilemas de arranjo não entram nessa conta. `leans` não entram nos eixos.
+O catálogo linear antigo (cinco categorias e oito dilemas) não entra mais no jogo. Os arquivos em `content/institutions.json` e `content/story-institutions-draft.json` ficam só como nota de que foram substituídos.
 
-## O que ainda não faz
+## Mapa
 
-As 40 cenas de posicionamento não declaram `leans`. O texto de compartilhar continua sendo só o arquétipo. [`lib/institutions.ts`](../lib/institutions.ts) roda `assertInstitutionDraft` ao carregar: todo `leans` aponta para uma opção real, e toda opção é sondada ao menos uma vez no conjunto dos oito.
+Nós, opções, pesos, centróides, guardas e os três percursos de exemplo estão em [`governo-ideal-fluxograma.md`](./governo-ideal-fluxograma.md). O código segue esse mapa. Ao carregar, confere os percursos do círculo miúdo, da carta de fora e do chefe com data.
