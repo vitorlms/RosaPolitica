@@ -125,7 +125,7 @@ export default function HomePage() {
             </span>
           </span>
           <span className="shrink-0 text-sm tabular-nums text-[var(--muted)]">
-            Cerca de 6 a 8 dilemas · ~7 min
+            Cerca de 13 a 16 dilemas · ~15 min
           </span>
         </Link>
         <Link
