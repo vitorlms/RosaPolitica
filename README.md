@@ -120,5 +120,5 @@ Um segundo resultado, separado dos dez eixos, está só em conteúdo: **seu gove
 
 ## Escopo
 
-Inclui: 40 cenas, 3 modos de teste (rápido / padrão / completo), 10 eixos, salience/essencialidade, radar, arquétipos.  
-Não inclui: login, salvar progresso, múltiplas histórias, IA gerando perguntas.
+Inclui: 40 cenas, 3 modos de teste (rápido / padrão / completo), retomada no meio do teste neste navegador, 10 eixos, salience/essencialidade, radar, arquétipos.  
+Não inclui: login, múltiplas histórias, IA gerando perguntas.
