@@ -140,11 +140,17 @@ export function ResumeQuiz() {
         {items.map((entry) => {
           if (entry.kind === "governo") {
             const situation = entry.progress.index + 1;
+            const place = entry.progress.countryName?.trim();
             return (
               <li key="governo">
                 <p className="text-sm text-[var(--ink-soft)]">
-                  Você parou em Governo ideal, na situação {situation}. O
-                  caminho muda com a resposta.
+                  {entry.progress.choiceIds.length === 0
+                    ? place
+                      ? `Você parou em Governo ideal, logo depois de escolher o nome ${place}.`
+                      : "Você parou em Governo ideal, logo depois de escolher o nome do país."
+                    : place
+                      ? `Você parou em Governo ideal, na fundação de ${place}, na situação ${situation}. O caminho muda com a resposta.`
+                      : `Você parou em Governo ideal, na situação ${situation}. O caminho muda com a resposta.`}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-3">
                   <Link

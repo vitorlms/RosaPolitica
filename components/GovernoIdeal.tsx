@@ -1,14 +1,17 @@
 import type { ReactNode } from "react";
 import {
-  GOVERNMENT_RESULT_LEAD,
+  DEFAULT_COUNTRY_NAME,
   GOVERNMENT_RESULT_TITLE,
   NEAR_TIE_LINE,
+  governmentResultLead,
   type GovernmentArrangement,
   type GovernmentResult,
 } from "@/lib/governoFlow";
 
 interface GovernoIdealProps {
   result: GovernmentResult;
+  /** Country the player is founding. */
+  countryName?: string;
   /** Line under the title, e.g. when the block was saved. */
   meta?: ReactNode;
   /** Dedicated page, without a positioning profile above. */
@@ -40,7 +43,7 @@ function Arrangement({
       </p>
       {arrangement.drivers.length > 0 ? (
         <div className="mt-4 border-t border-[var(--line)] pt-3">
-          <p className="text-sm text-[var(--muted)]">O que puxou este arranjo</p>
+          <p className="text-sm text-[var(--muted)]">O que mais pesou nisso</p>
           <ul className="mt-2 flex list-none flex-col gap-3 p-0">
             {arrangement.drivers.map((driver) => (
               <li key={`${driver.sceneTitle}-${driver.choiceLabel}`}>
@@ -66,6 +69,7 @@ function Arrangement({
  */
 export function GovernoIdeal({
   result,
+  countryName = DEFAULT_COUNTRY_NAME,
   meta,
   standalone = false,
 }: GovernoIdealProps) {
@@ -94,7 +98,7 @@ export function GovernoIdeal({
         <p className="mt-2 text-center text-sm text-[var(--muted)]">{meta}</p>
       ) : null}
       <p className="mx-auto mt-3 max-w-xl text-center text-sm leading-relaxed text-[var(--muted)]">
-        {GOVERNMENT_RESULT_LEAD}
+        {governmentResultLead(countryName)}
       </p>
 
       {peer ? (
@@ -114,7 +118,7 @@ export function GovernoIdeal({
         {result.secondary ? (
           <Arrangement
             arrangement={result.secondary}
-            heading={peer ? undefined : "Também cabe, um pouco mais longe"}
+            heading={peer ? undefined : "Outro arranjo que também cabe"}
           />
         ) : null}
       </div>

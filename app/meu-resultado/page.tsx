@@ -125,6 +125,7 @@ export default function MeuResultadoPage() {
       <GovernoIdeal
         result={arrangement}
         standalone={!result}
+        countryName={governo.countryName}
         meta={<>Salvo em {formatSavedAt(governo.savedAt)}</>}
       />
     ) : (

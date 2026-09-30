@@ -1,6 +1,6 @@
 # Posição política e governo ideal
 
-O Rosa Política continua centrado no **posicionamento**: dez eixos, essencialidade e arquétipo, a partir das cenas em [`content/story.json`](../content/story.json). O segundo teste, **Governo ideal**, é um fluxograma à parte. Meu resultado mostra os dois quando cada um foi terminado.
+O Rosa Política continua centrado no **posicionamento**: dez eixos, essencialidade e arquétipo, a partir das cenas em [`content/story.json`](../content/story.json), na Confederação de Valmora. O segundo teste, **Governo ideal**, é um fluxograma à parte. Nele a pessoa ajuda a fundar um país novo, na mesma ficção, longe de Valmora. O nome sugerido é Pontal; ela pode ficar com ele ou escrever outro. Meu resultado mostra os dois quando cada um foi terminado.
 
 ## Duas saídas
 
@@ -21,7 +21,7 @@ O resultado se chama **Seu governo ideal**. Ele não substitui o radar nem o arq
 4. Meu resultado mostra o perfil, o arranjo, ou os dois. Terminar um não exige o outro.
 5. Os dez eixos saem só das cenas de posicionamento. Este fluxo não escreve neles.
 
-O catálogo linear antigo (cinco categorias e oito dilemas) não entra mais no jogo. Os arquivos em `content/institutions.json` e `content/story-institutions-draft.json` ficam só como nota de que foram substituídos.
+O nome do país entra em alguns textos e na frase do resultado. Não muda o placar. O catálogo linear antigo (cinco categorias e oito dilemas) não entra mais no jogo. Os arquivos em `content/institutions.json` e `content/story-institutions-draft.json` ficam só como nota de que foram substituídos.
 
 ## Mapa
 
