@@ -131,6 +131,24 @@
             "equality": 0.4,
             "authority": 0.35
           }
+        },
+        {
+          "id": "discurso-caucao",
+          "label": "Exigir registro do ato e caução para cobrir danos, sem criminalizar o que se diz.",
+          "hint": "A fala segue legal; a caução pesa mais em quem tem menos dinheiro e pode esvaziar protestos.",
+          "weights": {
+            "economy": 0.14,
+            "equality": -0.16,
+            "authority": 0.12,
+            "liberty": 0.08,
+            "security": 0.1
+          },
+          "salience": {
+            "equality": 0.62,
+            "economy": 0.55,
+            "liberty": 0.35,
+            "authority": 0.25
+          }
         }
       ]
     },
@@ -201,6 +219,24 @@
             "tradition": 0.9,
             "equality": 0.4,
             "authority": 0.35
+          }
+        },
+        {
+          "id": "escola-repasse",
+          "label": "Manter o currículo de cada lugar, igualar o dinheiro público por aluno e publicar o que cada escola ensina.",
+          "hint": "Reduz o abismo de recursos; não garante o mesmo conteúdo e deixa as diferenças à vista.",
+          "weights": {
+            "equality": 0.16,
+            "economy": -0.14,
+            "authority": -0.1,
+            "liberty": 0.08,
+            "tradition": 0.06
+          },
+          "salience": {
+            "equality": 0.65,
+            "economy": 0.55,
+            "liberty": 0.24,
+            "authority": 0.2
           }
         }
       ]
@@ -797,6 +833,22 @@
             "equality": 0.45,
             "economy": 0.35
           }
+        },
+        {
+          "id": "imposto-heranca",
+          "label": "Não criar o imposto anual; tributar mais só a herança e a doação de grandes patrimônios.",
+          "hint": "Incide na passagem dos bens; arrecada mais tarde e mexe menos no patrimônio em vida.",
+          "weights": {
+            "equality": 0.16,
+            "tradition": -0.14,
+            "economy": -0.12,
+            "liberty": -0.06
+          },
+          "salience": {
+            "equality": 0.7,
+            "economy": 0.58,
+            "tradition": 0.38
+          }
         }
       ]
     },
@@ -869,6 +921,25 @@
             "authority": 0.7,
             "liberty": 0.45
           }
+        },
+        {
+          "id": "drogas-regular",
+          "label": "Legalizar a venda regulada para adultos, com imposto, controle de pureza e proibição de publicidade.",
+          "hint": "Tira o comércio da clandestinidade; abre um mercado legal e aceita mais consumo visível.",
+          "weights": {
+            "body": 0.16,
+            "economy": 0.14,
+            "liberty": 0.12,
+            "security": -0.12,
+            "tradition": -0.1,
+            "authority": 0.08
+          },
+          "salience": {
+            "body": 0.7,
+            "liberty": 0.5,
+            "economy": 0.32,
+            "security": 0.24
+          }
         }
       ]
     },
@@ -913,13 +984,15 @@
         },
         {
           "id": "aborto-manter",
-          "label": "Manter só as hipóteses já previstas em lei e melhorar o acesso a essas exceções.",
-          "hint": "Evita ruptura; deixa o conflito permanente sem resolver o fundo.",
+          "label": "Manter as hipóteses atuais e garantir, no serviço público, acesso rápido a essas exceções e à contracepção.",
+          "hint": "Não amplia nem restringe a lei; custa orçamento e deixa o conflito moral em aberto.",
           "weights": {
-            "body": 0,
-            "tradition": 0.05,
-            "liberty": 0,
-            "authority": 0.05
+            "tradition": 0.12,
+            "equality": 0.12,
+            "authority": 0.08,
+            "body": 0.06,
+            "economy": -0.08,
+            "liberty": -0.04
           },
           "salience": {
             "body": 0.4,
@@ -1011,6 +1084,24 @@
           "salience": {
             "technology": 0.45,
             "equality": 0.4
+          }
+        },
+        {
+          "id": "algo-soltura",
+          "label": "Usar o sistema só para sugerir soltura, nunca para agravar a prisão preventiva.",
+          "hint": "A máquina só afrouxa a restrição; pode soltar quem volte a ofender e não apaga o viés dos dados.",
+          "weights": {
+            "liberty": 0.14,
+            "security": -0.14,
+            "technology": 0.12,
+            "equality": 0.1,
+            "authority": -0.06
+          },
+          "salience": {
+            "technology": 0.55,
+            "liberty": 0.48,
+            "security": 0.28,
+            "equality": 0.25
           }
         }
       ]
@@ -2461,6 +2552,23 @@
             "economy": 0.6,
             "equality": 0.55,
             "authority": 0.45
+          }
+        },
+        {
+          "id": "moradia-negociar",
+          "label": "Não criar programa nem reintegrar de ofício: proprietário e ocupantes resolvem no juízo cível.",
+          "hint": "Tira o Executivo do conflito; a demora pode consolidar a ocupação ou prolongar a insegurança de ambos.",
+          "weights": {
+            "authority": -0.16,
+            "liberty": 0.12,
+            "equality": -0.1,
+            "economy": 0.08
+          },
+          "salience": {
+            "authority": 0.72,
+            "liberty": 0.48,
+            "economy": 0.36,
+            "equality": 0.28
           }
         }
       ]
