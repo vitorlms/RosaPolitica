@@ -156,6 +156,8 @@ Reordenar, não só pular:
 
 Caminho mais curto: aldeia → círculo → recusa a guarda → trilho comum → fim (13 nós). Caminho de voto: unidade → fora → fonte → confiança → trabalho → trilho → fim (15 nós). Caminho de linhagem longa: unidade → fora → fonte → prazo → dever → trabalho → trilho → fim (16 nós). O trilho não se pula. Confiança, prazo, dever, texto, carta e círculo continuam dependendo do tronco.
 
+No resultado, os nós do baralho que o caminho não perguntou aparecem como “Perguntas que ficaram de fora”. A pessoa pode responder ou deixar como está. Cada resposta extra soma os mesmos parâmetros daquela opção, no contexto do caminho já feito, e o arranjo é recalculado. Os dilemas continuam sem nome de regime.
+
 ## Trilho comum
 
 Todo caminho completo passa por estes nove nós, nesta ordem, e só então por N9. O texto que a pessoa lê está em `lib/governoFlow.ts`. Aqui ficam o que a pergunta decide e os pesos. Nenhuma opção nomeia regime.

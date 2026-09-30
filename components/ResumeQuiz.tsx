@@ -69,6 +69,15 @@ export function ResumeQuiz() {
         kind: "governo",
         progress: governo,
       });
+    } else if (
+      governo &&
+      assessGovernment(governo) === "complete" &&
+      (governo.extraChoiceIds?.length || governo.extrasDismissed)
+    ) {
+      resumable.push({
+        kind: "governo",
+        progress: governo,
+      });
     }
     resumable.sort((a, b) =>
       b.progress.updatedAt.localeCompare(a.progress.updatedAt),
@@ -97,15 +106,23 @@ export function ResumeQuiz() {
       clearGovernmentProgress();
     }
 
+    const governoExtras =
+      governo !== null &&
+      (Boolean(governo.extraChoiceIds?.length) || governo.extrasDismissed === true);
     if (positioningDone.length === 0 && governoStatus !== "complete") return;
+    if (positioningDone.length === 0 && governoExtras) return;
 
     const [newestPositioning, ...olderPositioning] = positioningDone;
     if (newestPositioning) {
       finishQuiz(newestPositioning.choiceIds, newestPositioning.mode);
       for (const item of olderPositioning) clearInProgress(item.mode);
     }
-    if (governo && governoStatus === "complete") {
-      finishGovernment(governo.choiceIds, { countryName: governo.countryName });
+    if (governo && governoStatus === "complete" && !governoExtras) {
+      finishGovernment(governo.choiceIds, {
+        countryName: governo.countryName,
+        extraChoiceIds: governo.extraChoiceIds,
+        extrasDismissed: governo.extrasDismissed,
+      });
     }
 
     const positioningAt = newestPositioning?.updatedAt ?? "";
@@ -144,17 +161,25 @@ export function ResumeQuiz() {
             return (
               <li key="governo">
                 <p className="text-sm text-[var(--ink-soft)]">
-                  {entry.progress.choiceIds.length === 0
+                  {entry.progress.extraChoiceIds?.length || entry.progress.extrasDismissed
                     ? place
-                      ? `Você parou em Meu Estado, logo depois de escolher o nome ${place}.`
-                      : "Você parou em Meu Estado, logo depois de escolher o nome do país."
-                    : place
-                      ? `Você parou em Meu Estado, na fundação de ${place}, na situação ${situation}. A próxima pergunta depende do que você já escolheu.`
-                      : `Você parou em Meu Estado, na situação ${situation}. A próxima pergunta depende do que você já escolheu.`}
+                      ? `Você parou em Meu Estado, em ${place}. Dá para responder as perguntas que ficaram de fora, ou deixar como está.`
+                      : "Você parou em Meu Estado. Dá para responder as perguntas que ficaram de fora, ou deixar como está."
+                    : entry.progress.choiceIds.length === 0
+                      ? place
+                        ? `Você parou em Meu Estado, logo depois de escolher o nome ${place}.`
+                        : "Você parou em Meu Estado, logo depois de escolher o nome do país."
+                      : place
+                        ? `Você parou em Meu Estado, na fundação de ${place}, na situação ${situation}. A próxima pergunta depende do que você já escolheu.`
+                        : `Você parou em Meu Estado, na situação ${situation}. A próxima pergunta depende do que você já escolheu.`}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-3">
                   <Link
-                    href="/estado"
+                    href={
+                      entry.progress.extraChoiceIds?.length || entry.progress.extrasDismissed
+                        ? "/estado/resultado"
+                        : "/estado"
+                    }
                     aria-label="Continuar Meu Estado"
                     className="inline-flex rounded-lg bg-[var(--accent)] px-5 py-2.5 font-semibold text-[var(--ink)] transition-opacity hover:opacity-90"
                   >

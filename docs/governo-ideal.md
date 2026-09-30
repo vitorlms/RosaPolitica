@@ -16,7 +16,7 @@ O resultado se chama **Meu Estado Ideal**. Ele não substitui o radar nem o arqu
 ## Como entra no jogo
 
 1. Os modos rápido, padrão e completo jogam só as cenas de posicionamento (5, 15 ou 40). Meu Estado tem entrada própria na home (`/estado`). A retomada de cada um fica numa chave separada. Os endereços antigos `/result`, `/governo` e `/governo/resultado` redirecionam.
-2. O caminho não é uma lista fixa. Cada resposta abre, pula ou troca a pergunta seguinte. O baralho tem 20 nós. Um percurso típico tem 13 a 16: o tronco, mais o trilho de princípios, poder, cidadania, religião, burocracia, exército, marinha, segurança interna e justiça.
+2. O caminho não é uma lista fixa. Cada resposta abre, pula ou troca a pergunta seguinte. O baralho tem 20 nós. Um percurso típico tem 13 a 16: o tronco, mais o trilho de princípios, poder, cidadania, religião, burocracia, exército, marinha, segurança interna e justiça. No resultado, as perguntas que o caminho pulou ficam opcionais. Responder uma delas entra na conta e o arranjo é recalculado. Dá para deixar como está.
 3. As respostas somam parâmetros mudos. No fim, a distância até centróides internos escolhe um arranjo principal e, se couber, um segundo. Perto demais, os dois títulos aparecem lado a lado. A tela não mostra o id interno.
 4. Meu Perfil fica em `/perfil`. Meu Estado Ideal fica em `/estado/resultado`. `/meu-resultado` só aponta para os dois. Terminar um não exige o outro.
 5. Os dez eixos saem só das cenas de posicionamento. Este fluxo não escreve neles.
