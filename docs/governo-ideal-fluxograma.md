@@ -1,28 +1,28 @@
 # Governo ideal — fluxograma por parâmetros
 
-Mapa do teste jogável em `/estado` (Meu Estado; o resultado é Meu Estado Ideal). O código está em [`lib/governoFlow.ts`](../lib/governoFlow.ts). Não muda os dez eixos de Meu Perfil. A pessoa não vê nome de regime no teste: os ids desta página ficam no placar, e a tela usa o título descritivo. A página `/organizacoes` pode usar o nome de aula e exemplos do mundo.
+Mapa do teste jogável em `/estado` (Meu Estado; o resultado é Meu Estado Ideal). O código está em [`lib/governoFlow.ts`](../lib/governoFlow.ts). Não muda os dez eixos de Meu Perfil. A pessoa não vê nome de regime no meio do teste. O resultado mostra o título descritivo e, logo abaixo, o nome de aula (“Mais próximo de: …”), o mesmo de `/organizacoes`, com link para essa organização. Os ids internos ficam no placar.
 
 O posicionamento (rápido, padrão, completo) continua na Confederação de Valmora. Este teste não. A pessoa ajuda a escrever o primeiro arranjo de um país novo, na mesma ficção, numa costa longe de Valmora. O nome sugerido é **Pontal**. Ela pode ficar com a sugestão ou escrever outro (até 40 caracteres). O nome entra em alguns dilemas e na frase do resultado. Não altera parâmetro, centróide, guarda nem id interno.
 
-Cada resposta empurra **parâmetros mudos**. No fim, a distância até centróides internos escolhe um arranjo principal e, se couber, um segundo. A pessoa não vê nome de regime, partido ou ideologia — nem no meio do teste, nem como opção, nem como título do resultado.
+Cada resposta empurra **parâmetros mudos**. No fim, a distância até centróides internos escolhe um arranjo principal e, se couber, um segundo. A pessoa não vê nome de regime, partido ou ideologia no meio do teste, nem como opção, nem como título descritivo do resultado. O nome de aula entra só na linha “Mais próximo de”, debaixo desse título.
 
 O texto que a pessoa lê está no código, em português falado. Os parágrafos de dilema abaixo são o mapa de parâmetros. Onde ainda aparece mina ou inverno, isso é o rascunho do mecanismo; a tela usa porto, lavoura, povoado e acordo.
 
-Rótulos como `monarquista` ou `colonia` existem só nesta página, na coluna “interno”. A UI usa o título descritivo.
+Rótulos como `monarquista` ou `colonia` existem só nesta página, na coluna “interno”. A UI do teste usa o título descritivo. O resultado acrescenta o nome de aula já escrito em `lib/organizacoes.ts`.
 
 ## Princípios
 
 1. **Sem nome taxativo no meio do teste.** A opção descreve um mecanismo (quem senta, até quando, quem pode desfazer). Não oferece “monarquia”, “presidencialismo”, “teocracia”, “república soviética”, “estado corporação”, “colônia” nem equivalentes.
 2. **Problema e preço em toda opção.** O mesmo espírito do `hint` / `solves` / `tradeoff` de hoje. Nenhuma opção é a resposta moralmente certa.
 3. **Trilha separada dos dez eixos.** Este fluxo não lê nem escreve economia, autoridade, liberdade, igualdade, tradição, ambiente, segurança, global, tecnologia ou corpo. Não muda arquétipo. Meu Estado Ideal é outra página, não um bloco dentro de Meu Perfil.
-4. **Parâmetro mudo, título falado.** A conta usa ids internos. A frase que a pessoa lê descreve o arranjo (“uma família no mando, com dever de comida, terra e teto”), não o verbete.
-5. **Fluxograma de verdade.** Nem toda pergunta aparece. Uma resposta abre, pula ou troca o texto da seguinte. Caminho típico: 6 a 8 nós, de um baralho de 11.
+4. **Parâmetro mudo, título falado.** A conta usa ids internos. A frase que a pessoa lê descreve o arranjo (“uma família manda, mas tem de garantir comida, terra e teto”), não o verbete. No resultado, debaixo dessa frase, a linha “Mais próximo de” mostra o nome de aula e leva a `/organizacoes`.
+5. **Fluxograma de verdade.** Nem toda pergunta aparece. Uma resposta abre, pula ou troca o texto da seguinte. O baralho tem 20 nós. Um caminho típico passa por 13 a 16: o tronco que já existia, mais um trilho comum de nove perguntas (princípios, poder, cidadania, religião, burocracia, exército, marinha, segurança interna e justiça) antes do fecho.
 6. **Ficção, não o mapa real.** Povoado, porto, lavoura, câmara, família, acordo com quem está de fora. Sem país, partido ou líder do mundo real. Valmora só aparece para deixar claro que este teste é outro lugar. O nome que a pessoa digita não passa pela lista negra.
 7. **Empate fica visível.** Se dois centróides ficam perto, o resultado mostra os dois títulos e não finge um vencedor único. O mesmo espírito do “em aberto” atual, agora entre arranjos e não entre opções de uma categoria.
 
 ### Lista negra (texto que a pessoa vê)
 
-Não usar, nem em título de resultado: monarquia, rei, rainha, presidencialismo, presidente, parlamentarismo, parlamento, teocracia, teocrata, soviete, soviético, corporativismo, corporação, fascismo, colônia, protetorado, república, democracia, socialismo, comunismo, partido, liberal, ditadura, anarquia.
+Não usar nos dilemas nem no título descritivo do resultado: monarquia, rei, rainha, presidencialismo, presidente, parlamentarismo, parlamento, teocracia, teocrata, soviete, soviético, corporativismo, corporação, fascismo, colônia, protetorado, república, democracia, socialismo, comunismo, partido, liberal, ditadura, anarquia. A linha “Mais próximo de” é a exceção: ela repete o nome de aula de `/organizacoes`.
 
 Pode usar: chefe, câmara, linhagem, costume, ofício, conselho, delegado, aldeia, ancião, lei sagrada, prazo, confiança, carta, ramo, base.
 
@@ -30,7 +30,7 @@ Pode usar: chefe, câmara, linhagem, costume, ofício, conselho, delegado, aldei
 
 ## Parâmetros
 
-Dois tipos. **Bipolar** soma inteiros negativos e positivos. **Canal** só soma para cima (0, 1, 2). Pergunta pulada não é zero informativo no bipolar: entra como “sem evidência” e o centróide daquele eixo não pesa na distância (ver mapeamento). Canal pulado fica 0 — “não foi escolhido”.
+Dois tipos. **Bipolar** soma inteiros negativos e positivos. **Canal** em geral soma para cima. Uma resposta pode descontar (tutela ou sagrado negativos). Pergunta pulada não é zero informativo no bipolar: entra como “sem evidência” e o centróide daquele eixo não pesa na distância (ver mapeamento). Canal pulado fica 0 — “não foi escolhido”.
 
 | Id | Tipo | − / baixo | + / alto |
 | --- | --- | --- | --- |
@@ -54,19 +54,19 @@ Dois tipos. **Bipolar** soma inteiros negativos e positivos. **Canal** só soma 
 
 ## Perfis internos
 
-Não aparecem na UI. Servem de centróide e de nota de autor. O número é o valor **esperado** nesse parâmetro. Célula vazia = 0 e, se o parâmetro bipolar não foi perguntado no caminho, esse eixo sai da distância para este perfil.
+Não aparecem na UI. Servem de centróide. O número é a **soma do percurso canônico** desse perfil (tronco + trilho comum), a mesma soma que o código confere ao carregar. Célula vazia = 0. Se o parâmetro bipolar não foi perguntado nesse percurso, esse eixo sai da distância.
 
-| Interno | `escala` | `fora` | `quem` | `prazo` | `queda` | Canais altos | Canais de fim |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `monarquista` | +2 | +2 | +2 | +2 | +1 | `tradicao` 2 | `ordem` 2 |
-| `monarquia_social` | +2 | +2 | +2 | +2 | +1 | `tradicao` 2 | `cuidado` 2, `ordem` 1 |
-| `presidencialista` | +2 | +2 | +2 | +1 | +2 | `voto` 2 | `ordem` 1 |
-| `parlamentarista` | +2 | +2 | −1 | −2 | −2 | `voto` 2 | — |
-| `teocrata` | +1 | +2 | 0 | +1 | +1 | `sagrado` 2 | `ordem` 2 |
-| `sovietica` | +1 | +2 | −2 | −2 | −1 | `conselho` 2 | `plano` 2 |
-| `corporacao` | +2 | +2 | −1 | +1 | +1 | `oficio` 2 | `ordem` 2, `plano` 1 |
-| `colonia` | +1 | −2 | +1 | +1 | +1 | `tutela` 2 | `ordem` 1 |
-| `tribal` | −2 | +1 | −1 | +1 | 0 | `parentesco` 2 | `ordem` 1, `cuidado` 1 |
+| Interno | `escala` | `fora` | `quem` | `prazo` | `queda` | Canais diferentes de zero |
+| --- | --- | --- | --- | --- | --- | --- |
+| `monarquista` | +3 | +2 | +8 | +2 | +1 | `tutela` −2, `tradicao` 8, `parentesco` 1, `ordem` 8 |
+| `monarquia_social` | +3 | +2 | +8 | +1 | +1 | `tutela` −2, `tradicao` 7, `parentesco` 1, `ordem` 4, `cuidado` 5 |
+| `presidencialista` | +3 | +2 | +6 | +1 | +3 | `tutela` −2, `voto` 4, `tradicao` 1, `ordem` 8 |
+| `parlamentarista` | +2 | +2 | −6 | −2 | −9 | `tutela` −2, `voto` 6, `ordem` 1 |
+| `teocrata` | +3 | +2 | +3 |  | +1 | `tutela` −2, `tradicao` 1, `sagrado` 9, `ordem` 7 |
+| `sovietica` | +2 | +2 | −3 | −7 | −1 | `tutela` −2, `conselho` 9, `plano` 7 |
+| `corporacao` | +2 | +2 | −3 | +2 | −1 | `tutela` −2, `tradicao` 1, `oficio` 10, `ordem` 6, `plano` 2 |
+| `colonia` | +3 | −4 | +2 |  | +2 | `tutela` 13, `ordem` 1 |
+| `tribal` | −5 | +3 | −1 | +1 |  | `tradicao` 2, `sagrado` −1, `parentesco` 8, `ordem` 1, `cuidado` 3 |
 
 Diferenças que o mapa precisa guardar:
 
@@ -80,17 +80,17 @@ Diferenças que o mapa precisa guardar:
 
 | Interno | Título | Linha de apoio |
 | --- | --- | --- |
-| `monarquista` | Uma família no mando, por costume, difícil de desfazer | A família antiga continua. A regra não muda todo ano. Uma geração inteira pode ficar presa nesse desenho. |
-| `monarquia_social` | Uma família no mando, com dever de comida, terra e teto | A família fica, e o cargo se explica pelo cuidado com quem está embaixo. Esse cuidado pode virar favor para quem chega perto. |
-| `presidencialista` | Um chefe com data para sair, que a câmara não derruba no meio | Uma pessoa governa até a data, mesmo se a câmara reclamar. O erro dura até essa data. |
-| `parlamentarista` | Um governo que cai quando a câmara tira a confiança | Quem governa sai da câmara e sai quando a câmara deixa de confiar. Obra longa não atravessa a briga. |
-| `teocrata` | A lei sagrada acima da lei comum | A lei comum só vai até onde o texto sagrado deixa. Quem lê o texto vira o cargo. |
-| `sovietica` | Conselhos de quem trabalha, com o delegado fácil de trocar | O mando sobe de quem faz o trabalho, não desce da capital. O plano miúdo emperra, e quem não está na base não senta. |
-| `corporacao` | Os ramos de trabalho no mando, os dois lados juntos | Quem produz e quem emprega no mesmo ramo sentam juntos, com alguém coordenando. O ramo pode virar feudo. |
-| `colonia` | Guerra e tratado na mão de quem está de fora; o dia a dia fica aqui | Navio e assinatura de fora não dependem do nosso caixa. Quando o acordo muda, não tem como dizer não. |
-| `tribal` | O grupo do sangue e do costume, sem máquina de país | O povoado decide. O que for maior que isso é aliança, não um mando único. A regra muda de um lugar para o outro. |
+| `monarquista` | Uma família manda por costume, e é difícil tirar | A família antiga continua no cargo. A regra não muda todo ano. Quem nasce fora dessa família pode passar a vida inteira sem escolher de novo. |
+| `monarquia_social` | Uma família manda, mas tem de garantir comida, terra e teto | A família fica no cargo porque cuida de quem está embaixo. Esse cuidado pode virar favor para quem chega perto da família. |
+| `presidencialista` | Um chefe fica até a data marcada, e a câmara não tira no meio | Uma pessoa governa até o dia combinado, mesmo se a câmara reclamar. Se errar, o erro fica até essa data. |
+| `parlamentarista` | Quem governa cai quando a câmara deixa de confiar | Quem governa vem da câmara e sai no dia em que a câmara tira a confiança. Uma obra longa pode morrer no meio da briga. |
+| `teocrata` | A lei sagrada fica acima da lei do dia a dia | A lei do dia a dia só vale até onde o texto sagrado deixa. Quem interpreta o texto é quem manda de verdade. |
+| `sovietica` | Quem trabalha manda, e pode trocar o representante fácil | A ordem vem de quem faz o trabalho, não de um gabinete na capital. Um grupo pequeno pode travar a obra, e quem não trabalha na base não tem cadeira. |
+| `corporacao` | Os ramos de trabalho mandam, patrão e empregado juntos | No mesmo ramo, quem emprega e quem trabalha sentam na mesma mesa, com alguém por cima. O ramo pode fechar a porta para quem está de fora. |
+| `colonia` | Guerra e tratado ficam com quem está de fora; o dia a dia fica aqui | Navio e assinatura de fora não dependem do nosso caixa. Se o acordo mudar, a gente não tem como dizer não. |
+| `tribal` | O povoado manda pelo sangue e pelo costume, sem um governo do país | Quem se conhece decide. O que for maior que o povoado é aliança, não um mando só. A regra de um lugar não vale no outro. |
 
-O resultado mostra o título, o problema, o preço, e duas ou três escolhas que mais puxaram aquele centróide (cena + opção + uma frase). A frase de abertura usa o nome do país. Não mostra o id interno, nem a tabela, nem “você é X”.
+O resultado mostra o título descritivo, a linha “Mais próximo de” com o nome de aula (link para a organização), o problema, o preço, e duas ou três escolhas que mais puxaram aquele centróide (cena + opção + uma frase). Se houver segundo arranjo, ele também leva o nome de aula. A frase de abertura usa o nome do país. Não mostra o id interno, nem a tabela, nem “você é X”.
 
 ## Mapa do fluxo
 
@@ -100,7 +100,7 @@ flowchart TD
   n1 -->|aldeia| n11["N11 circulo"]
   n1 -->|pais ou regiao| n2["N2 fora"]
   n11 --> n2a["N2 fora, fala da aldeia"]
-  n2a -->|so o circulo| n9["N9 fim"]
+  n2a -->|so o circulo| spine["Trilho comum"]
   n2a -->|guarda de fora| n12["N12 carta"]
   n2 -->|ultima palavra fora| n12
   n2 -->|ultima palavra aqui| n3["N3 fonte"]
@@ -115,13 +115,25 @@ flowchart TD
   n5 -->|vida ou linhagem| n8["N8 dever"]
   n5 -->|prazo marcado ou confianca| n7
   n8 --> n7
-  n6 -->|lei comum trava| n9
-  n6 -->|sagrado so aconselha| n4
-  n7 --> n9
+  n6 -->|texto trava| spine
+  n6 -->|texto so aconselha, vindo do leitor| n4
+  n7 --> spine
   n11 -->|leitor do texto| n6
+  spine --> n13["N13 principios"]
+  n13 --> n14["N14 distribuicao"]
+  n14 --> n15["N15 cidadania"]
+  n15 --> n16["N16 religiao"]
+  n16 --> n17["N17 burocracia"]
+  n17 --> n18["N18 exercito"]
+  n18 --> n19["N19 marinha"]
+  n19 --> n20["N20 seguranca"]
+  n20 --> n21["N21 justica"]
+  n21 --> n9["N9 fim"]
 ```
 
-N9 é o fim de todo caminho que chegou nele. Não há nó depois.
+O que antes ia direto para N9 agora entra no trilho comum (N13 a N21) e só então chega em N9. N9 continua sendo a última pergunta. Não há nó depois.
+
+Se N6 = texto só aconselha e a fonte não foi o leitor do texto (caminho do povoado), o fluxo entra no trilho, não volta para N4.
 
 ### O que se pula
 
@@ -139,20 +151,145 @@ N9 é o fim de todo caminho que chegou nele. Não há nó depois.
 Reordenar, não só pular:
 
 - N1 = aldeia põe N11 **antes** de N2. A pessoa fala do círculo antes de falar de frota de fora.
-- N3 = parentesco, mesmo depois de ter dito “país” em N1, desvia para N11 e encerra em N9. A contradição (país na unidade, sangue na fonte) fica no vetor e tende a secundário misturado, não a um desvio silencioso.
+- N3 = parentesco, mesmo depois de ter dito “país” em N1, desvia para N11 e depois entra no trilho comum até N9. A contradição (país na unidade, sangue na fonte) fica no vetor.
 - N6 no caminho do círculo só aparece se N11 escolheu o leitor do texto. Aí o fim pode ser lei sagrada de aldeia (`teocrata` com `escala` baixa): os dois entram no topo se a guarda disparar.
 
-Caminho mais curto: aldeia → círculo → só o círculo → fim (4 nós). Caminho de voto: unidade → fora → fonte → confiança → trabalho → fim (6 nós). Caminho de linhagem longa: unidade → fora → fonte → prazo → dever → trabalho → fim (7 nós).
+Caminho mais curto: aldeia → círculo → recusa a guarda → trilho comum → fim (13 nós). Caminho de voto: unidade → fora → fonte → confiança → trabalho → trilho → fim (15 nós). Caminho de linhagem longa: unidade → fora → fonte → prazo → dever → trabalho → trilho → fim (16 nós). O trilho não se pula. Confiança, prazo, dever, texto, carta e círculo continuam dependendo do tronco.
+
+## Trilho comum
+
+Todo caminho completo passa por estes nove nós, nesta ordem, e só então por N9. O texto que a pessoa lê está em `lib/governoFlow.ts`. Aqui ficam o que a pergunta decide e os pesos. Nenhuma opção nomeia regime.
+
+O trilho empurra os mesmos parâmetros de antes. Não cria eixo novo. O centróide de cada perfil é a soma de um percurso canônico, não o desenho curto de quando o teste acabava em N9.
+
+### N13 `principios` — Para que servem as primeiras regras?
+
+O país não cabe tudo nas primeiras regras. Qual fim vem antes dos outros?
+
+| Id | O que muda | Parâmetros | Mole |
+| --- | --- | --- | --- |
+| `pri_continuidade` | A regra não troca de família a cada susto | `ordem` +1, `tradicao` +1 | `monarquista` +1, `teocrata` +1, `corporacao` +1 |
+| `pri_cuidado` | Comida, terra e teto vêm antes | `cuidado` +1 | `monarquia_social` +1, `tribal` +1 |
+| `pri_plano` | O plano sai de quem produz | `plano` +1, `conselho` +1 | `sovietica` +1 |
+| `pri_abrigo` | Guerra e mercado não ficam só no caixa daqui | `tutela` +1 | `colonia` +1 |
+| `pri_troca` | A câmara troca quem governa sem esperar data | `voto` +1, `queda` −1 | `parlamentarista` +1 |
+
+### N14 `distribuicao` — Onde o mando fica de verdade?
+
+No dia em que a decisão trava: uma pessoa, a câmara, cada povoado, ou quem está de fora.
+
+| Id | O que muda | Parâmetros | Mole |
+| --- | --- | --- | --- |
+| `dist_um` | Uma pessoa segura o cargo; a câmara pode travar a lei, não divide o cargo | `quem` +1, `escala` +1 | `monarquista` +1, `monarquia_social` +1, `presidencialista` +1 |
+| `dist_varias` | Ninguém segura o cargo sozinho; a câmara pode tirar quem governa | `quem` −1, `queda` −1 | `parlamentarista` +1, `sovietica` +1 |
+| `dist_lugares` | Cada povoado manda na própria praça | `escala` −1 | `tribal` +1 |
+| `dist_fora` | Guerra, tratado e a última palavra ficam fora; a rua fica aqui | `tutela` +1, `fora` −1 | `colonia` +1 |
+
+`dist_fora` é o único passo do trilho que mexe em `fora`. Os outros “de fora” só somam `tutela`.
+
+### N15 `cidadania` — Quem recebe o papel de membro?
+
+Morar no país não basta. O papel diz quem vota, quem não pode ser expulso e quem entra no cargo.
+
+| Id | O que muda | Parâmetros | Mole |
+| --- | --- | --- | --- |
+| `cid_sangue` | Nasce na família e no povoado que já estavam aqui | `parentesco` +1, `tradicao` +1 | `monarquista` +1, `monarquia_social` +1, `tribal` +1 |
+| `cid_morador` | Mora aqui e entra na lista; o voto é contado | `voto` +1 | `presidencialista` +1, `parlamentarista` +1 |
+| `cid_base` | Trabalha na base e senta no conselho do ramo | `conselho` +1, `plano` +1 | `sovietica` +1 |
+| `cid_ramo` | Pertence ao ramo, patrão ou empregado | `oficio` +1 | `corporacao` +1 |
+| `cid_texto` | Aceita a lei sagrada e obedece a quem a lê | `sagrado` +1 | `teocrata` +1 |
+| `cid_fora` | Quem está de fora confirma o papel | `tutela` +1 | `colonia` +1 |
+
+### N16 `religiao` — O que o caixa e o cargo fazem com a religião?
+
+Não é N6. N6 pergunta se a lei do dia a dia cede ao texto. Esta pergunta é se o caixa paga um culto e se quem lê o texto ganha cadeira.
+
+| Id | O que muda | Parâmetros | Mole |
+| --- | --- | --- | --- |
+| `rel_acima` | O caixa paga o culto e quem lê senta junto de quem manda | `sagrado` +1, `ordem` +1 | `teocrata` +2 |
+| `rel_aconselha` | O culto aconselha, sem cadeira e sem dinheiro do caixa | `sagrado` −1 | `teocrata` −1 |
+| `rel_cada` | Cada povoado paga o próprio culto | `sagrado` −1, `escala` −1 | `tribal` +1 |
+| `rel_neutro` | O caixa não paga culto e o cargo não pergunta a fé | — | `teocrata` −1 |
+
+### N17 `burocracia` — Quem escreve a lista e cobra o imposto?
+
+O cargo de escrever e cobrar não é o de quem governa. No povoado, o texto fala do livro da praça e da taxa do poço.
+
+| Id | O que muda | Parâmetros | Mole |
+| --- | --- | --- | --- |
+| `bur_familia` | O cargo passa com o nome da família | `tradicao` +1, `quem` +1 | `monarquista` +1, `monarquia_social` +1 |
+| `bur_prova` | Passa numa prova igual; família e voto não escolhem o nome | `ordem` +1, `voto` +1 | `presidencialista` +1, `parlamentarista` +1 |
+| `bur_base` | A base manda a pessoa e pode puxá-la de volta | `conselho` +1, `prazo` −1 | `sovietica` +1 |
+| `bur_ramo` | Cada ramo cobra o próprio ramo | `oficio` +1 | `corporacao` +1 |
+| `bur_fora` | Quem está de fora coloca o nome | `tutela` +1 | `colonia` +1 |
+| `bur_texto` | Quem lê a lei sagrada aplica o texto na cobrança | `sagrado` +1 | `teocrata` +1 |
+| `bur_povo` | Alguém do sangue do povoado, escolhido na praça | `parentesco` +1 | `tribal` +1 |
+
+### N18 `exercito` — Quem comanda a tropa de terra?
+
+Não é a guarda da rua nem a guarda da praça. É a turma que sai para a guerra.
+
+| Id | O que muda | Parâmetros | Mole |
+| --- | --- | --- | --- |
+| `ex_chefe` | A mesma pessoa que governa | `quem` +1, `ordem` +1 | `monarquista` +1, `monarquia_social` +1, `presidencialista` +1, `teocrata` +1 |
+| `ex_camara` | A câmara manda sair e pode chamar de volta | `quem` −1, `queda` −1 | `parlamentarista` +1 |
+| `ex_povo` | Cada povoado manda a própria turma | — | `tribal` +1 |
+| `ex_base` | O conselho de quem trabalha, e a base troca o comando | `conselho` +1, `prazo` −1 | `sovietica` +1 |
+| `ex_fora` | Quem está de fora decide a saída | `tutela` +1 | `colonia` +1 |
+| `ex_ramo` | O ramo de arma e estrada, com alguém acima | `oficio` +1, `ordem` +1 | `corporacao` +1 |
+
+### N19 `marinha` — Quem comanda os barcos e o porto?
+
+Não é a tropa de terra. No povoado, a pergunta é o barco do rio e da costa.
+
+| Id | O que muda | Parâmetros | Mole |
+| --- | --- | --- | --- |
+| `mar_chefe` | A mesma pessoa que governa | `quem` +1, `ordem` +1 | `monarquista` +1, `monarquia_social` +1, `presidencialista` +1, `teocrata` +1 |
+| `mar_camara` | A câmara; barco nenhum sai sem o voto dela | `quem` −1, `queda` −1 | `parlamentarista` +1 |
+| `mar_base` | O conselho de quem trabalha no porto | `conselho` +1, `prazo` −1 | `sovietica` +1 |
+| `mar_ramo` | O ramo do porto e do estaleiro, os dois lados | `oficio` +1, `ordem` +1 | `corporacao` +1 |
+| `mar_povo` | Cada povoado manda os próprios barcos | — | `tribal` +1 |
+| `mar_fora` | Quem está de fora | `tutela` +1 | `colonia` +1 |
+
+### N20 `seguranca` — Quem separa a briga na rua?
+
+Não é a tropa de guerra. É quem prende e vigia a rua.
+
+| Id | O que muda | Parâmetros | Mole |
+| --- | --- | --- | --- |
+| `seg_chefe` | A mesma pessoa que governa | `quem` +1, `ordem` +1 | `monarquista` +1, `monarquia_social` +1, `presidencialista` +1, `teocrata` +1 |
+| `seg_povo` | A praça do povoado | `parentesco` +1 | `tribal` +1 |
+| `seg_base` | O conselho de quem trabalha | `conselho` +1, `prazo` −1 | `sovietica` +1 |
+| `seg_texto` | Quem lê a lei sagrada | `sagrado` +1 | `teocrata` +1 |
+| `seg_fora` | Quem está de fora | `tutela` +1 | `colonia` +1 |
+| `seg_ramo` | Cada ramo vigia o próprio ramo | `oficio` +1 | `corporacao` +1 |
+| `seg_camara` | A câmara | `quem` −1, `queda` −1 | `parlamentarista` +1 |
+
+### N21 `justica` — Quem julga uma briga entre duas pessoas?
+
+Terra, dívida ou ofensa. Quem diz quem tem razão, e a decisão vale.
+
+| Id | O que muda | Parâmetros | Mole |
+| --- | --- | --- | --- |
+| `ju_costume` | Os mais velhos, pelo costume, sem papel acima da praça | `tradicao` +1 | `monarquista` +1, `monarquia_social` +1, `tribal` +1 |
+| `ju_escrita` | Lei escrita, no cargo até a data; a câmara não muda a sentença | `ordem` +1, `queda` +1 | `presidencialista` +1 |
+| `ju_camara` | A câmara, ou um grupo que ela desfaz | `quem` −1, `queda` −1 | `parlamentarista` +1 |
+| `ju_base` | O conselho do ramo da briga; a base troca quem julga | `conselho` +1, `prazo` −1 | `sovietica` +1 |
+| `ju_ramo` | A mesa do ramo, os dois lados, com alguém acima | `oficio` +1 | `corporacao` +1 |
+| `ju_texto` | A sentença tem de caber na lei sagrada | `sagrado` +1 | `teocrata` +1 |
+| `ju_fora` | A sentença daqui não vale sozinha | `tutela` +1 | `colonia` +1 |
+
+N9 ganhou uma quinta opção, `camara_fim`: guardar o poder da câmara de trocar quem governa. Parâmetros: `queda` −1, `voto` +1. Mole: `parlamentarista` +1. As outras quatro opções de N9 não mudaram de peso.
 
 ## As perguntas
 
-Cada opção lista parâmetros (inteiros) e um peso **mole** de perfil. O peso mole não escolhe sozinho. Entra como bônus pequeno na distância (abaixo). Texto de jogador em português. Ids em inglês, estáveis para um passe futuro.
+Cada opção lista parâmetros (inteiros) e um peso **mole** de perfil. O peso mole não escolhe sozinho. Entra como bônus pequeno na distância (abaixo). O texto que a pessoa lê está no código. Onde esta seção ainda diz “Segue: N9”, leia “entra no trilho comum e depois N9”. Ids em inglês, estáveis.
 
 ### N1 `unidade` — Onde a decisão mora?
 
 Sempre a primeira.
 
-Pontal (ou o nome que a pessoa deu) ainda está nascendo, numa costa que não tinha país. Tem povoado que só obedece a quem se conhece, região com caixa próprio, e gente que quer a mesma regra do porto até o interior. Onde a decisão fica de verdade?
+Pontal (ou o nome que a pessoa deu) ainda não tem capital nem lei antiga. Tem povoado que só obedece a quem se conhece pelo nome, região com caixa e escola próprios, e gente que quer a mesma regra do porto até o interior. Onde as decisões do dia a dia vão ficar?
 
 **A. `aldeia` — No círculo de quem se conhece pelo nome.** O que houver de maior é aliança, não um mando único.
 
@@ -550,70 +687,23 @@ O perfil mole e o centróide podem divergir. Vale o centróide, com o bônus e a
 
 O que este mapa **não** faz: não produz os dez eixos, não lê as 40 cenas, não reaproveita o `leans` das cinco categorias atuais como se fosse este vetor. Categorias de hoje (contenção, condução, limites, papel econômico, centro e força) descrevem a máquina administrativa. Estes parâmetros descrevem a forma do mando. Um passe futuro pode cruzar os dois. Este desenho não cruza.
 
-## Três percursos
+## Percursos que o código confere
 
-Números arredondados de propósito, para Vítor conferir o espírito da conta. Não são teste automatizado.
+Ao carregar, `lib/governoFlow.ts` caminha estes nove percursos e exige um título só, sem segundo lugar. A soma de cada um é a linha do centróide. O tronco abaixo é o que muda; o trilho é o da tabela de N13 a N21.
 
-### Círculo miúdo
+| Perfil | Tronco, nesta ordem | Trilho, nesta ordem | Fecho |
+| --- | --- | --- | --- |
+| `tribal` | `aldeia`, `anciaos`, `ultima_aqui` | `pri_cuidado`, `dist_lugares`, `cid_sangue`, `rel_cada`, `bur_povo`, `ex_povo`, `mar_povo`, `seg_povo`, `ju_costume` | `cuidado_fim` |
+| `colonia` | `pais`, `carta_de_fora`, `so_de_fora`, `rosto_nomeado`, `trabalho_nao_senta` | `pri_abrigo`, `dist_fora`, `cid_fora`, `rel_neutro`, `bur_fora`, `ex_fora`, `mar_fora`, `seg_fora`, `ju_fora` | `abrigo_fim` |
+| `presidencialista` | `pais`, `ultima_aqui`, `voto_contado`, `fica_ate_a_data`, `trabalho_nao_senta` | `pri_continuidade`, `dist_um`, `cid_morador`, `rel_neutro`, `bur_prova`, `ex_chefe`, `mar_chefe`, `seg_chefe`, `ju_escrita` | `continuidade_fim` |
+| `monarquia_social` | `pais`, `ultima_aqui`, `linhagem`, `vida_ou_linha`, `pao_e_terra`, `trabalho_nao_senta` | `pri_cuidado`, `dist_um`, `cid_sangue`, `rel_neutro`, `bur_familia`, `ex_chefe`, `mar_chefe`, `seg_chefe`, `ju_costume` | `cuidado_fim` |
+| `monarquista` | o mesmo tronco, com `continuidade` no lugar de `pao_e_terra` | o mesmo trilho, com `pri_continuidade` no lugar de `pri_cuidado` | `continuidade_fim` |
+| `teocrata` | `pais`, `ultima_aqui`, `leitor_do_texto`, `texto_trava` | `pri_continuidade`, `dist_um`, `cid_texto`, `rel_acima`, `bur_texto`, `ex_chefe`, `mar_chefe`, `seg_texto`, `ju_texto` | `continuidade_fim` |
+| `sovietica` | `pais`, `ultima_aqui`, `de_quem_trabalha`, `base_puxa` | `pri_plano`, `dist_varias`, `cid_base`, `rel_neutro`, `bur_base`, `ex_base`, `mar_base`, `seg_base`, `ju_base` | `plano_fim` |
+| `corporacao` | `pais`, `ultima_aqui`, `de_quem_trabalha`, `dois_lados`, `cadeira_do_ramo` | `pri_continuidade`, `dist_varias`, `cid_ramo`, `rel_neutro`, `bur_ramo`, `ex_ramo`, `mar_ramo`, `seg_ramo`, `ju_ramo` | `continuidade_fim` |
+| `parlamentarista` | `pais`, `ultima_aqui`, `voto_contado`, `cai`, `trabalho_nao_senta` | `pri_troca`, `dist_varias`, `cid_morador`, `rel_neutro`, `bur_prova`, `ex_camara`, `mar_camara`, `seg_camara`, `ju_camara` | `camara_fim` |
 
-Iara vive num vale que não manda delegado à capital.
-
-| Nó | Opção | Efeito que importa |
-| --- | --- | --- |
-| N1 | `aldeia` | `escala` −2, `parentesco` +2 |
-| N11 | `anciãos` | `parentesco` +2, `prazo` +1, `ordem` +1 |
-| N2 | `ultima_aqui` (fala da aldeia) | `escala` −1, `parentesco` +1 |
-| N9 | `cuidado_fim` | `cuidado` +2 |
-
-Pula N3, N4, N5, N6, N7, N8, N12.
-
-Saldo útil: `escala` −3, `parentesco` +5, `prazo` +1, `ordem` +1, `cuidado` +2. `fora` quase não foi testado no sentido de país.
-
-A guarda do círculo dispara (`escala` bem negativo, `parentesco` alto). O centróide `tribal` é o único com `escala` −2 e `parentesco` 2. `monarquista` perde logo em `escala` (esperava +2) e em `parentesco` (esperava 0).
-
-**Principal:** `tribal` — título “O círculo do sangue e do costume, sem máquina de país”. **Segundo:** não. O cuidado puxa um pouco a linha social, mas a escala não deixa essa linha sentar perto.
-
-### Carta de fora
-
-O porto quer a frota. A câmara aceita não assinar mais tratado.
-
-| Nó | Opção | Efeito que importa |
-| --- | --- | --- |
-| N1 | `pais` | `escala` +2 |
-| N2 | `carta_de_fora` | `fora` −2, `tutela` +2 |
-| N12 | `so_de_fora` | `tutela` +2, `queda` +1 |
-| N3 | `rosto_nomeado` | `quem` +2, `tutela` +1 |
-| N7 | `trabalho_nao_senta` | neutro |
-| N9 | `abrigo_fim` | `tutela` +1, `ordem` +1 |
-
-Pula confiança, prazo, dever, texto, círculo.
-
-Saldo útil: `escala` +2, `fora` −2, `tutela` +6, `quem` +2, `queda` +1, `ordem` +1.
-
-A guarda da carta dispara. Nenhum outro centróide tem `fora` −2 e `tutela` 2. O rosto nomeado parece um chefe, mas `presidencialista` espera `fora` +2 e `voto` 2: a distância nesse par de eixos já o tira do segundo lugar (`1,25 ×` não alcança).
-
-**Principal:** `colonia` — “Guerra e tratado nas mãos de fora; o cotidiano fica aqui”. **Segundo:** não, neste caminho. Se em N3 a pessoa tivesse escolhido `rosto_com_prazo`, o bônus mole de `presidencialista` aproximaria um segundo título (“um chefe com prazo marcado…”), ainda por baixo da carta, e a regra dos `1,25` decidiria se ele aparece. Vale a pena Vítor olhar esse caso na revisão: é o híbrido mais fácil de ficar ambíguo, e deve ficar ambíguo.
-
-### Chefe com data
-
-Quem vota quer uma pessoa no cargo até o fim do prazo, e não quer frota alheia.
-
-| Nó | Opção | Efeito que importa |
-| --- | --- | --- |
-| N1 | `pais` | `escala` +2 |
-| N2 | `ultima_aqui` | `fora` +2, `tutela` −2 |
-| N3 | `voto_contado` | `voto` +2 |
-| N4 | `fica_ate_a_data` | `quem` +2, `prazo` +1, `queda` +2 |
-| N7 | `trabalho_nao_senta` | neutro |
-| N9 | `continuidade_fim` | `ordem` +2 |
-
-Saldo útil: `escala` +2, `fora` +2, `quem` +2, `prazo` +1, `queda` +2, `voto` +2, `ordem` +2, `tutela` negativo.
-
-`presidencialista` acerta `quem`, `queda`, `voto`, `fora`, `escala`. `parlamentarista` acerta o voto e erra `queda` e `prazo` no sinal: fica longe, de propósito. `monarquista` acerta duração e ordem, mas esperava `tradicao` 2 e recebeu 0, e não tem o voto que este caminho insistiu. Sem guarda especial. O bônus mole de N4 está todo em `presidencialista`.
-
-**Principal:** `presidencialista` — “Um chefe com prazo marcado, que a câmara não derruba no meio”. **Segundo:** não neste caminho.
-
-Contraste curto, não é um quarto percurso completo: a mesma abertura (país, última palavra aqui, linhagem, vida inteira) com N8 = `pao_e_terra` e N9 = `cuidado_fim` cai em `monarquia_social`, não em `monarquista`. Trocar só N8 para `continuidade` e N9 para `continuidade_fim` inverte o par. É esse o motivo de N8 existir.
+`monarquista` e `monarquia_social` continuam se separando no dever da família (N8), no princípio (N13) e no fecho. O resto do trilho, nesses dois percursos, é o mesmo.
 
 ## Fora deste mapa
 

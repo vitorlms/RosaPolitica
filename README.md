@@ -114,7 +114,7 @@ lib/           # types, scoring, storage (sessionStorage)
 
 ## Meu Estado
 
-Teste à parte, na home. A pessoa ajuda a fundar um país novo, longe de Valmora, e pode ficar com o nome sugerido (Pontal) ou escrever outro. O caminho muda com a resposta (cerca de 6 a 8 dilemas). Meu Estado Ideal descreve o arranjo, sem nome de regime, e não altera Meu Perfil. A página de organizações explica os nove tipos com exemplos aproximados do mundo. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
+Teste à parte, na home. A pessoa ajuda a fundar um país novo, longe de Valmora, e pode ficar com o nome sugerido (Pontal) ou escrever outro. O caminho muda com a resposta (cerca de 13 a 16 dilemas, de um baralho de 20). Meu Estado Ideal descreve o arranjo e diz de qual organização de aula ele fica mais perto. O nome de regime não entra nos dilemas. O resultado não altera Meu Perfil. A página de organizações explica os nove tipos com exemplos aproximados do mundo. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md).
 
 ## Gancho futuro (não implementado)
 

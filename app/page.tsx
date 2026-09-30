@@ -109,10 +109,10 @@ export default function HomePage() {
           Meu Estado
         </h2>
         <p className="mt-1 text-sm text-[var(--muted)]">
-          Você ajuda a fundar um país novo, longe de Valmora. Cada resposta
-          abre a pergunta seguinte. No fim, Meu Estado Ideal — o problema e o
-          preço — sem nome de regime. Não muda Meu Perfil, e terminar um teste
-          não exige o outro.
+          Você ajuda a escrever as primeiras regras de um país novo, longe de
+          Valmora. Cada resposta muda a pergunta seguinte. No fim, Meu Estado
+          Ideal mostra o que esse jeito de mandar resolve e o que cobra. Não
+          muda Meu Perfil.
         </p>
         <Link
           href="/estado"
@@ -121,11 +121,11 @@ export default function HomePage() {
           <span>
             <span className="block font-semibold">Meu Estado</span>
             <span className="mt-1 block text-sm text-[var(--muted)]">
-              Fundar um país novo. O caminho muda com a resposta.
+              Fundar um país novo. Cada resposta muda a próxima pergunta.
             </span>
           </span>
           <span className="shrink-0 text-sm tabular-nums text-[var(--muted)]">
-            Cerca de 6 a 8 dilemas · ~7 min
+            Cerca de 13 a 16 dilemas · ~15 min
           </span>
         </Link>
         <Link

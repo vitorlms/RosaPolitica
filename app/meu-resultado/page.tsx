@@ -95,7 +95,7 @@ export default function MeuResultadoPage() {
           </h2>
           <p className="mt-1 text-sm text-[var(--muted)]">
             {estadoLine ??
-              "Nada salvo. O teste funda um país novo, longe de Valmora."}
+              "Nada salvo. Você escreve as primeiras regras de um país novo, longe de Valmora."}
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Link

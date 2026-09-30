@@ -12,11 +12,11 @@ import type { InProgressStatus } from "@/lib/storage";
 export const DEFAULT_COUNTRY_NAME = "Pontal";
 export const COUNTRY_NAME_TITLE = "Como vai se chamar o país?";
 export const COUNTRY_NAME_BODY =
-  "Um grupo chegou numa costa nova, longe de Valmora, para escrever as primeiras regras. Ainda não tem capital nem lei antiga. Pode ficar com o nome sugerido ou escrever outro.";
-export const COUNTRY_NAME_BUTTON = "Começar com esse nome";
+  "Você ajuda a escrever as primeiras regras de um país novo, numa costa longe de Valmora. Ainda não tem capital nem lei antiga. O nome sugerido é Pontal. Pode ficar com ele ou apagar e escrever outro.";
+export const COUNTRY_NAME_BUTTON = "Seguir com este nome";
 export const GOVERNMENT_RESULT_TITLE = "Meu Estado Ideal";
 export const NEAR_TIE_LINE =
-  "Ficou perto. Os dois arranjos cabem no que você escolheu. Nenhum leva sozinho.";
+  "Ficou perto. Os dois jeitos cabem no que você escolheu. Nenhum ganha sozinho.";
 
 const COUNTRY_NAME_MAX = 40;
 
@@ -32,7 +32,7 @@ export function sanitizeCountryName(value: string | null | undefined): string {
 
 export function governmentResultLead(countryName: string): string {
   const name = sanitizeCountryName(countryName);
-  return `É o arranjo que essas escolhas desenham para ${name}. Isto é Meu Estado Ideal: não entra em Meu Perfil e não põe nome de regime.`;
+  return `É assim que ${name} ficaria com estas escolhas: o que esse jeito de mandar resolve, e o que cobra. Não muda Meu Perfil.`;
 }
 
 const MOLE_BONUS = 0.15;
@@ -80,9 +80,18 @@ const NODE_IDS = [
   "sagrado",
   "trabalho",
   "dever",
-  "fim",
   "circulo",
   "carta",
+  "principios",
+  "distribuicao",
+  "cidadania",
+  "religiao",
+  "burocracia",
+  "exercito",
+  "marinha",
+  "seguranca",
+  "justica",
+  "fim",
 ] as const;
 
 type NodeId = (typeof NODE_IDS)[number];
@@ -111,6 +120,8 @@ export interface GovernmentDriver {
 }
 
 export interface GovernmentArrangement {
+  /** Internal id. The result screen uses it only to name the classroom organization. */
+  profileId: ProfileId;
   title: string;
   support: string;
   problem: string;
@@ -156,167 +167,189 @@ interface Walk {
 
 const PROFILE_COPY: Record<ProfileId, ProfileCopy> = {
   monarquista: {
-    title: "Uma família no mando, por costume, difícil de desfazer",
+    title: "Uma família manda por costume, e é difícil tirar",
     support:
-      "A família antiga continua. A regra não muda todo ano. Uma geração inteira pode ficar presa nesse desenho.",
-    problem: "A família antiga continua. A regra não muda todo ano.",
-    cost: "Uma geração inteira pode ficar presa nesse desenho.",
+      "A família antiga continua no cargo. A regra não muda todo ano. Quem nasce fora dessa família pode passar a vida inteira sem escolher de novo.",
+    problem: "A família antiga continua no cargo, e a regra não muda todo ano.",
+    cost: "Quem nasce fora dessa família pode passar a vida inteira sem escolher de novo.",
     centroid: {
-      escala: 2,
+      escala: 3,
       fora: 2,
-      quem: 2,
+      quem: 8,
       prazo: 2,
       queda: 1,
-      tradicao: 2,
-      ordem: 2,
+      tutela: -2,
+      tradicao: 8,
+      parentesco: 1,
+      ordem: 8,
     },
   },
   monarquia_social: {
-    title: "Uma família no mando, com dever de comida, terra e teto",
+    title: "Uma família manda, mas tem de garantir comida, terra e teto",
     support:
-      "A família fica, e o cargo se explica pelo cuidado com quem está embaixo. Esse cuidado pode virar favor para quem chega perto.",
-    problem: "A família fica, e o cargo se explica pelo cuidado com quem está embaixo.",
-    cost: "Esse cuidado pode virar favor para quem chega perto.",
+      "A família fica no cargo porque cuida de quem está embaixo. Esse cuidado pode virar favor para quem chega perto da família.",
+    problem: "A família fica no cargo porque cuida de quem está embaixo.",
+    cost: "Esse cuidado pode virar favor para quem chega perto da família.",
     centroid: {
-      escala: 2,
+      escala: 3,
       fora: 2,
-      quem: 2,
-      prazo: 2,
+      quem: 8,
+      prazo: 1,
       queda: 1,
-      tradicao: 2,
-      cuidado: 2,
-      ordem: 1,
+      tutela: -2,
+      tradicao: 7,
+      parentesco: 1,
+      ordem: 4,
+      cuidado: 5,
     },
   },
   presidencialista: {
-    title: "Um chefe com data para sair, que a câmara não derruba no meio",
+    title: "Um chefe fica até a data marcada, e a câmara não tira no meio",
     support:
-      "Uma pessoa governa até a data, mesmo se a câmara reclamar. O erro dura até essa data.",
-    problem: "Uma pessoa governa até a data, mesmo se a câmara reclamar.",
-    cost: "O erro dura até essa data.",
+      "Uma pessoa governa até o dia combinado, mesmo se a câmara reclamar. Se errar, o erro fica até essa data.",
+    problem: "Uma pessoa governa até o dia combinado, mesmo se a câmara reclamar.",
+    cost: "Se errar, o erro fica até essa data.",
     centroid: {
-      escala: 2,
+      escala: 3,
       fora: 2,
-      quem: 2,
+      quem: 6,
       prazo: 1,
-      queda: 2,
-      voto: 2,
-      ordem: 1,
+      queda: 3,
+      tutela: -2,
+      voto: 4,
+      tradicao: 1,
+      ordem: 8,
     },
   },
   parlamentarista: {
-    title: "Um governo que cai quando a câmara tira a confiança",
+    title: "Quem governa cai quando a câmara deixa de confiar",
     support:
-      "Quem governa sai da câmara e sai quando a câmara deixa de confiar. Obra longa não atravessa a briga.",
-    problem: "Quem governa sai da câmara e sai quando a câmara deixa de confiar.",
-    cost: "Obra longa não atravessa a briga.",
+      "Quem governa vem da câmara e sai no dia em que a câmara tira a confiança. Uma obra longa pode morrer no meio da briga.",
+    problem:
+      "Quem governa vem da câmara e sai no dia em que a câmara tira a confiança.",
+    cost: "Uma obra longa pode morrer no meio da briga.",
     centroid: {
       escala: 2,
       fora: 2,
-      quem: -1,
+      quem: -6,
       prazo: -2,
-      queda: -2,
-      voto: 2,
+      queda: -9,
+      tutela: -2,
+      voto: 6,
+      ordem: 1,
     },
   },
   teocrata: {
-    title: "A lei sagrada acima da lei comum",
+    title: "A lei sagrada fica acima da lei do dia a dia",
     support:
-      "A lei comum só vai até onde o texto sagrado deixa. Quem lê o texto vira o cargo.",
-    problem: "A lei comum só vai até onde o texto sagrado deixa.",
-    cost: "Quem lê o texto vira o cargo.",
+      "A lei do dia a dia só vale até onde o texto sagrado deixa. Quem interpreta o texto é quem manda de verdade.",
+    problem: "A lei do dia a dia só vale até onde o texto sagrado deixa.",
+    cost: "Quem interpreta o texto é quem manda de verdade.",
     centroid: {
-      escala: 1,
+      escala: 3,
       fora: 2,
-      quem: 0,
-      prazo: 1,
+      quem: 3,
       queda: 1,
-      sagrado: 2,
-      ordem: 2,
+      tutela: -2,
+      tradicao: 1,
+      sagrado: 9,
+      ordem: 7,
     },
   },
   sovietica: {
-    title: "Conselhos de quem trabalha, com o delegado fácil de trocar",
+    title: "Quem trabalha manda, e pode trocar o representante fácil",
     support:
-      "O mando sobe de quem faz o trabalho, não desce da capital. O plano miúdo emperra, e quem não está na base não senta.",
-    problem: "O mando sobe de quem faz o trabalho, não desce da capital.",
-    cost: "O plano miúdo emperra, e quem não está na base não senta.",
-    centroid: {
-      escala: 1,
-      fora: 2,
-      quem: -2,
-      prazo: -2,
-      queda: -1,
-      conselho: 2,
-      plano: 2,
-    },
-  },
-  corporacao: {
-    title: "Os ramos de trabalho no mando, os dois lados juntos",
-    support:
-      "Quem produz e quem emprega no mesmo ramo sentam juntos, com alguém coordenando. O ramo pode virar feudo.",
-    problem:
-      "Quem produz e quem emprega no mesmo ramo sentam juntos, com alguém coordenando.",
-    cost: "O ramo pode virar feudo.",
+      "A ordem vem de quem faz o trabalho, não de um gabinete na capital. Um grupo pequeno pode travar a obra, e quem não trabalha na base não tem cadeira.",
+    problem: "A ordem vem de quem faz o trabalho, não de um gabinete na capital.",
+    cost: "Um grupo pequeno pode travar a obra, e quem não trabalha na base não tem cadeira.",
     centroid: {
       escala: 2,
       fora: 2,
-      quem: -1,
-      prazo: 1,
-      queda: 1,
-      oficio: 2,
-      ordem: 2,
-      plano: 1,
+      quem: -3,
+      prazo: -7,
+      queda: -1,
+      tutela: -2,
+      conselho: 9,
+      plano: 7,
+    },
+  },
+  corporacao: {
+    title: "Os ramos de trabalho mandam, patrão e empregado juntos",
+    support:
+      "No mesmo ramo, quem emprega e quem trabalha sentam na mesma mesa, com alguém por cima. O ramo pode fechar a porta para quem está de fora.",
+    problem:
+      "No mesmo ramo, quem emprega e quem trabalha sentam na mesma mesa, com alguém por cima.",
+    cost: "O ramo pode fechar a porta para quem está de fora.",
+    centroid: {
+      escala: 2,
+      fora: 2,
+      quem: -3,
+      prazo: 2,
+      queda: -1,
+      tutela: -2,
+      tradicao: 1,
+      oficio: 10,
+      ordem: 6,
+      plano: 2,
     },
   },
   colonia: {
-    title: "Guerra e tratado na mão de quem está de fora; o dia a dia fica aqui",
+    title: "Guerra e tratado ficam com quem está de fora; o dia a dia fica aqui",
     support:
-      "Navio e assinatura de fora não dependem do nosso caixa. Quando o acordo muda, não tem como dizer não.",
+      "Navio e assinatura de fora não dependem do nosso caixa. Se o acordo mudar, a gente não tem como dizer não.",
     problem: "Navio e assinatura de fora não dependem do nosso caixa.",
-    cost: "Quando o acordo muda, não tem como dizer não.",
+    cost: "Se o acordo mudar, a gente não tem como dizer não.",
     centroid: {
-      escala: 1,
-      fora: -2,
-      quem: 1,
-      prazo: 1,
-      queda: 1,
-      tutela: 2,
+      escala: 3,
+      fora: -4,
+      quem: 2,
+      queda: 2,
+      tutela: 13,
       ordem: 1,
     },
   },
   tribal: {
-    title: "O grupo do sangue e do costume, sem máquina de país",
+    title: "O povoado manda pelo sangue e pelo costume, sem um governo do país",
     support:
-      "O povoado decide. O que for maior que isso é aliança, não um mando único. A regra muda de um lugar para o outro.",
+      "Quem se conhece decide. O que for maior que o povoado é aliança, não um mando só. A regra de um lugar não vale no outro.",
     problem:
-      "O povoado decide. O que for maior que isso é aliança, não um mando único.",
-    cost: "A regra muda de um lugar para o outro.",
+      "Quem se conhece decide. O que for maior que o povoado é aliança, não um mando só.",
+    cost: "A regra de um lugar não vale no outro.",
     centroid: {
-      escala: -2,
-      fora: 1,
+      escala: -5,
+      fora: 3,
       quem: -1,
       prazo: 1,
-      queda: 0,
-      parentesco: 2,
+      tradicao: 2,
+      sagrado: -1,
+      parentesco: 8,
       ordem: 1,
-      cuidado: 1,
+      cuidado: 3,
     },
   },
 };
 
 const NODE_TITLE: Record<NodeId, string> = {
-  unidade: "Onde a decisão fica?",
-  fora: "A última palavra pode ficar com gente de fora?",
-  fonte: "De onde vem o direito de mandar?",
-  confianca: "Quem governa cai se a câmara tirar a confiança?",
-  prazo: "Até quando dura quem manda?",
-  sagrado: "A lei comum pode passar por cima do sagrado?",
-  trabalho: "O trabalho ganha cadeira?",
-  dever: "O que a família no mando deve a quem vive com ela?",
-  fim: "Para que serve mandar?",
-  circulo: "Quem conta no grupo pequeno?",
-  carta: "Quem segura o acordo com quem está de fora?",
+  unidade: "Onde as regras do dia a dia vão ficar?",
+  fora: "Guerra e tratado podem passar para outro país?",
+  fonte: "Quem ganha o direito de mandar?",
+  confianca: "A câmara pode tirar quem governa no meio do caminho?",
+  prazo: "Até quando essa pessoa fica no mando?",
+  sagrado: "A lei do dia a dia pode ir contra o texto sagrado?",
+  trabalho: "Quem trabalha ganha cadeira para escrever a regra?",
+  dever: "A família que manda deve o quê a quem vive com ela?",
+  circulo: "Quem vota no grupo pequeno?",
+  carta: "Quem pode mudar o acordo com quem está de fora?",
+  principios: "Para que servem as primeiras regras?",
+  distribuicao: "Onde o mando fica de verdade?",
+  cidadania: "Quem recebe o papel de membro?",
+  religiao: "O que o caixa e o cargo fazem com a religião?",
+  burocracia: "Quem escreve a lista e cobra o imposto?",
+  exercito: "Quem comanda a tropa de terra?",
+  marinha: "Quem comanda os barcos e o porto?",
+  seguranca: "Quem separa a briga na rua?",
+  justica: "Quem julga uma briga entre duas pessoas?",
+  fim: "Se só pudesse guardar uma coisa, qual seria?",
 };
 
 const NODE_OPTIONS: Record<NodeId, readonly string[]> = {
@@ -337,228 +370,584 @@ const NODE_OPTIONS: Record<NodeId, readonly string[]> = {
   sagrado: ["texto_trava", "texto_aconselha", "culto_miudo"],
   trabalho: ["base_puxa", "dois_lados", "trabalho_nao_senta"],
   dever: ["continuidade", "pao_e_terra", "so_a_forca"],
-  fim: ["continuidade_fim", "cuidado_fim", "plano_fim", "abrigo_fim"],
   circulo: ["anciaos", "leitor_no_circulo", "qualquer_do_vale"],
   carta: ["so_de_fora", "os_dois", "saio_da_carta"],
+  principios: [
+    "pri_continuidade",
+    "pri_cuidado",
+    "pri_plano",
+    "pri_abrigo",
+    "pri_troca",
+  ],
+  distribuicao: ["dist_um", "dist_varias", "dist_lugares", "dist_fora"],
+  cidadania: [
+    "cid_sangue",
+    "cid_morador",
+    "cid_base",
+    "cid_ramo",
+    "cid_texto",
+    "cid_fora",
+  ],
+  religiao: ["rel_acima", "rel_aconselha", "rel_cada", "rel_neutro"],
+  burocracia: [
+    "bur_familia",
+    "bur_prova",
+    "bur_base",
+    "bur_ramo",
+    "bur_fora",
+    "bur_texto",
+    "bur_povo",
+  ],
+  exercito: ["ex_chefe", "ex_camara", "ex_povo", "ex_base", "ex_fora", "ex_ramo"],
+  marinha: ["mar_chefe", "mar_camara", "mar_base", "mar_ramo", "mar_povo", "mar_fora"],
+  seguranca: [
+    "seg_chefe",
+    "seg_povo",
+    "seg_base",
+    "seg_texto",
+    "seg_fora",
+    "seg_ramo",
+    "seg_camara",
+  ],
+  justica: [
+    "ju_costume",
+    "ju_escrita",
+    "ju_camara",
+    "ju_base",
+    "ju_ramo",
+    "ju_texto",
+    "ju_fora",
+  ],
+  fim: ["continuidade_fim", "cuidado_fim", "plano_fim", "abrigo_fim", "camara_fim"],
 };
 
 const COPY: Record<string, Copy> = {
   aldeia: {
     label:
-      "No grupo de quem se conhece pelo nome. O que for maior que isso é aliança, não um mando só.",
+      "Fica no povoado. Cada grupo que se conhece pelo nome faz a própria regra. O que for maior que isso é aliança, não um governo só.",
     problem: "A regra de longe não conhece a vida daqui.",
-    cost: "O povoado ao lado faz outra lei, e quem chegou de fora não tem voz.",
+    cost: "O povoado ao lado pode fazer outra lei, e quem chegou de fora não vota.",
   },
   regiao: {
     label:
-      "Na região. Escola, guarda e parte do imposto ficam perto. O centro só cuida da fronteira.",
-    problem: "O clima e o jeito de falar não são os da capital.",
-    cost: "A região rica pode recusar dividir o que tem.",
+      "Fica na região. Escola, guarda e parte do imposto ficam perto. O centro só cuida da fronteira.",
+    problem: "Quem decide está perto do clima e do jeito de viver da região.",
+    cost: "A região rica pode recusar dividir o que tem com as outras.",
   },
   pais: {
-    label: "No país inteiro. A mesma regra vale na capital e na fronteira.",
+    label: "Fica no país inteiro. A mesma regra vale na capital e na fronteira.",
     problem: "A decisão não muda de um lugar para o outro.",
-    cost: "Um abuso no centro se espalha para todo mundo.",
+    cost: "Um abuso no centro chega em todo mundo.",
   },
   carta_de_fora: {
-    label: "Aceito a troca. Guerra e tratado saem daqui. O dia a dia fica.",
-    problem: "Navio e crédito não dependem do nosso ano ruim.",
-    cost: "Quando o acordo muda, não tem a quem dizer não.",
+    label:
+      "Aceito. Guerra e tratado passam para quem está de fora. Escola, rua e hospital ficam aqui.",
+    problem: "Navio e crédito não dependem de um ano ruim nosso.",
+    cost: "Se o acordo mudar, não tem a quem dizer não.",
   },
   ultima_aqui: {
-    label: "Não. Guerra, moeda e tratado ficam aqui, mesmo mais fracos.",
-    problem: "Ninguém de fora reescreve a regra.",
-    cost: "O navio e o crédito saem do nosso caixa.",
+    label: "Não aceito. Guerra, moeda e tratado ficam aqui, mesmo mais fracos.",
+    problem: "Ninguém de fora reescreve a nossa regra.",
+    cost: "Navio e crédito saem do nosso próprio caixa.",
   },
   voto_contado: {
-    label: "Um voto contado, do país inteiro.",
-    problem: "Quem perde sabe o tamanho da derrota.",
-    cost: "Metade do país obedece a uma maioria de um ano.",
+    label: "Manda quem ganhar o voto do país inteiro. Cada voto é contado.",
+    problem: "Quem perde vê o tamanho da derrota.",
+    cost: "Quase metade do país obedece a uma maioria que pode mudar no ano seguinte.",
   },
   linhagem: {
     label:
-      "Um nome que já vem de antes. A família, ou o costume, aponta o próximo sem eleição.",
-    problem: "O mando não recomeça toda estação.",
-    cost: "Quem nasceu fora dessa família não chega lá.",
+      "Manda um nome que já vem de antes. A família, ou o costume, aponta a próxima pessoa, sem eleição.",
+    problem: "O mando não recomeça do zero toda estação.",
+    cost: "Quem nasceu fora dessa família não chega nesse cargo.",
   },
   leitor_do_texto: {
-    label: "Quem lê a lei sagrada e diz o que ela pede agora.",
+    label: "Manda quem lê a lei sagrada e diz o que ela pede agora.",
     problem: "A regra não fica na mão do medo de um ano.",
-    cost: "Quem não lê o texto não tira quem lê.",
+    cost: "Quem não lê o texto não consegue tirar quem lê.",
   },
   rosto_nomeado: {
     label: "Uma pessoa daqui, colocada e tirada por quem está de fora.",
-    problem: "A rua tem a quem procurar.",
-    cost: "Essa pessoa não diz não ao acordo.",
+    problem: "A rua tem um nome para procurar.",
+    cost: "Essa pessoa não pode dizer não ao acordo de fora.",
   },
   rosto_com_prazo: {
     label:
-      "Uma pessoa daqui, escolhida aqui, com data para sair. O acordo de fora continua valendo por cima.",
+      "Uma pessoa daqui, escolhida aqui, com data para sair. Guerra e tratado continuam com quem está de fora.",
     problem: "O dia a dia troca de chefe sem esperar quem está de fora.",
     cost: "A data daqui não muda a guerra nem o tratado.",
   },
   rosto_camara: {
     label:
-      "A pessoa daqui cai se a câmara tirar a confiança. O acordo continua por cima.",
+      "A pessoa daqui cai se a câmara daqui tirar a confiança. O acordo de fora continua valendo.",
     problem: "A câmara daqui corrige quem cuida da rua.",
-    cost: "O acordo não cai junto.",
+    cost: "O acordo de fora não cai junto com essa pessoa.",
   },
   de_quem_trabalha: {
     label:
-      "De quem trabalha na atividade, não de um voto geral nem de um nome antigo.",
-    problem: "Quem não põe a mão na coisa não escreve a regra dela.",
+      "Manda quem trabalha naquela atividade, não um voto geral nem um nome antigo.",
+    problem: "Quem não põe a mão no trabalho não escreve a regra dele.",
     cost: "Quem está fora da atividade fica sem cadeira.",
   },
   mesmo_sangue: {
     label:
-      "De quem é do mesmo sangue e do mesmo povoado, mesmo que antes a gente tenha dito que o país era um só.",
-    problem: "Quem manda não é um estranho com carimbo.",
-    cost: "O país que se disse inteiro não cabe nessa regra.",
+      "Manda quem é do mesmo sangue e do mesmo povoado, mesmo que antes a gente tenha dito que o país era um só.",
+    problem: "Quem manda é gente do povoado, não um estranho mandado de longe.",
+    cost: "A ideia de um país com uma regra só não cabe mais.",
   },
   cai: {
     label:
-      "Cai. O governo só dura enquanto a câmara confia. Outro nome, saído dessa câmara, segue a obra ou enterra.",
+      "Cai. O governo só dura enquanto a câmara confia. Outra pessoa, saída dessa câmara, continua a obra ou enterra.",
     problem: "Quem perdeu a câmara não fica até o estrago terminar.",
-    cost: "Obra longa não atravessa a briga.",
+    cost: "Uma obra longa pode morrer no meio da briga.",
   },
   fica_ate_a_data: {
     label:
-      "Não cai. Teve uma escolha com data. A pessoa fica até lá. A câmara pode travar a lei, não o cargo.",
-    problem: "O que foi escolhido não morre num pedido da câmara.",
-    cost: "O erro dura até a data.",
+      "Não cai. Houve uma escolha com data. A pessoa fica até lá. A câmara pode travar a lei, mas não tira o cargo.",
+    problem: "O que foi escolhido não acaba num pedido da câmara.",
+    cost: "Se a pessoa errar, o erro fica até a data.",
   },
   a_casa_governa: {
     label:
       "Não tem chefe separado. A própria câmara governa, por um grupo que ela desfaz quando quiser.",
     problem: "Não existe um mando ao lado da câmara, brigando com ela.",
-    cost: "Ninguém responde sozinho quando a obra para.",
+    cost: "Quando a obra para, ninguém responde sozinho.",
   },
   enquanto_confiam: {
     label:
-      "Enquanto a confiança durar. Um grupo pequeno, não o país inteiro, pode trocar o nome.",
-    problem: "A família segue. A pessoa não fica para sempre.",
-    cost: "Esse grupo pequeno vira o cargo de verdade.",
+      "Dura enquanto um grupo pequeno confiar. Esse grupo, não o país inteiro, pode trocar a pessoa.",
+    problem: "A família continua. A pessoa não fica para sempre.",
+    cost: "Esse grupo pequeno vira quem manda de verdade.",
   },
   prazo_marcado: {
-    label: "Um prazo marcado, e depois sai. O próximo pode ser de outra família.",
-    problem: "Dá para contar quando acaba.",
+    label: "Um prazo marcado, e depois sai. A próxima pessoa pode ser de outra família.",
+    problem: "Dá para saber o dia em que acaba.",
     cost: "Uma obra de vinte anos não cabe num prazo curto. Quem espera herdar não constrói.",
   },
   vida_ou_linha: {
-    label: "A vida inteira, e depois quem a família já aponta.",
-    problem: "O desenho continua depois de quem está vivo.",
+    label: "Fica a vida inteira. Depois entra quem a família já apontou.",
+    problem: "O arranjo continua depois da morte de quem está no cargo.",
     cost: "Uma geração inteira não escolhe de novo.",
   },
   cadeira_do_ramo: {
-    label: "A cadeira não é de uma pessoa. Dura enquanto o ramo existir.",
-    problem: "O ramo não depende de quem herda.",
-    cost: "O ramo que sentou não sai quando o país muda de ideia.",
+    label: "A cadeira não é de uma pessoa. Ela dura enquanto o ramo de trabalho existir.",
+    problem: "O ramo não depende de quem herda o cargo.",
+    cost: "O ramo que já sentou não sai quando o país muda de ideia.",
   },
   texto_trava: {
-    label: "A lei comum cede. Quem guarda o texto trava a mudança.",
+    label: "A lei do dia a dia cede. Quem guarda o texto sagrado trava a mudança.",
     problem: "Um susto não apaga o que foi posto acima da maioria.",
-    cost: "Quem interpreta vira o cargo, e o texto não envelhece em público.",
+    cost: "Quem interpreta o texto vira quem manda, e o texto não é revisto em público.",
   },
   texto_aconselha: {
     label:
-      "O texto aconselha. Se a câmara, ou o grupo, insistir, a lei comum passa.",
+      "O texto só aconselha. Se a câmara, ou o grupo, insistir, a lei do dia a dia passa.",
     problem: "O culto não congela o país.",
-    cost: "O que era chão vira opinião.",
+    cost: "O que era regra vira opinião.",
   },
   culto_miudo: {
     label:
-      "Cada grupo guarda o próprio culto. Não tem um texto só para o país inteiro.",
-    problem: "O povoado não reza a regra do vizinho.",
-    cost: "Não existe um chão comum quando os grupos se encontram.",
+      "Cada grupo guarda o próprio culto. Não existe um texto só para o país inteiro.",
+    problem: "O povoado não segue a regra religiosa do vizinho.",
+    cost: "Quando os grupos se encontram, não há uma regra comum.",
   },
   base_puxa: {
     label:
-      "Conselho de quem trabalha. O delegado volta quando a base puxa. Quem só é dono não tem cadeira própria.",
-    problem: "O plano sai de quem faz, não de um gabinete que nunca foi ao porto.",
-    cost: "A minoria do ramo não senta, e o plano pequeno trava a obra.",
+      "Conselho de quem trabalha. O representante volta quando a base puxa. Quem só é dono não tem cadeira própria.",
+    problem: "O plano sai de quem faz o trabalho, não de um gabinete que nunca foi ao porto.",
+    cost: "Quem é minoria no ramo não senta, e um grupo pequeno pode travar a obra.",
   },
   dois_lados: {
     label:
-      "Banca do ramo, os dois lados. Quem emprega e quem trabalha sentam juntos. A cadeira dura com o ramo. Alguém acima coordena para os ramos não se quebrarem.",
+      "Mesa do ramo, os dois lados. Quem emprega e quem trabalha sentam juntos. A cadeira dura com o ramo. Alguém acima segura para os ramos não se quebrarem.",
     problem: "A briga do ramo tem uma mesa, não uma guerra.",
-    cost: "O ramo vira feudo, e quem está de fora da banca não entra.",
+    cost: "O ramo pode fechar a porta, e quem está de fora da mesa não entra.",
   },
   trabalho_nao_senta: {
     label:
-      "O trabalho não dá cadeira. Cadeira vem do voto, da família ou do acordo. O ramo fala como qualquer um.",
+      "O trabalho não dá cadeira. Cadeira vem do voto, da família ou do acordo. O ramo fala como qualquer outra pessoa.",
     problem: "O ramo não vira um segundo país.",
-    cost: "Quem faz a coisa obedece a quem nunca fez.",
+    cost: "Quem faz o trabalho obedece a quem nunca fez.",
   },
   continuidade: {
     label:
-      "Deve continuar. A lei antiga e a família. Comida é consequência, não a razão do cargo.",
-    problem: "O desenho não se rende a um ano ruim.",
+      "Deve continuar a família e a regra antiga. Comida pode vir depois, mas não é a razão do cargo.",
+    problem: "O arranjo não cai por causa de um ano ruim.",
     cost: "A fome não tira quem manda.",
   },
   pao_e_terra: {
     label:
-      "Deve comida, terra e teto. Se o cuidado não chega, o próprio costume cobra o nome. A família fica; a pessoa pode ser trocada por outra da mesma família.",
+      "Deve comida, terra e teto. Se isso não chega, o costume troca a pessoa por outra da mesma família. A família fica.",
     problem: "O cargo se explica pelo que chega na mesa.",
     cost: "O cuidado vira favor de quem consegue falar com a família.",
   },
   so_a_forca: {
-    label: "Não deve explicação. Segura quem conseguir segurar.",
+    label: "Não deve explicação. Fica no mando quem conseguir segurar.",
     problem: "A decisão não espera um julgamento do costume.",
-    cost: "Não tem cobrança interna quando o mando erra. Só a ruptura.",
+    cost: "Quando erra, não há cobrança por dentro. Só a ruptura.",
   },
   continuidade_fim: {
-    label: "Que o amanhã pareça com o que já se sustentou.",
+    label: "Guardar o que já se sustentou, para o amanhã parecer com isso.",
     problem: "O país, ou o grupo, não se reinventa a cada susto.",
-    cost: "O que já não cabe continua de pé.",
+    cost: "O que já não serve continua de pé.",
   },
   cuidado_fim: {
-    label: "Que comida, terra e teto cheguem a quem está embaixo.",
-    problem: "A regra se mede na mesa, não só no carimbo.",
-    cost: "Quem distribui escolhe o favorecido.",
+    label: "Guardar comida, terra e teto para quem está embaixo.",
+    problem: "A regra se mede na mesa, não só no papel.",
+    cost: "Quem distribui escolhe quem vai ser favorecido.",
   },
   plano_fim: {
-    label: "Que quem produz dirija o plano, e não um dono ou um gabinete longe.",
-    problem: "A meta sai do chão do trabalho.",
+    label:
+      "Guardar o plano na mão de quem produz, não de um dono nem de um gabinete longe.",
+    problem: "A meta sai de quem faz o trabalho.",
     cost: "Quem não está na atividade não vota o plano.",
   },
   abrigo_fim: {
     label:
-      "Que a guerra e o mercado não engulam a gente, mesmo se a assinatura for de fora.",
+      "Guardar a gente da guerra e do mercado, mesmo se a assinatura for de fora.",
     problem: "Sobreviver pesa mais do que escrever o tratado sozinho.",
     cost: "A razão de mandar deixa de ser daqui.",
   },
   anciaos: {
-    label: "Contam os mais velhos do sangue. Quem chegou depois ouve, não decide.",
-    problem: "A memória do poço está em quem já viveu outros anos difíceis.",
-    cost: "Quem é novo não decide, mesmo se o poço for a água dele.",
+    label: "Votam os mais velhos do sangue. Quem chegou depois ouve, mas não decide.",
+    problem: "A memória do poço fica com quem já viveu outros anos difíceis.",
+    cost: "Quem é novo não decide, mesmo se a água do poço for dele.",
   },
   leitor_no_circulo: {
-    label: "Conta quem lê o texto sagrado do grupo, mesmo sem ser do sangue.",
-    problem: "O costume ganha um chão que não é só a família.",
-    cost: "Quem lê vem de fora do sangue e pode não sair.",
+    label: "Vota quem lê o texto sagrado do grupo, mesmo sem ser do sangue.",
+    problem: "O costume ganha uma base que não é só a família.",
+    cost: "Quem lê pode vir de fora do sangue e não sair mais.",
   },
   qualquer_do_vale: {
     label:
-      "Conta quem vive no lugar agora, com ou sem o mesmo sangue. O mais velho fala primeiro, não fala sozinho.",
-    problem: "Quem bebe a água tem voz.",
-    cost: "Um ano de gente nova muda a regra do poço.",
+      "Vota quem vive no lugar agora, com ou sem o mesmo sangue. O mais velho fala primeiro, mas não fala sozinho.",
+    problem: "Quem bebe a água tem voto.",
+    cost: "Um ano de gente nova pode mudar a regra do poço.",
   },
   so_de_fora: {
-    label: "Só quem está de fora. A câmara daqui cuida da rua e não mexe no acordo.",
-    problem: "O navio não fica refém de uma briga local.",
-    cost: "A taxa do porto muda sem o nosso carimbo.",
+    label:
+      "Só quem está de fora muda o acordo. A câmara daqui cuida da rua e não mexe nisso.",
+    problem: "O navio não fica parado por uma briga local.",
+    cost: "A taxa do porto muda sem a nossa assinatura.",
   },
   os_dois: {
     label:
       "Os dois lados. Guerra e tratado só mudam se os dois assinarem. O dia a dia é daqui.",
     problem: "Não tem surpresa no acordo, nem bloqueio local no navio.",
-    cost: "O impasse não tem dono. O porto espera.",
+    cost: "Se os dois não concordarem, ninguém resolve. O porto espera.",
   },
   saio_da_carta: {
     label:
-      "O acordo era um empréstimo. Nesse caso eu rasgo e fico com a última palavra, mesmo sem o navio.",
+      "O acordo era emprestado. Eu rasgo e fico com a última palavra, mesmo perdendo o navio.",
     problem: "A assinatura volta para cá.",
     cost: "A oferta de fora acaba no dia seguinte.",
+  },
+  pri_continuidade: {
+    label:
+      "Servem para o mando e a regra não trocarem de família a cada susto. Comida e voto podem vir depois.",
+    problem: "O arranjo de amanhã parece com o de hoje.",
+    cost: "Quem quer mudar a regra espera uma geração.",
+  },
+  pri_cuidado: {
+    label:
+      "Servem para comida, terra e teto chegarem em quem está embaixo, antes de qualquer outro fim.",
+    problem: "A regra se mede na mesa.",
+    cost: "Quem distribui escolhe quem vai ser favorecido.",
+  },
+  pri_plano: {
+    label:
+      "Servem para o plano de trabalho sair de quem produz, não de um gabinete longe do porto.",
+    problem: "A meta sai de quem faz o trabalho.",
+    cost: "Quem não está na atividade não vota o plano.",
+  },
+  pri_abrigo: {
+    label:
+      "Servem para o país não enfrentar guerra e mercado sozinho, mesmo se a assinatura for de fora.",
+    problem: "Sobreviver pesa mais do que escrever o tratado sozinho.",
+    cost: "Parte da razão de mandar deixa de ser daqui.",
+  },
+  pri_troca: {
+    label:
+      "Servem para a câmara trocar quem governa quando deixa de confiar, sem esperar uma data marcada.",
+    problem: "Quem perdeu a câmara não fica até o estrago terminar.",
+    cost: "Uma obra longa pode morrer no meio da briga.",
+  },
+  dist_um: {
+    label:
+      "Fica numa pessoa só. A câmara pode travar a lei, mas não divide o cargo com essa pessoa.",
+    problem: "Tem um nome para procurar quando a decisão trava.",
+    cost: "Se essa pessoa errar, o erro vale no país inteiro.",
+  },
+  dist_varias: {
+    label:
+      "Fica repartido. Nenhuma pessoa segura o cargo sozinha, e a câmara pode tirar quem governa.",
+    problem: "Um erro não fica preso numa pessoa até o fim do prazo.",
+    cost: "Quando ninguém responde sozinho, a obra para no meio.",
+  },
+  dist_lugares: {
+    label: "Fica em cada povoado. O que houver de capital não manda na regra da praça.",
+    problem: "Quem conhece o poço decide o poço.",
+    cost: "A regra de um lugar não vale no outro.",
+  },
+  dist_fora: {
+    label:
+      "Guerra, tratado e a última palavra ficam com quem está de fora. O dia a dia da rua fica aqui.",
+    problem: "Navio e assinatura não dependem do nosso caixa.",
+    cost: "Se o acordo mudar, a gente não tem como dizer não.",
+  },
+  cid_sangue: {
+    label:
+      "Quem nasce na família e no povoado que já estavam aqui. Quem chegou depois mora, mas não vota nem herda cargo.",
+    problem: "O mando não passa para quem acabou de chegar.",
+    cost: "Quem nasceu fora dessa família pode viver a vida inteira sem voto.",
+  },
+  cid_morador: {
+    label:
+      "Quem mora aqui e entra na lista. O voto é contado, sem pedir sangue nem ramo de trabalho.",
+    problem: "Quem vive aqui tem o mesmo papel na hora de votar.",
+    cost: "Um ano de gente nova pode mudar quem manda.",
+  },
+  cid_base: {
+    label:
+      "Quem trabalha na base e senta no conselho do próprio ramo. Quem não trabalha nessa atividade não recebe o papel.",
+    problem: "O papel sai do trabalho, não do nascimento.",
+    cost: "Quem está sem essa atividade fica sem voto e sem cadeira.",
+  },
+  cid_ramo: {
+    label:
+      "Quem pertence a um ramo de trabalho, patrão ou empregado. Quem está fora do ramo não recebe o papel.",
+    problem: "A cadeira segue o ofício, não a família.",
+    cost: "O ramo pode fechar a porta para quem não é do ofício.",
+  },
+  cid_texto: {
+    label:
+      "Quem aceita a lei sagrada e obedece a quem a lê. Sem isso, a pessoa mora aqui, mas não vota nem ocupa cargo.",
+    problem: "O papel segue o texto, não o nascimento.",
+    cost: "Quem não segue o texto fica fora da decisão.",
+  },
+  cid_fora: {
+    label:
+      "Quem está de fora confirma o papel. A lista daqui não basta para votar nem para ocupar cargo.",
+    problem: "A lista não muda sem a assinatura de fora.",
+    cost: "A gente daqui não decide sozinha quem é membro.",
+  },
+  rel_acima: {
+    label:
+      "O culto entra no governo. O caixa paga o culto, e quem lê o texto senta junto de quem manda.",
+    problem: "A religião não fica só na casa de quem crê.",
+    cost: "Quem não segue esse culto paga o caixa e obedece mesmo assim.",
+  },
+  rel_aconselha: {
+    label:
+      "O culto aconselha, sem cadeira e sem dinheiro do caixa. A lei segue sem a assinatura de quem lê o texto.",
+    problem: "O culto não congela a regra nem o caixa.",
+    cost: "Quem guarda o texto não trava a mudança.",
+  },
+  rel_cada: {
+    label:
+      "Cada povoado guarda o próprio culto, com o próprio caixa. Não existe um culto pago pelo país.",
+    problem: "O povoado não paga o culto do vizinho.",
+    cost: "Quando os grupos se encontram, não há um culto comum.",
+  },
+  rel_neutro: {
+    label:
+      "O caixa não paga culto nenhum, e o cargo não pergunta a religião de quem senta.",
+    problem: "O cargo não escolhe pela fé.",
+    cost: "O culto que precisa de dinheiro do caixa não recebe.",
+  },
+  bur_familia: {
+    label:
+      "Senta alguém da família que já manda. O cargo passa com o nome, sem prova aberta a quem quiser.",
+    problem: "O papel não muda de mão a cada ano.",
+    cost: "Quem nasceu fora dessa família não chega nesse cargo.",
+  },
+  bur_prova: {
+    label:
+      "Senta quem passa numa prova igual para todo mundo. A família e o voto não escolhem o nome.",
+    problem: "O cargo não é herança nem favor.",
+    cost: "Quem não passou na prova não entra, mesmo se a praça confiar nessa pessoa.",
+  },
+  bur_base: {
+    label:
+      "Senta alguém mandado pela base de quem trabalha. A base pode puxar essa pessoa de volta no meio da cobrança.",
+    problem: "O papel do imposto sai de quem faz o trabalho.",
+    cost: "A base pode trocar a pessoa no meio da cobrança.",
+  },
+  bur_ramo: {
+    label:
+      "Senta alguém do próprio ramo. O porto cobra o porto, e a lavoura cobra a lavoura.",
+    problem: "Quem cobra conhece o ofício.",
+    cost: "O ramo cobra a si mesmo, e quem está fora não entra na conta.",
+  },
+  bur_fora: {
+    label:
+      "Senta alguém colocado por quem está de fora. A lista daqui não escolhe esse nome.",
+    problem: "A cobrança não para numa briga local.",
+    cost: "Essa pessoa não responde à praça daqui.",
+  },
+  bur_texto: {
+    label:
+      "Senta quem lê a lei sagrada. Essa pessoa aplica o texto na cobrança e no papel.",
+    problem: "A lista segue o texto, não o favor.",
+    cost: "Quem não lê o texto não chega nesse cargo.",
+  },
+  bur_povo: {
+    label:
+      "Senta alguém do sangue do povoado, escolhido na praça. Não é prova de longe nem família de uma capital.",
+    problem: "O livro da praça fica com quem já vive ali.",
+    cost: "Quem chegou depois não escreve nem cobra.",
+  },
+  ex_chefe: {
+    label:
+      "Uma pessoa só, a mesma que governa. A tropa obedece a esse nome, não à câmara.",
+    problem: "A ordem de guerra não se divide no meio do caminho.",
+    cost: "Se essa pessoa errar, a tropa inteira erra com ela.",
+  },
+  ex_camara: {
+    label:
+      "A câmara. A tropa só sai se a câmara mandar, e a câmara pode chamar a tropa de volta.",
+    problem: "A guerra não fica na mão de uma pessoa só.",
+    cost: "A câmara pode travar a saída no meio da briga.",
+  },
+  ex_povo: {
+    label: "Cada povoado manda a própria turma. Não existe uma tropa do país inteiro.",
+    problem: "Quem luta conhece o lugar.",
+    cost: "O povoado ao lado pode não vir quando a guerra chegar aqui.",
+  },
+  ex_base: {
+    label:
+      "O conselho de quem trabalha. A tropa obedece a esse conselho, e a base pode trocar o comando.",
+    problem: "A ordem de guerra sai de quem produz, não de um gabinete.",
+    cost: "A base pode trocar o comando no meio da campanha.",
+  },
+  ex_fora: {
+    label:
+      "Quem está de fora. A tropa daqui não decide sozinha quando sai nem contra quem.",
+    problem: "A arma não sai do nosso caixa.",
+    cost: "A tropa pode ir para uma guerra que a praça não escolheu.",
+  },
+  ex_ramo: {
+    label:
+      "O ramo de quem faz arma e estrada, com alguém acima dos ramos. A tropa não é de uma família só.",
+    problem: "Quem equipa a tropa senta na ordem.",
+    cost: "O ramo de arma ganha voz que os outros ramos não têm.",
+  },
+  mar_chefe: {
+    label: "A mesma pessoa que governa. Porto e barco obedecem a esse nome.",
+    problem: "Barco e terra não recebem duas ordens diferentes.",
+    cost: "Um erro nessa pessoa para o porto inteiro.",
+  },
+  mar_camara: {
+    label:
+      "A câmara. Barco nenhum sai sem o voto dela, e ela pode chamar o barco de volta.",
+    problem: "O porto não fica na mão de uma pessoa só.",
+    cost: "Uma briga na câmara deixa o barco parado.",
+  },
+  mar_base: {
+    label:
+      "O conselho de quem trabalha no porto. Esse conselho manda no barco e pode trocar o comando.",
+    problem: "A ordem sai de quem carrega e navega.",
+    cost: "Um grupo pequeno no porto pode travar o barco.",
+  },
+  mar_ramo: {
+    label:
+      "O ramo do porto e do estaleiro, patrão e empregado na mesma mesa, com alguém acima.",
+    problem: "Quem constrói o barco senta na ordem.",
+    cost: "O ramo do porto pode fechar o cais para os outros.",
+  },
+  mar_povo: {
+    label: "Cada povoado manda os próprios barcos. Não existe uma frota do país.",
+    problem: "O barco fica com quem conhece o rio.",
+    cost: "Não há frota comum quando a guerra chega pela água.",
+  },
+  mar_fora: {
+    label:
+      "Quem está de fora. O barco grande e a guarda do porto obedecem a essa assinatura.",
+    problem: "O barco grande não depende do nosso caixa.",
+    cost: "O porto pode fechar por uma ordem que a gente daqui não deu.",
+  },
+  seg_chefe: {
+    label: "A mesma pessoa que governa. A guarda da rua obedece a esse nome.",
+    problem: "A ordem da rua não briga com a ordem do cargo.",
+    cost: "Essa pessoa pode usar a guarda contra quem reclama dela.",
+  },
+  seg_povo: {
+    label: "A própria praça do povoado. A guarda é de quem mora ali, não de uma capital.",
+    problem: "Quem vigia conhece a rua.",
+    cost: "A guarda de um povoado não entra no outro.",
+  },
+  seg_base: {
+    label:
+      "O conselho de quem trabalha. A guarda obedece a esse conselho, e a base pode trocar quem comanda.",
+    problem: "A guarda não fica num gabinete longe do trabalho.",
+    cost: "A base pode puxar a guarda no meio de uma prisão.",
+  },
+  seg_texto: {
+    label: "Quem lê a lei sagrada. A guarda prende o que o texto manda prender.",
+    problem: "A prisão segue o texto, não o favor.",
+    cost: "Quem interpreta o texto decide quem é preso.",
+  },
+  seg_fora: {
+    label: "Quem está de fora. A guarda da rua obedece a essa assinatura.",
+    problem: "A arma da rua não sai do nosso caixa.",
+    cost: "A prisão pode seguir uma ordem que a praça não deu.",
+  },
+  seg_ramo: {
+    label:
+      "O ramo de cada ofício vigia o próprio ramo. A lavoura vigia a lavoura, e o porto vigia o porto.",
+    problem: "Quem vigia conhece o ofício.",
+    cost: "O ramo pode proteger os seus e fechar a porta.",
+  },
+  seg_camara: {
+    label: "A câmara. A guarda só age com ordem dela, e ela pode tirar o comando.",
+    problem: "A prisão não fica na mão de uma pessoa só.",
+    cost: "A câmara pode travar a guarda no meio da briga.",
+  },
+  ju_costume: {
+    label:
+      "Os mais velhos, pelo costume. Não tem papel escrito acima do que a praça já faz.",
+    problem: "O julgamento conhece a vida daqui.",
+    cost: "Quem chegou depois não conhece o costume que decide a briga.",
+  },
+  ju_escrita: {
+    label:
+      "Uma pessoa com a lei escrita, no cargo até a data marcada. A câmara não muda a sentença no meio.",
+    problem: "A sentença não muda com o humor da câmara.",
+    cost: "Se a lei escrita errar, o erro vale até a data.",
+  },
+  ju_camara: {
+    label:
+      "A câmara, ou um grupo que ela escolhe e pode desfazer. A sentença cai se a câmara tirar a confiança.",
+    problem: "O julgamento não fica numa pessoa só.",
+    cost: "A sentença pode mudar no meio da briga da câmara.",
+  },
+  ju_base: {
+    label:
+      "O conselho de quem trabalha no ramo da briga. A base pode trocar quem julga.",
+    problem: "Quem julga conhece o trabalho.",
+    cost: "Quem não é da base não entra nesse julgamento.",
+  },
+  ju_ramo: {
+    label:
+      "A mesa do ramo, patrão e empregado juntos, com alguém acima para os ramos não se quebrarem.",
+    problem: "A briga do ofício tem mesa, não guerra.",
+    cost: "O ramo julga os seus, e quem está fora da mesa não entra.",
+  },
+  ju_texto: {
+    label: "Quem lê a lei sagrada. A sentença tem de caber no texto.",
+    problem: "A sentença não muda com o susto do ano.",
+    cost: "Quem interpreta o texto decide a briga.",
+  },
+  ju_fora: {
+    label:
+      "Quem está de fora, ou alguém que essa assinatura coloca. A sentença daqui não vale sozinha.",
+    problem: "A briga grande não para por falta de juiz daqui.",
+    cost: "A sentença pode vir de quem não vive a briga.",
+  },
+  camara_fim: {
+    label: "Guardar o poder da câmara de trocar quem governa no meio do caminho.",
+    problem: "Quem perdeu a câmara não fica até o estrago terminar.",
+    cost: "Uma obra longa pode morrer no meio da briga.",
   },
 };
 
@@ -810,6 +1199,205 @@ function effects(choiceId: string, ctx: Ctx): { params: Delta; mole: Mole } {
         params: { tutela: -2, fora: 2 },
         mole: { colonia: -2 },
       };
+    case "pri_continuidade":
+      return {
+        params: { ordem: 1, tradicao: 1 },
+        mole: { monarquista: 1, teocrata: 1, corporacao: 1 },
+      };
+    case "pri_cuidado":
+      return {
+        params: { cuidado: 1 },
+        mole: { monarquia_social: 1, tribal: 1 },
+      };
+    case "pri_plano":
+      return {
+        params: { plano: 1, conselho: 1 },
+        mole: { sovietica: 1 },
+      };
+    case "pri_abrigo":
+      return { params: { tutela: 1 }, mole: { colonia: 1 } };
+    case "pri_troca":
+      return {
+        params: { voto: 1, queda: -1 },
+        mole: { parlamentarista: 1 },
+      };
+    case "dist_um":
+      return {
+        params: { quem: 1, escala: 1 },
+        mole: { monarquista: 1, monarquia_social: 1, presidencialista: 1 },
+      };
+    case "dist_varias":
+      return {
+        params: { quem: -1, queda: -1 },
+        mole: { parlamentarista: 1, sovietica: 1 },
+      };
+    case "dist_lugares":
+      return { params: { escala: -1 }, mole: { tribal: 1 } };
+    case "dist_fora":
+      return {
+        params: { tutela: 1, fora: -1 },
+        mole: { colonia: 1 },
+      };
+    case "cid_sangue":
+      return {
+        params: { parentesco: 1, tradicao: 1 },
+        mole: { monarquista: 1, monarquia_social: 1, tribal: 1 },
+      };
+    case "cid_morador":
+      return {
+        params: { voto: 1 },
+        mole: { presidencialista: 1, parlamentarista: 1 },
+      };
+    case "cid_base":
+      return {
+        params: { conselho: 1, plano: 1 },
+        mole: { sovietica: 1 },
+      };
+    case "cid_ramo":
+      return { params: { oficio: 1 }, mole: { corporacao: 1 } };
+    case "cid_texto":
+      return { params: { sagrado: 1 }, mole: { teocrata: 1 } };
+    case "cid_fora":
+      return { params: { tutela: 1 }, mole: { colonia: 1 } };
+    case "rel_acima":
+      return {
+        params: { sagrado: 1, ordem: 1 },
+        mole: { teocrata: 2 },
+      };
+    case "rel_aconselha":
+      return { params: { sagrado: -1 }, mole: { teocrata: -1 } };
+    case "rel_cada":
+      return {
+        params: { sagrado: -1, escala: -1 },
+        mole: { tribal: 1 },
+      };
+    case "rel_neutro":
+      return { params: {}, mole: { teocrata: -1 } };
+    case "bur_familia":
+      return {
+        params: { tradicao: 1, quem: 1 },
+        mole: { monarquista: 1, monarquia_social: 1 },
+      };
+    case "bur_prova":
+      return {
+        params: { ordem: 1, voto: 1 },
+        mole: { presidencialista: 1, parlamentarista: 1 },
+      };
+    case "bur_base":
+      return {
+        params: { conselho: 1, prazo: -1 },
+        mole: { sovietica: 1 },
+      };
+    case "bur_ramo":
+      return { params: { oficio: 1 }, mole: { corporacao: 1 } };
+    case "bur_fora":
+      return { params: { tutela: 1 }, mole: { colonia: 1 } };
+    case "bur_texto":
+      return { params: { sagrado: 1 }, mole: { teocrata: 1 } };
+    case "bur_povo":
+      return { params: { parentesco: 1 }, mole: { tribal: 1 } };
+    case "ex_chefe":
+      return {
+        params: { quem: 1, ordem: 1 },
+        mole: { monarquista: 1, monarquia_social: 1, presidencialista: 1, teocrata: 1 },
+      };
+    case "ex_camara":
+      return {
+        params: { quem: -1, queda: -1 },
+        mole: { parlamentarista: 1 },
+      };
+    case "ex_povo":
+      return { params: {}, mole: { tribal: 1 } };
+    case "ex_base":
+      return {
+        params: { conselho: 1, prazo: -1 },
+        mole: { sovietica: 1 },
+      };
+    case "ex_fora":
+      return { params: { tutela: 1 }, mole: { colonia: 1 } };
+    case "ex_ramo":
+      return {
+        params: { oficio: 1, ordem: 1 },
+        mole: { corporacao: 1 },
+      };
+    case "mar_chefe":
+      return {
+        params: { quem: 1, ordem: 1 },
+        mole: { monarquista: 1, monarquia_social: 1, presidencialista: 1, teocrata: 1 },
+      };
+    case "mar_camara":
+      return {
+        params: { quem: -1, queda: -1 },
+        mole: { parlamentarista: 1 },
+      };
+    case "mar_base":
+      return {
+        params: { conselho: 1, prazo: -1 },
+        mole: { sovietica: 1 },
+      };
+    case "mar_ramo":
+      return {
+        params: { oficio: 1, ordem: 1 },
+        mole: { corporacao: 1 },
+      };
+    case "mar_povo":
+      return { params: {}, mole: { tribal: 1 } };
+    case "mar_fora":
+      return { params: { tutela: 1 }, mole: { colonia: 1 } };
+    case "seg_chefe":
+      return {
+        params: { quem: 1, ordem: 1 },
+        mole: { monarquista: 1, monarquia_social: 1, presidencialista: 1, teocrata: 1 },
+      };
+    case "seg_povo":
+      return { params: { parentesco: 1 }, mole: { tribal: 1 } };
+    case "seg_base":
+      return {
+        params: { conselho: 1, prazo: -1 },
+        mole: { sovietica: 1 },
+      };
+    case "seg_texto":
+      return { params: { sagrado: 1 }, mole: { teocrata: 1 } };
+    case "seg_fora":
+      return { params: { tutela: 1 }, mole: { colonia: 1 } };
+    case "seg_ramo":
+      return { params: { oficio: 1 }, mole: { corporacao: 1 } };
+    case "seg_camara":
+      return {
+        params: { quem: -1, queda: -1 },
+        mole: { parlamentarista: 1 },
+      };
+    case "ju_costume":
+      return {
+        params: { tradicao: 1 },
+        mole: { monarquista: 1, monarquia_social: 1, tribal: 1 },
+      };
+    case "ju_escrita":
+      return {
+        params: { ordem: 1, queda: 1 },
+        mole: { presidencialista: 1 },
+      };
+    case "ju_camara":
+      return {
+        params: { quem: -1, queda: -1 },
+        mole: { parlamentarista: 1 },
+      };
+    case "ju_base":
+      return {
+        params: { conselho: 1, prazo: -1 },
+        mole: { sovietica: 1 },
+      };
+    case "ju_ramo":
+      return { params: { oficio: 1 }, mole: { corporacao: 1 } };
+    case "ju_texto":
+      return { params: { sagrado: 1 }, mole: { teocrata: 1 } };
+    case "ju_fora":
+      return { params: { tutela: 1 }, mole: { colonia: 1 } };
+    case "camara_fim":
+      return {
+        params: { queda: -1, voto: 1 },
+        mole: { parlamentarista: 1 },
+      };
     default:
       throw new Error(`Unknown flowchart choice: ${choiceId}`);
   }
@@ -826,13 +1414,13 @@ function nextNode(choiceId: string, stepsAfter: readonly Step[]): NodeId | null 
       return "fora";
     case "anciaos":
     case "qualquer_do_vale":
-      return visited("fora") ? "fim" : "fora";
+      return visited("fora") ? "principios" : "fora";
     case "leitor_no_circulo":
       return "sagrado";
     case "carta_de_fora":
       return "carta";
     case "ultima_aqui":
-      return answered("aldeia") ? "fim" : "fonte";
+      return answered("aldeia") ? "principios" : "fonte";
     case "so_de_fora":
     case "os_dois":
     case "saio_da_carta":
@@ -859,76 +1447,173 @@ function nextNode(choiceId: string, stepsAfter: readonly Step[]): NodeId | null 
     case "enquanto_confiam":
     case "prazo_marcado":
     case "cadeira_do_ramo":
-      return visited("trabalho") ? "fim" : "trabalho";
+      return visited("trabalho") ? "principios" : "trabalho";
     case "vida_ou_linha":
       return "dever";
     case "texto_trava":
     case "base_puxa":
     case "trabalho_nao_senta":
-      return "fim";
+      return "principios";
     case "continuidade_fim":
     case "cuidado_fim":
     case "plano_fim":
     case "abrigo_fim":
+    case "camara_fim":
       return null;
     case "texto_aconselha":
     case "culto_miudo":
-      return answered("leitor_do_texto") ? "confianca" : "fim";
+      return answered("leitor_do_texto") ? "confianca" : "principios";
     case "dois_lados":
-      return visited("prazo") ? "fim" : "prazo";
+      return visited("prazo") ? "principios" : "prazo";
+    case "pri_continuidade":
+    case "pri_cuidado":
+    case "pri_plano":
+    case "pri_abrigo":
+    case "pri_troca":
+      return "distribuicao";
+    case "dist_um":
+    case "dist_varias":
+    case "dist_lugares":
+    case "dist_fora":
+      return "cidadania";
+    case "cid_sangue":
+    case "cid_morador":
+    case "cid_base":
+    case "cid_ramo":
+    case "cid_texto":
+    case "cid_fora":
+      return "religiao";
+    case "rel_acima":
+    case "rel_aconselha":
+    case "rel_cada":
+    case "rel_neutro":
+      return "burocracia";
+    case "bur_familia":
+    case "bur_prova":
+    case "bur_base":
+    case "bur_ramo":
+    case "bur_fora":
+    case "bur_texto":
+    case "bur_povo":
+      return "exercito";
+    case "ex_chefe":
+    case "ex_camara":
+    case "ex_povo":
+    case "ex_base":
+    case "ex_fora":
+    case "ex_ramo":
+      return "marinha";
+    case "mar_chefe":
+    case "mar_camara":
+    case "mar_base":
+    case "mar_ramo":
+    case "mar_povo":
+    case "mar_fora":
+      return "seguranca";
+    case "seg_chefe":
+    case "seg_povo":
+    case "seg_base":
+    case "seg_texto":
+    case "seg_fora":
+    case "seg_ramo":
+    case "seg_camara":
+      return "justica";
+    case "ju_costume":
+    case "ju_escrita":
+    case "ju_camara":
+    case "ju_base":
+    case "ju_ramo":
+    case "ju_texto":
+    case "ju_fora":
+      return "fim";
     default:
       return null;
   }
 }
 
-function labelFor(choiceId: string, ctx: Ctx): string {
+function playerCopy(choiceId: string, ctx: Ctx): Copy {
   if (choiceId === "ultima_aqui" && ctx.speechFora === "aldeia") {
-    return "Não. Aliança só com quem senta no grupo.";
+    return {
+      label:
+        "Não aceito. A guarda de fora não entra. O povoado continua só com quem já senta na praça.",
+      problem: "Ninguém de fora passa a mandar na praça.",
+      cost: "Sem essa guarda, o povoado enfrenta a guerra sozinho.",
+    };
   }
-  return COPY[choiceId].label;
+  return COPY[choiceId];
+}
+
+function labelFor(choiceId: string, ctx: Ctx): string {
+  return playerCopy(choiceId, ctx).label;
 }
 
 function bodyFor(node: NodeId, ctx: Ctx, countryName: string): string {
   const name = sanitizeCountryName(countryName);
   switch (node) {
     case "unidade":
-      return `${name} ainda está nascendo, numa costa que não tinha país. Tem povoado que só obedece a quem se conhece, região com caixa próprio, e gente que quer a mesma regra do porto até o interior. Onde a decisão fica de verdade?`;
+      return `${name} ainda não tem capital nem lei antiga. Tem povoado que só obedece a quem se conhece pelo nome, região com caixa e escola próprios, e gente que quer a mesma regra do porto até o interior. Onde as decisões do dia a dia vão ficar?`;
     case "fora":
       return ctx.speechFora === "aldeia"
-        ? `Em ${name}, o povoado não aguenta uma guerra longa. Um poder de fora oferece guarda. A praça continuaria de quem já senta nela.`
-        : `Um vizinho oferece navio, moeda estável e um acordo. Em troca, guerra, alfândega e a assinatura de fora passam para lá. Escola, rua e hospital podem ficar em ${name}.`;
+        ? `Em ${name}, o povoado não aguenta uma guerra longa. Um poder de fora oferece guarda e arma. Em troca, essa guarda fica na praça. A vida do povoado continuaria com quem já mora ali. Você aceita?`
+        : `Um país vizinho oferece navio, moeda estável e proteção. Em troca, guerra, alfândega e tratado passam para lá. Escola, rua e hospital continuam em ${name}. Você aceita essa troca?`;
     case "fonte":
       return ctx.fonteMode === "rosto"
-        ? "O acordo continua valendo por cima. Na rua, quem é a pessoa daqui?"
-        : "A câmara, o porto e o culto cabem na mesma capital. Quando os três não se entendem, quem tem o direito de mandar?";
+        ? "O acordo com quem está de fora continua valendo: guerra e tratado não são daqui. Na rua, quem é a pessoa que manda no dia a dia?"
+        : "A câmara, o porto e o culto estão na mesma capital e não se entendem. Quando os três batem o pé, quem tem o direito de mandar?";
     case "confianca":
-      return "A câmara e o chefe pararam de se falar. A obra no rio está no meio. O que acontece com quem governa?";
+      return "A câmara e quem governa pararam de se falar. A obra no rio está pela metade. A câmara pode tirar essa pessoa agora, ou ela fica até a data combinada?";
     case "prazo":
       return ctx.prazoMode === "curto"
-        ? "A cadeira já é do ramo, não de uma pessoa. O porto pede uma obra de vinte anos. Até quando esse assento dura?"
-        : "O nome já está no cargo. O porto pede uma obra de vinte anos. Até quando esse mando dura?";
+        ? "A cadeira já é do ramo de trabalho, não de uma pessoa. O porto quer uma obra que leva vinte anos. Esse assento dura quanto tempo?"
+        : "Alguém já está no cargo. O porto quer uma obra que leva vinte anos. Essa pessoa fica até quando?";
     case "sagrado":
       return ctx.sagradoFrom === "aldeia"
-        ? "O texto pode vir de fora do povoado. A lei sagrada proíbe o que o costume daqui agora quer permitir. Quem cede?"
-        : "A lei sagrada proíbe o que a maioria, ou os mais velhos, agora quer permitir. Quem cede?";
+        ? "O texto sagrado pode ter vindo de fora do povoado. Ele proíbe uma coisa que o costume daqui agora quer permitir. Quem cede: o texto ou o costume?"
+        : "O texto sagrado proíbe uma coisa que a maioria, ou os mais velhos, agora quer permitir. Quem cede: o texto ou a lei do dia a dia?";
     case "trabalho":
       return ctx.trabalhoFrom === "carta"
-        ? "O acordo já guarda a guerra e o tratado. O porto, a lavoura e o hospital querem sentar na regra do ramo. A cadeira é daqui, ou já vem escrita no acordo?"
-        : "O porto, a lavoura e o hospital querem sentar quando se escreve a regra do ramo. Hoje quem senta veio do voto, da família ou do acordo.";
+        ? "Guerra e tratado já estão no acordo com quem está de fora. Agora o porto, a lavoura e o hospital querem cadeira para escrever a regra do próprio ramo. Essa cadeira é daqui, ou o acordo de fora já decide isso?"
+        : "O porto, a lavoura e o hospital querem cadeira na hora de escrever a regra do próprio ramo. Hoje quem senta chegou pelo voto, pela família ou pelo acordo. O trabalho passa a dar cadeira?";
     case "dever":
-      return "Essa família está no mando há gerações. A colheita queimou. Tem quem diga que o cargo basta, e quem diga que cargo sem comida é só um nome.";
+      return "Essa família manda há gerações. A colheita queimou e tem gente sem comida. O cargo basta, ou quem manda tem de garantir comida, terra e teto?";
     case "fim":
       if (ctx.fimFrom === "aldeia") {
-        return `O povoado de ${name} precisa de uma razão. Se o grupo só pudesse guardar uma coisa, qual seria?`;
+        return `O povoado de ${name} só pode guardar uma prioridade. Se tiver de escolher uma, qual fica?`;
       }
       if (ctx.fimFrom === "carta") {
-        return `O acordo já segura a guerra. O que ainda é de ${name} precisa de uma razão. Se o mando só pudesse guardar uma coisa, qual seria?`;
+        return `Guerra e tratado já estão com quem está de fora. O que ainda é de ${name} só pode guardar uma prioridade. Qual fica?`;
       }
-      return `O porto, a lavoura e a fronteira pedem uma razão. Se ${name} só pudesse guardar uma coisa, qual seria?`;
+      return `O porto, a lavoura e a fronteira puxam para lados diferentes. Se ${name} só pudesse guardar uma prioridade, qual seria?`;
     case "circulo":
-      return "O grupo vai decidir a água do poço. Nem todo mundo que bebe essa água nasceu ali.";
+      return "O grupo vai decidir quem usa a água do poço. Nem todo mundo que bebe essa água nasceu no povoado. Quem tem voto?";
     case "carta":
-      return "O acordo está assinado. O porto quer uma taxa nova. Quem pode rasgar ou reescrever isso?";
+      return "O acordo com quem está de fora já está assinado. O porto quer criar uma taxa nova. Quem pode mudar ou rasgar esse acordo?";
+    case "principios":
+      return `${name} vai escrever as primeiras regras. Elas não cabem tudo. Se tiverem de servir a uma coisa antes das outras, qual é?`;
+    case "distribuicao":
+      return `Em ${name}, o mando pode ficar numa pessoa só, repartido numa câmara, em cada povoado, ou com quem está de fora. Onde ele fica de verdade, no dia em que uma decisão trava?`;
+    case "cidadania":
+      return `Morar em ${name} não responde sozinho. O papel de membro diz quem vota, quem não pode ser expulso e quem entra no cargo. Quem recebe esse papel?`;
+    case "religiao":
+      return ctx.speechFora === "aldeia"
+        ? `Isto não é a pergunta sobre o costume ceder ao texto sagrado. A pergunta agora é o caixa do povoado: ele paga um culto, deixa cada grupo com o seu, ou não paga culto nenhum?`
+        : `Isto não é a pergunta sobre a lei do dia a dia ceder ao texto sagrado. A pergunta agora é outra: o caixa e o cargo de ${name} pagam um culto e dão cadeira a quem lê o texto, ou a religião fica fora do governo?`;
+    case "burocracia":
+      return ctx.speechFora === "aldeia"
+        ? `No povoado, alguém escreve o livro da praça e cobra a taxa do poço. Esse cargo não é o dos mais velhos que já decidem a água. Quem senta nele?`
+        : `Em ${name}, alguém escreve a lista, cobra o imposto e guarda o papel do porto. Esse cargo não é o de quem governa. Quem senta nele?`;
+    case "exercito":
+      return ctx.speechFora === "aldeia"
+        ? `Isto não é a guarda da praça. É a turma que sai do povoado quando a briga passa do poço e vira guerra. Quem dá a ordem a essa turma?`
+        : `Isto não é a guarda da rua. É a tropa que sai para a fronteira e para a guerra em ${name}. Quem dá a ordem a essa tropa?`;
+    case "marinha":
+      return ctx.speechFora === "aldeia"
+        ? `Os barcos do rio e da costa não são a turma que sai por terra. Quem dá a ordem nesses barcos?`
+        : `Os barcos de ${name} e a guarda do porto não são a tropa de terra. Quem dá a ordem no cais e na água?`;
+    case "seguranca":
+      return `Isto não é a tropa de guerra. É quem separa briga, prende e vigia a rua em ${name}. Quem manda nessa guarda?`;
+    case "justica":
+      return `Duas pessoas de ${name} brigam por terra, dívida ou ofensa. Quem diz quem tem razão, e essa decisão vale?`;
     default:
       return "";
   }
@@ -947,10 +1632,10 @@ function present(
     choices: NODE_OPTIONS[node]
       .filter((choiceId) => visible(node, choiceId, ctx))
       .map((choiceId) => {
-        const copy = COPY[choiceId];
+        const copy = playerCopy(choiceId, ctx);
         return {
           id: choiceId,
-          label: labelFor(choiceId, ctx),
+          label: copy.label,
           hint: `Problema. ${copy.problem}\nPreço. ${copy.cost}`,
         };
       }),
@@ -971,14 +1656,15 @@ function walkChoices(choiceIds: readonly string[]): Walk {
     }
     const effect = effects(choiceId, ctx);
     const sceneTitle = NODE_TITLE[node];
+    const copy = playerCopy(choiceId, ctx);
     steps.push({
       node,
       choiceId,
       params: effect.params,
       mole: effect.mole,
       sceneTitle,
-      choiceLabel: labelFor(choiceId, ctx),
-      sentence: COPY[choiceId].problem,
+      choiceLabel: copy.label,
+      sentence: copy.problem,
     });
     node = nextNode(choiceId, steps);
   }
@@ -1090,6 +1776,7 @@ function arrangement(
       sentence: row.step.sentence,
     }));
   return {
+    profileId: profile,
     title: copy.title,
     support: copy.support,
     problem: copy.problem,
@@ -1260,7 +1947,9 @@ function assertPlayerCopy(): void {
       copy.problem,
       copy.cost,
     ]),
-    "Não. Aliança só com quem senta no grupo.",
+    "Não aceito. A guarda de fora não entra. O povoado continua só com quem já senta na praça.",
+    "Ninguém de fora passa a mandar na praça.",
+    "Sem essa guarda, o povoado enfrenta a guerra sozinho.",
   ];
   const stub = (node: NodeId, choiceId: string): Step => ({
     node,
@@ -1302,6 +1991,21 @@ function assertPlayerCopy(): void {
   }
 }
 
+function pathDebug(choiceIds: readonly string[]): string {
+  const walk = walkChoices(choiceIds);
+  const vector = vectorOf(walk.steps);
+  const ranked = PROFILE_IDS.map((id) => ({
+    id,
+    d: Number(adjustedDistance(vector, id).toFixed(3)),
+  })).sort((a, b) => a.d - b.d || a.id.localeCompare(b.id));
+  return JSON.stringify({
+    sums: vector.sums,
+    mole: vector.mole,
+    guards: guardsOf(vector),
+    ranked,
+  });
+}
+
 function expectPath(
   choiceIds: readonly string[],
   nodes: readonly NodeId[],
@@ -1314,20 +2018,44 @@ function expectPath(
     throw new Error(`Path ${want} walked as ${got} (ok=${walk.ok}).`);
   }
   const result = scoreGovernment(choiceIds);
-  if (!result || result.nearTie || result.secondary) {
+  if (!result || result.nearTie || result.secondary || result.primary.title !== title) {
     throw new Error(
-      `Expected a single title “${title}”, got ${result?.primary.title ?? "none"} / ${result?.secondary?.title ?? "none"}.`,
+      `Expected a single title “${title}”, got ${result?.primary.title ?? "none"} / ${result?.secondary?.title ?? "none"} near=${result?.nearTie ?? false}. ${pathDebug(choiceIds)}`,
     );
-  }
-  if (result.primary.title !== title) {
-    throw new Error(`Expected “${title}”, got “${result.primary.title}”.`);
   }
 }
 
+const SPINE = [
+  "principios",
+  "distribuicao",
+  "cidadania",
+  "religiao",
+  "burocracia",
+  "exercito",
+  "marinha",
+  "seguranca",
+  "justica",
+  "fim",
+] as const satisfies readonly NodeId[];
+
 function assertExamples(): void {
   expectPath(
-    ["aldeia", "anciaos", "ultima_aqui", "cuidado_fim"],
-    ["unidade", "circulo", "fora", "fim"],
+    [
+      "aldeia",
+      "anciaos",
+      "ultima_aqui",
+      "pri_cuidado",
+      "dist_lugares",
+      "cid_sangue",
+      "rel_cada",
+      "bur_povo",
+      "ex_povo",
+      "mar_povo",
+      "seg_povo",
+      "ju_costume",
+      "cuidado_fim",
+    ],
+    ["unidade", "circulo", "fora", ...SPINE],
     PROFILE_COPY.tribal.title,
   );
   expectPath(
@@ -1337,9 +2065,18 @@ function assertExamples(): void {
       "so_de_fora",
       "rosto_nomeado",
       "trabalho_nao_senta",
+      "pri_abrigo",
+      "dist_fora",
+      "cid_fora",
+      "rel_neutro",
+      "bur_fora",
+      "ex_fora",
+      "mar_fora",
+      "seg_fora",
+      "ju_fora",
       "abrigo_fim",
     ],
-    ["unidade", "fora", "carta", "fonte", "trabalho", "fim"],
+    ["unidade", "fora", "carta", "fonte", "trabalho", ...SPINE],
     PROFILE_COPY.colonia.title,
   );
   expectPath(
@@ -1349,40 +2086,146 @@ function assertExamples(): void {
       "voto_contado",
       "fica_ate_a_data",
       "trabalho_nao_senta",
+      "pri_continuidade",
+      "dist_um",
+      "cid_morador",
+      "rel_neutro",
+      "bur_prova",
+      "ex_chefe",
+      "mar_chefe",
+      "seg_chefe",
+      "ju_escrita",
       "continuidade_fim",
     ],
-    ["unidade", "fora", "fonte", "confianca", "trabalho", "fim"],
+    ["unidade", "fora", "fonte", "confianca", "trabalho", ...SPINE],
     PROFILE_COPY.presidencialista.title,
   );
-
-  const social = scoreGovernment([
-    "pais",
-    "ultima_aqui",
-    "linhagem",
-    "vida_ou_linha",
-    "pao_e_terra",
-    "trabalho_nao_senta",
-    "cuidado_fim",
-  ]);
-  const continuity = scoreGovernment([
-    "pais",
-    "ultima_aqui",
-    "linhagem",
-    "vida_ou_linha",
-    "continuidade",
-    "trabalho_nao_senta",
-    "continuidade_fim",
-  ]);
-  if (social?.primary.title !== PROFILE_COPY.monarquia_social.title) {
-    throw new Error(
-      `Social lineage landed on “${social?.primary.title ?? "none"}”.`,
-    );
-  }
-  if (continuity?.primary.title !== PROFILE_COPY.monarquista.title) {
-    throw new Error(
-      `Continuity lineage landed on “${continuity?.primary.title ?? "none"}”.`,
-    );
-  }
+  expectPath(
+    [
+      "pais",
+      "ultima_aqui",
+      "linhagem",
+      "vida_ou_linha",
+      "pao_e_terra",
+      "trabalho_nao_senta",
+      "pri_cuidado",
+      "dist_um",
+      "cid_sangue",
+      "rel_neutro",
+      "bur_familia",
+      "ex_chefe",
+      "mar_chefe",
+      "seg_chefe",
+      "ju_costume",
+      "cuidado_fim",
+    ],
+    ["unidade", "fora", "fonte", "prazo", "dever", "trabalho", ...SPINE],
+    PROFILE_COPY.monarquia_social.title,
+  );
+  expectPath(
+    [
+      "pais",
+      "ultima_aqui",
+      "linhagem",
+      "vida_ou_linha",
+      "continuidade",
+      "trabalho_nao_senta",
+      "pri_continuidade",
+      "dist_um",
+      "cid_sangue",
+      "rel_neutro",
+      "bur_familia",
+      "ex_chefe",
+      "mar_chefe",
+      "seg_chefe",
+      "ju_costume",
+      "continuidade_fim",
+    ],
+    ["unidade", "fora", "fonte", "prazo", "dever", "trabalho", ...SPINE],
+    PROFILE_COPY.monarquista.title,
+  );
+  expectPath(
+    [
+      "pais",
+      "ultima_aqui",
+      "leitor_do_texto",
+      "texto_trava",
+      "pri_continuidade",
+      "dist_um",
+      "cid_texto",
+      "rel_acima",
+      "bur_texto",
+      "ex_chefe",
+      "mar_chefe",
+      "seg_texto",
+      "ju_texto",
+      "continuidade_fim",
+    ],
+    ["unidade", "fora", "fonte", "sagrado", ...SPINE],
+    PROFILE_COPY.teocrata.title,
+  );
+  expectPath(
+    [
+      "pais",
+      "ultima_aqui",
+      "de_quem_trabalha",
+      "base_puxa",
+      "pri_plano",
+      "dist_varias",
+      "cid_base",
+      "rel_neutro",
+      "bur_base",
+      "ex_base",
+      "mar_base",
+      "seg_base",
+      "ju_base",
+      "plano_fim",
+    ],
+    ["unidade", "fora", "fonte", "trabalho", ...SPINE],
+    PROFILE_COPY.sovietica.title,
+  );
+  expectPath(
+    [
+      "pais",
+      "ultima_aqui",
+      "de_quem_trabalha",
+      "dois_lados",
+      "cadeira_do_ramo",
+      "pri_continuidade",
+      "dist_varias",
+      "cid_ramo",
+      "rel_neutro",
+      "bur_ramo",
+      "ex_ramo",
+      "mar_ramo",
+      "seg_ramo",
+      "ju_ramo",
+      "continuidade_fim",
+    ],
+    ["unidade", "fora", "fonte", "trabalho", "prazo", ...SPINE],
+    PROFILE_COPY.corporacao.title,
+  );
+  expectPath(
+    [
+      "pais",
+      "ultima_aqui",
+      "voto_contado",
+      "cai",
+      "trabalho_nao_senta",
+      "pri_troca",
+      "dist_varias",
+      "cid_morador",
+      "rel_neutro",
+      "bur_prova",
+      "ex_camara",
+      "mar_camara",
+      "seg_camara",
+      "ju_camara",
+      "camara_fim",
+    ],
+    ["unidade", "fora", "fonte", "confianca", "trabalho", ...SPINE],
+    PROFILE_COPY.parlamentarista.title,
+  );
 }
 
 assertPlayerCopy();

@@ -1,7 +1,7 @@
 /**
  * Classroom explainer for the nine internal arrangements.
- * The quiz itself does not show these names. Titles, problem, and cost
- * come from the flowchart so they stay aligned with the result.
+ * The quiz dilemmas do not show these names. The result does, next to the
+ * descriptive title. Titles, problem, and cost come from the flowchart.
  */
 
 import { organizationSummaries } from "@/lib/governoFlow";
@@ -229,5 +229,9 @@ function buildOrganizations(): OrganizationEntry[] {
 
 export const ORGANIZATIONS: OrganizationEntry[] = buildOrganizations();
 
+export function classroomNameFor(id: string): string | undefined {
+  return ORGANIZATIONS.find((org) => org.id === id)?.classroomName;
+}
+
 export const ORGANIZATIONS_DISCLAIMER =
-  "Os nomes desta página são de aula, para comparar arranjos. No teste Meu Estado eles não aparecem: lá o resultado usa só a frase descritiva. Os exemplos do mundo são aproximações. Nenhum país cabe inteiro num tipo, e vários misturam mais de um.";
+  "Os nomes desta página são de aula, para comparar arranjos. No meio do teste Meu Estado eles não aparecem. No resultado, a frase descritiva continua em primeiro, e o nome de aula entra ao lado, como o arranjo mais próximo. Os exemplos do mundo são aproximações. Nenhum país cabe inteiro num tipo, e vários misturam mais de um.";
