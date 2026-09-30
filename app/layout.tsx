@@ -68,16 +68,16 @@ export default function RootLayout({
                 Meu Estado
               </Link>
               <Link
-                href="/organizacoes"
-                className="transition-colors hover:text-[var(--ink)]"
-              >
-                Organizações
-              </Link>
-              <Link
                 href="/posicoes"
                 className="transition-colors hover:text-[var(--ink)]"
               >
-                Posições
+                Arquétipos
+              </Link>
+              <Link
+                href="/organizacoes"
+                className="transition-colors hover:text-[var(--ink)]"
+              >
+                Regimes
               </Link>
               <Link
                 href="/#modos"
