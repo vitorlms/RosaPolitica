@@ -18,6 +18,22 @@ export const GOVERNMENT_RESULT_TITLE = "Meu Estado Ideal";
 export const NEAR_TIE_LINE =
   "Ficou perto. Os dois jeitos cabem no que você escolheu. Nenhum ganha sozinho.";
 
+export const SKIPPED_HEADING = "Perguntas que ficaram de fora";
+export const SKIPPED_BODY =
+  "O caminho não fez estas perguntas. Se quiser, responda agora. O que você escolher entra na conta, e o arranjo acima pode mudar. Se não quiser, deixe como está.";
+export const SKIPPED_DISMISS = "Deixar como está";
+export const SKIPPED_REOPEN = "Ver perguntas que ficaram de fora";
+export const SKIPPED_BACK = "Voltar sem responder";
+export const SKIPPED_DONE =
+  "Você respondeu as perguntas que tinham ficado de fora. O arranjo acima já inclui isso.";
+export const SKIPPED_INCLUDED = "Já entrou na conta.";
+export const SKIPPED_KICKER = "Fora do caminho";
+
+export function skippedFrame(countryName: string): string {
+  const name = sanitizeCountryName(countryName);
+  return `Esta pergunta não entrou no caminho de ${name}. Se você responder, ela entra na conta do arranjo.`;
+}
+
 const COUNTRY_NAME_MAX = 40;
 
 /** Empty or messy input falls back to the suggested name. */
@@ -1785,12 +1801,91 @@ function arrangement(
   };
 }
 
+function withExtras(steps: readonly Step[], extraChoiceIds: readonly string[]): Step[] {
+  const next = [...steps];
+  for (const choiceId of extraChoiceIds) {
+    const node = CHOICE_NODE.get(choiceId);
+    if (!node) continue;
+    if (next.some((step) => step.node === node)) continue;
+    const ctx = context(next);
+    if (!visible(node, choiceId, ctx)) continue;
+    const effect = effects(choiceId, ctx);
+    const copy = playerCopy(choiceId, ctx);
+    next.push({
+      node,
+      choiceId,
+      params: effect.params,
+      mole: effect.mole,
+      sceneTitle: NODE_TITLE[node],
+      choiceLabel: copy.label,
+      sentence: copy.problem,
+    });
+  }
+  return next;
+}
+
+/** Nodes the finished path never asked, in bank order. */
+export function skippedNodes(choiceIds: readonly string[]): string[] {
+  const walk = walkChoices(choiceIds);
+  if (!walk.ok || !walk.complete) return [];
+  const asked = new Set(walk.steps.map((step) => step.node));
+  return NODE_IDS.filter((id) => !asked.has(id));
+}
+
+/** Skipped dilemmas the player has since answered, in the order they count. */
+export function answeredSkipped(
+  choiceIds: readonly string[],
+  extraChoiceIds: readonly string[] = [],
+): { id: string; title: string }[] {
+  const walk = walkChoices(choiceIds);
+  if (!walk.ok || !walk.complete) return [];
+  const asked = new Set(walk.steps.map((step) => step.node));
+  return withExtras(walk.steps, extraChoiceIds)
+    .filter((step) => !asked.has(step.node))
+    .map((step) => ({ id: step.node, title: step.sceneTitle }));
+}
+
+export function skippedQuestions(
+  choiceIds: readonly string[],
+  extraChoiceIds: readonly string[] = [],
+): { id: string; title: string }[] {
+  const walk = walkChoices(choiceIds);
+  if (!walk.ok || !walk.complete) return [];
+  const asked = new Set(withExtras(walk.steps, extraChoiceIds).map((step) => step.node));
+  return NODE_IDS.filter((id) => !asked.has(id)).map((id) => ({
+    id,
+    title: NODE_TITLE[id],
+  }));
+}
+
+/** One skipped dilemma, worded for the path the player already walked. */
+export function skippedScene(
+  choiceIds: readonly string[],
+  extraChoiceIds: readonly string[],
+  nodeId: string,
+  countryName?: string,
+): FlowScene | null {
+  const walk = walkChoices(choiceIds);
+  if (!walk.ok || !walk.complete) return null;
+  if (!(NODE_IDS as readonly string[]).includes(nodeId)) return null;
+  const steps = withExtras(walk.steps, extraChoiceIds);
+  if (steps.some((step) => step.node === nodeId)) return null;
+  const name = sanitizeCountryName(countryName);
+  const scene = present(nodeId as NodeId, steps, name);
+  return {
+    ...scene,
+    body: `${skippedFrame(name)} ${scene.body}`,
+  };
+}
+
 export function scoreGovernment(
   choiceIds: readonly string[],
+  extraChoiceIds: readonly string[] = [],
 ): GovernmentResult | null {
   const walk = walkChoices(choiceIds);
   if (!walk.ok || !walk.complete) return null;
-  const vector = vectorOf(walk.steps);
+  const steps = withExtras(walk.steps, extraChoiceIds);
+  const vector = vectorOf(steps);
   const ranked = PROFILE_IDS.map((id) => ({
     id,
     distance: adjustedDistance(vector, id),
@@ -1822,8 +1917,8 @@ export function scoreGovernment(
   const nearTie = showSecondary && d2 - d1 < NEAR_TIE_RATIO * d1;
 
   return {
-    primary: arrangement(pair[0], walk.steps),
-    secondary: showSecondary ? arrangement(pair[1], walk.steps) : null,
+    primary: arrangement(pair[0], steps),
+    secondary: showSecondary ? arrangement(pair[1], steps) : null,
     nearTie,
   };
 }
@@ -1939,6 +2034,16 @@ function assertPlayerCopy(): void {
     COUNTRY_NAME_BODY,
     COUNTRY_NAME_BUTTON,
     NEAR_TIE_LINE,
+    SKIPPED_HEADING,
+    SKIPPED_BODY,
+    SKIPPED_DISMISS,
+    SKIPPED_REOPEN,
+    SKIPPED_BACK,
+    SKIPPED_DONE,
+    SKIPPED_INCLUDED,
+    SKIPPED_KICKER,
+    skippedFrame(DEFAULT_COUNTRY_NAME),
+    skippedFrame("Serra Clara"),
     ...Object.values(NODE_TITLE),
     ...Object.values(COPY).flatMap((copy) => [copy.label, copy.problem, copy.cost]),
     ...Object.values(PROFILE_COPY).flatMap((copy) => [
@@ -2226,6 +2331,65 @@ function assertExamples(): void {
     ["unidade", "fora", "fonte", "confianca", "trabalho", ...SPINE],
     PROFILE_COPY.parlamentarista.title,
   );
+
+  const tribal = [
+    "aldeia",
+    "anciaos",
+    "ultima_aqui",
+    "pri_cuidado",
+    "dist_lugares",
+    "cid_sangue",
+    "rel_cada",
+    "bur_povo",
+    "ex_povo",
+    "mar_povo",
+    "seg_povo",
+    "ju_costume",
+    "cuidado_fim",
+  ];
+  const skipped = skippedNodes(tribal);
+  const wantSkipped = [
+    "fonte",
+    "confianca",
+    "prazo",
+    "sagrado",
+    "trabalho",
+    "dever",
+    "carta",
+  ];
+  if (skipped.join(">") !== wantSkipped.join(">")) {
+    throw new Error(`Tribal skipped ${skipped.join(">")} wanted ${wantSkipped.join(">")}.`);
+  }
+  const walk = walkChoices(tribal);
+  const extraSteps = withExtras(walk.steps, [
+    "voto_contado",
+    "rosto_nomeado",
+    "aldeia",
+    "nao_existe",
+  ]);
+  const added = extraSteps.slice(walk.steps.length);
+  if (added.map((step) => step.choiceId).join(">") !== "voto_contado") {
+    throw new Error(`Extra answers counted as ${added.map((step) => step.choiceId).join(">")}.`);
+  }
+  if ((vectorOf(extraSteps).sums.voto ?? 0) !== 2) {
+    throw new Error("The extra answer did not add its parameter.");
+  }
+  if (!scoreGovernment(tribal, ["voto_contado"])) {
+    throw new Error("Scoring with an extra answer returned nothing.");
+  }
+  const scene = skippedScene(tribal, [], "fonte", "Serra Clara");
+  if (!scene || scene.title !== NODE_TITLE.fonte) {
+    throw new Error("Skipped fonte scene did not open.");
+  }
+  if (!scene.body.startsWith(skippedFrame("Serra Clara"))) {
+    throw new Error("Skipped scene is missing the frame.");
+  }
+  if (scene.choices.some((choice) => choice.id.startsWith("rosto_"))) {
+    throw new Error("Skipped fonte offered a charter-only option.");
+  }
+  if (skippedScene(tribal, ["voto_contado"], "fonte", "Serra Clara")) {
+    throw new Error("An answered extra was still offered.");
+  }
 }
 
 assertPlayerCopy();

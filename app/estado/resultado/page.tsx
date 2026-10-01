@@ -1,19 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { GovernoIdeal } from "@/components/GovernoIdeal";
-import { scoreGovernment } from "@/lib/governoFlow";
+import { SkippedQuestions } from "@/components/SkippedQuestions";
+import { scoreGovernment, skippedQuestions } from "@/lib/governoFlow";
 import {
   IN_PROGRESS_UNREADY,
   clearGovernmentProgress,
+  getGovernmentProgressSnapshot,
   getGovernmentSessionServerSnapshot,
   getGovernmentSessionSnapshot,
   getSavedGovernmentServerSnapshot,
   getSavedGovernmentSnapshot,
+  governmentProgressFromSnapshot,
   parseGovernmentSession,
   parseSavedGovernment,
+  saveGovernmentChoices,
+  saveGovernmentProgress,
   saveSavedGovernment,
+  type GovernmentSession,
+  type SavedGovernment,
 } from "@/lib/storage";
 
 function subscribe() {
@@ -44,9 +51,19 @@ export default function EstadoResultadoPage() {
     [fromSession, session.choiceIds, saved],
   );
   const countryName = fromSession ? session.countryName : saved?.countryName;
+  const pathKey = choiceIds.join("\u0001");
+  const storedExtras = useMemo(
+    () => extrasFor(session, saved, choiceIds, fromSession),
+    [session, saved, choiceIds, fromSession],
+  );
+  const [override, setOverride] = useState<ExtraOverride | null>(null);
+  const active = override?.pathKey === pathKey ? override : null;
+  const extraChoiceIds = active?.extraChoiceIds ?? storedExtras.extraChoiceIds;
+  const extrasDismissed = active?.extrasDismissed ?? storedExtras.extrasDismissed;
   const result = useMemo(
-    () => (choiceIds.length > 0 ? scoreGovernment(choiceIds) : null),
-    [choiceIds],
+    () =>
+      choiceIds.length > 0 ? scoreGovernment(choiceIds, extraChoiceIds) : null,
+    [choiceIds, extraChoiceIds],
   );
 
   useEffect(() => {
@@ -56,10 +73,35 @@ export default function EstadoResultadoPage() {
         choiceIds: session.choiceIds,
         savedAt: new Date().toISOString(),
         countryName: session.countryName,
+        extraChoiceIds: extraChoiceIds.length > 0 ? extraChoiceIds : undefined,
+        extrasDismissed: extrasDismissed || undefined,
       });
     }
-    clearGovernmentProgress();
-  }, [ready, fromSession, result, saved, session.choiceIds, session.countryName]);
+    const remaining = skippedQuestions(choiceIds, extraChoiceIds);
+    const untouched = extraChoiceIds.length === 0 && !extrasDismissed;
+    if (untouched || (remaining.length === 0 && !extrasDismissed)) {
+      clearGovernmentProgress();
+      return;
+    }
+    saveGovernmentProgress({
+      choiceIds,
+      index: choiceIds.length,
+      countryName,
+      extraChoiceIds,
+      extrasDismissed,
+    });
+  }, [
+    ready,
+    fromSession,
+    result,
+    saved,
+    session.choiceIds,
+    session.countryName,
+    choiceIds,
+    countryName,
+    extraChoiceIds,
+    extrasDismissed,
+  ]);
 
   if (!ready) {
     return (
@@ -93,6 +135,42 @@ export default function EstadoResultadoPage() {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-16">
       <GovernoIdeal result={result} countryName={countryName} standalone />
+      <SkippedQuestions
+        choiceIds={choiceIds}
+        extraChoiceIds={extraChoiceIds}
+        countryName={countryName}
+        dismissed={extrasDismissed}
+        onAnswer={(choiceId) =>
+          persistExtras(
+            choiceIds,
+            countryName,
+            [...extraChoiceIds, choiceId],
+            extrasDismissed,
+            saved?.savedAt,
+            setOverride,
+          )
+        }
+        onDismiss={() =>
+          persistExtras(
+            choiceIds,
+            countryName,
+            extraChoiceIds,
+            true,
+            saved?.savedAt,
+            setOverride,
+          )
+        }
+        onReopen={() =>
+          persistExtras(
+            choiceIds,
+            countryName,
+            extraChoiceIds,
+            false,
+            saved?.savedAt,
+            setOverride,
+          )
+        }
+      />
       <div className="mt-12 flex flex-wrap justify-center gap-3">
         <Link
           href="/organizacoes"
@@ -115,4 +193,69 @@ export default function EstadoResultadoPage() {
       </div>
     </div>
   );
+}
+
+interface ExtraOverride {
+  pathKey: string;
+  extraChoiceIds: string[];
+  extrasDismissed: boolean;
+}
+
+function samePath(left: readonly string[], right: readonly string[]): boolean {
+  return left.length === right.length && left.every((id, index) => id === right[index]);
+}
+
+function extrasFor(
+  session: GovernmentSession,
+  saved: SavedGovernment | null,
+  choiceIds: readonly string[],
+  fromSession: boolean,
+): { extraChoiceIds: string[]; extrasDismissed: boolean } {
+  const savedMatches = saved !== null && samePath(saved.choiceIds, choiceIds);
+  if (fromSession && (session.extraChoiceIds || session.extrasDismissed)) {
+    return {
+      extraChoiceIds: session.extraChoiceIds ?? EMPTY_EXTRAS,
+      extrasDismissed: session.extrasDismissed === true,
+    };
+  }
+  if (savedMatches) {
+    return {
+      extraChoiceIds: saved.extraChoiceIds ?? EMPTY_EXTRAS,
+      extrasDismissed: saved.extrasDismissed === true,
+    };
+  }
+  return { extraChoiceIds: EMPTY_EXTRAS, extrasDismissed: false };
+}
+
+const EMPTY_EXTRAS: string[] = [];
+
+function persistExtras(
+  choiceIds: string[],
+  countryName: string | undefined,
+  extraChoiceIds: string[],
+  extrasDismissed: boolean,
+  savedAt: string | undefined,
+  setOverride: (value: ExtraOverride) => void,
+): void {
+  const pathKey = choiceIds.join("\u0001");
+  setOverride({ pathKey, extraChoiceIds, extrasDismissed });
+  const extra = { extraChoiceIds, extrasDismissed };
+  saveGovernmentChoices(choiceIds, countryName, extra);
+  saveSavedGovernment({
+    choiceIds,
+    savedAt: savedAt ?? new Date().toISOString(),
+    countryName,
+    extraChoiceIds: extraChoiceIds.length > 0 ? extraChoiceIds : undefined,
+    extrasDismissed: extrasDismissed || undefined,
+  });
+  const progress = governmentProgressFromSnapshot(getGovernmentProgressSnapshot());
+  if (progress && samePath(progress.choiceIds, choiceIds)) {
+    saveGovernmentProgress({
+      choiceIds: progress.choiceIds,
+      index: progress.index,
+      countryName: progress.countryName,
+      extraChoiceIds,
+      extrasDismissed,
+    });
+  }
 }

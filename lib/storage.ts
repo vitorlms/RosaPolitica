@@ -20,6 +20,10 @@ export interface SavedGovernment {
   savedAt: string;
   /** Name the player gave the country being founded. */
   countryName?: string;
+  /** Answers to dilemmas the main path never asked. */
+  extraChoiceIds?: string[];
+  /** The player closed the offer to answer those dilemmas. */
+  extrasDismissed?: boolean;
 }
 
 /** Unfinished ideal-government quiz. Not stored with the positioning modes. */
@@ -29,6 +33,9 @@ export interface GovernmentProgress {
   updatedAt: string;
   /** Set once the player confirms the country name, even before the first dilemma. */
   countryName?: string;
+  /** Answers to dilemmas the main path never asked. Kept if the quiz is resumed. */
+  extraChoiceIds?: string[];
+  extrasDismissed?: boolean;
 }
 
 /** Unfinished quiz for one mode on this browser. Modes are stored separately. */
@@ -129,6 +136,14 @@ export function clearSavedResult(): void {
 export interface GovernmentSession {
   choiceIds: string[];
   countryName?: string;
+  extraChoiceIds?: string[];
+  extrasDismissed?: boolean;
+}
+
+function optionalStringList(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const ids = value.filter((id): id is string => typeof id === "string");
+  return ids.length > 0 ? ids : undefined;
 }
 
 export function parseGovernmentSession(raw: string): GovernmentSession {
@@ -147,7 +162,12 @@ export function parseGovernmentSession(raw: string): GovernmentSession {
       : [];
     const countryName =
       typeof record.countryName === "string" ? record.countryName : undefined;
-    return { choiceIds, countryName };
+    return {
+      choiceIds,
+      countryName,
+      extraChoiceIds: optionalStringList(record.extraChoiceIds),
+      extrasDismissed: record.extrasDismissed === true ? true : undefined,
+    };
   } catch {
     return { choiceIds: [] };
   }
@@ -162,10 +182,16 @@ export function loadGovernmentChoices(): string[] {
 export function saveGovernmentChoices(
   choiceIds: string[],
   countryName?: string,
+  extra?: { extraChoiceIds?: string[]; extrasDismissed?: boolean },
 ): void {
   sessionStorage.setItem(
     GOVERNO_SESSION_KEY,
-    JSON.stringify({ choiceIds, countryName }),
+    JSON.stringify({
+      choiceIds,
+      countryName,
+      extraChoiceIds: optionalStringList(extra?.extraChoiceIds),
+      extrasDismissed: extra?.extrasDismissed === true ? true : undefined,
+    }),
   );
 }
 
@@ -203,7 +229,13 @@ export function parseSavedGovernment(raw: string): SavedGovernment | null {
     if (typeof record.savedAt !== "string") return null;
     const countryName =
       typeof record.countryName === "string" ? record.countryName : undefined;
-    return { choiceIds, savedAt: record.savedAt, countryName };
+    return {
+      choiceIds,
+      savedAt: record.savedAt,
+      countryName,
+      extraChoiceIds: optionalStringList(record.extraChoiceIds),
+      extrasDismissed: record.extrasDismissed === true ? true : undefined,
+    };
   } catch {
     return null;
   }
@@ -275,6 +307,8 @@ interface StoredProgress {
   index: number;
   updatedAt: string;
   countryName?: string;
+  extraChoiceIds?: string[];
+  extrasDismissed?: boolean;
 }
 
 function parseStoredProgress(value: unknown): StoredProgress | null {
@@ -297,6 +331,8 @@ function parseStoredProgress(value: unknown): StoredProgress | null {
     index: record.index,
     updatedAt: record.updatedAt,
     countryName,
+    extraChoiceIds: optionalStringList(record.extraChoiceIds),
+    extrasDismissed: record.extrasDismissed === true ? true : undefined,
   };
 }
 
@@ -445,7 +481,10 @@ export function governmentProgressFromSnapshot(
 }
 
 export function saveGovernmentProgress(
-  progress: Pick<GovernmentProgress, "choiceIds" | "index" | "countryName">,
+  progress: Pick<
+    GovernmentProgress,
+    "choiceIds" | "index" | "countryName" | "extraChoiceIds" | "extrasDismissed"
+  >,
 ): void {
   if (typeof window === "undefined") return;
   if (progress.choiceIds.length === 0 && !progress.countryName?.trim()) return;
@@ -454,6 +493,8 @@ export function saveGovernmentProgress(
     index: progress.index,
     updatedAt: new Date().toISOString(),
     countryName: progress.countryName,
+    extraChoiceIds: optionalStringList(progress.extraChoiceIds),
+    extrasDismissed: progress.extrasDismissed === true ? true : undefined,
   };
   localStorage.setItem(GOVERNO_PROGRESS_KEY, JSON.stringify(stored));
   notifyProgress();
@@ -471,13 +512,30 @@ export function clearGovernmentProgress(): void {
  */
 export function finishGovernment(
   choiceIds: string[],
-  options?: { retainProgress?: boolean; countryName?: string },
+  options?: {
+    retainProgress?: boolean;
+    countryName?: string;
+    extraChoiceIds?: string[];
+    extrasDismissed?: boolean;
+  },
 ): void {
-  saveGovernmentChoices(choiceIds, options?.countryName);
+  const existing = loadSavedGovernment();
+  const samePath =
+    existing !== null &&
+    existing.choiceIds.length === choiceIds.length &&
+    existing.choiceIds.every((id, index) => id === choiceIds[index]);
+  const extraChoiceIds =
+    options?.extraChoiceIds ?? (samePath ? existing?.extraChoiceIds : undefined);
+  const extrasDismissed =
+    options?.extrasDismissed ?? (samePath ? existing?.extrasDismissed : undefined);
+  const extra = { extraChoiceIds, extrasDismissed };
+  saveGovernmentChoices(choiceIds, options?.countryName, extra);
   saveSavedGovernment({
     choiceIds,
-    savedAt: new Date().toISOString(),
+    savedAt: samePath ? existing.savedAt : new Date().toISOString(),
     countryName: options?.countryName,
+    extraChoiceIds: optionalStringList(extraChoiceIds),
+    extrasDismissed: extrasDismissed === true ? true : undefined,
   });
   if (!options?.retainProgress) clearGovernmentProgress();
 }
