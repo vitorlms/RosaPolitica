@@ -23,6 +23,8 @@ O resultado se chama **Meu Estado Ideal**. Ele não substitui o radar nem o arqu
 
 O nome do país entra em alguns textos e na frase do resultado. Não muda o placar. O catálogo linear antigo (cinco categorias e oito dilemas) não entra mais no jogo. Os arquivos em `content/institutions.json` e `content/story-institutions-draft.json` ficam só como nota de que foram substituídos. Na home, Meu Estado avisa cerca de 13 a 16 dilemas, perto de 15 minutos.
 
+No resultado de cada teste, a pessoa pode comparar com os outros. A entrada é por escolha, numa conta anônima. O passo a passo está em [`comparar.md`](./comparar.md).
+
 ## Mapa
 
 Nós, opções, pesos, centróides, guardas e os nove percursos de exemplo estão em [`governo-ideal-fluxograma.md`](./governo-ideal-fluxograma.md). O código segue esse mapa. Ao carregar, confere um percurso canônico de cada um dos nove arranjos.
