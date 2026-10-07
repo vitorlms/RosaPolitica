@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { CompararPerfil } from "@/components/Comparar";
 import { ResultView } from "@/components/ResultView";
 import { computeResult } from "@/lib/scoring";
 import {
@@ -105,6 +106,9 @@ export default function PerfilPage() {
     <ResultView
       result={result}
       meta={meta}
+      below={
+        <CompararPerfil scores={result.scores} archetypeId={result.archetype.id} />
+      }
       actions={
         <>
           <Link

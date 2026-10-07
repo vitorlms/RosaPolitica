@@ -102,13 +102,15 @@ O arquétipo final é o centróide mais próximo (distância euclidiana nas posi
 
 4. **Meu Estado** — teste separado em [`/estado`](app/estado/page.tsx). A pessoa funda um país novo (nome sugerido: Pontal), longe de Valmora. O resultado é Meu Estado Ideal. As nove organizações estão em [`/organizacoes`](app/organizacoes/page.tsx). O caminho e o placar estão em [`lib/governoFlow.ts`](lib/governoFlow.ts). Não entra nos modos rápido / padrão / completo. Ver [`docs/governo-ideal.md`](docs/governo-ideal.md) e [`docs/governo-ideal-fluxograma.md`](docs/governo-ideal-fluxograma.md).
 
+5. **Comparar com os outros** — no resultado de Meu Perfil e de Meu Estado, a pessoa pode entrar numa conta anônima e ver média, arquétipo e organizações. Em desenvolvimento o arquivo local `data/comparison.json` guarda os contadores. Em produção é preciso ligar o Redis na Vercel. Ver [`docs/comparar.md`](docs/comparar.md).
+
 ## Estrutura
 
 ```
 app/           # intro, play, result
 components/    # SceneCard, ChoiceButton, AxisRadar, AxisBars, EssentialSummary
 content/       # story.json, archetypes.json
-docs/          # governo-ideal.md, governo-ideal-fluxograma.md
+docs/          # governo-ideal.md, governo-ideal-fluxograma.md, comparar.md
 lib/           # types, scoring, storage (sessionStorage)
 ```
 

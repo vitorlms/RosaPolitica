@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { CompararEstado } from "@/components/Comparar";
 import { GovernoIdeal } from "@/components/GovernoIdeal";
 import { SkippedQuestions } from "@/components/SkippedQuestions";
 import { scoreGovernment, skippedQuestions } from "@/lib/governoFlow";
@@ -170,6 +171,10 @@ export default function EstadoResultadoPage() {
             setOverride,
           )
         }
+      />
+      <CompararEstado
+        primaryId={result.primary.profileId}
+        secondaryId={result.secondary?.profileId ?? null}
       />
       <div className="mt-12 flex flex-wrap justify-center gap-3">
         <Link
